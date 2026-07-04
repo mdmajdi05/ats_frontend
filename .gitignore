@@ -1,0 +1,63 @@
+# ── Dependencies ───────────────────────────────────────────────
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Backend has its own .gitignore — exclude its generated files here too
+/backend/node_modules
+/backend/dist
+/backend/prisma/migrations/dev.db
+/backend/node_modules/.prisma/client/query_engine-windows.dll.node*
+/backend/node_modules/.prisma/client/*.dll.node.tmp*
+
+# ── Next.js build output ───────────────────────────────────────
+/.next/
+/out/
+/build
+
+# ── Testing ─────────────────────────────────────────────────────
+/coverage
+
+# ── Environment files ───────────────────────────────────────────
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# ── Logs ────────────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+logs/
+*.log
+
+# ── OS / Editor ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.pem
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── TypeScript ──────────────────────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── Vercel / deployment ─────────────────────────────────────────
+.vercel
+
+# ── Misc ────────────────────────────────────────────────────────
+*.tmp
+*.temp
