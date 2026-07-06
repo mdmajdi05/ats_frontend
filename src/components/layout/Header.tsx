@@ -334,7 +334,8 @@ export default function Header() {
                   onError={() => setLogoImgError(true)}
                 />
               ) : (
-                <AeroLogo size={Math.min(siteConfig.logoHeight || 42, 48)} variant="full" />
+                // <AeroLogo size={Math.min(siteConfig.logoHeight || 42, 48)} variant="full" />
+                <img src="/logo.png" alt="AeroTurbineSpare Logo" className="h-14 w-auto" />
               )}
             </Link>
 
