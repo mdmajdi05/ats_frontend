@@ -305,7 +305,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16 lg:h-[70px] gap-4">
 
-            {/* Logo — dimensions + image controlled by Admin Branding panel */}
+            {/* Logo — image / AeroLogo controlled by Admin Branding panel */}
             <Link
               href={siteConfig.logoLink || '/'}
               className="flex items-center gap-2.5 flex-shrink-0"
@@ -320,23 +320,14 @@ export default function Header() {
                 marginBottom: siteConfig.logoMarginY,
               }}
             >
-              {siteConfig.logoImageUrl && !logoImgError ? (
-                /* Custom logo image */
-                <img
-                  src={siteConfig.logoImageUrl}
-                  alt={siteConfig.logoText || 'Logo'}
-                  style={{
-                    height: siteConfig.logoHeight,
-                    width:  siteConfig.logoWidth || 'auto',
-                    objectFit: 'contain',
-                  }}
-                  className="flex-shrink-0"
-                  onError={() => setLogoImgError(true)}
-                />
-              ) : (
-                // <AeroLogo size={Math.min(siteConfig.logoHeight || 42, 48)} variant="full" />
-                <img src="/logo.png" alt="AeroTurbineSpare Logo" className="h-14 w-auto" />
-              )}
+              <AeroLogo
+                src={siteConfig.logoImageUrl && !logoImgError ? siteConfig.logoImageUrl : '/logo.png'}
+                alt={siteConfig.logoText || 'AeroTurbineSpare Logo'}
+                size={siteConfig.logoHeight || 56}
+                showText={false}
+                animated={false}
+                onImgError={() => setLogoImgError(true)}
+              />
             </Link>
 
             {/* Search — desktop */}

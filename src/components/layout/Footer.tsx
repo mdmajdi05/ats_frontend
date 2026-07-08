@@ -60,7 +60,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2 space-y-4">
-            <AeroLogo variant="white" />
+            <AeroLogo variant="white" src="/logo.png" showText={false} />
             <p className="text-sm leading-relaxed text-silver/70">
               US-based aerospace parts procurement platform. ISO 9001 &amp; AS9120 certified.
               Serving OEMs, MROs, military contractors, and procurement professionals worldwide.

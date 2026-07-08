@@ -376,3 +376,334 @@ body {
   --rdg-focus-outline-color: #4F46E5;
   --rdg-font-size: 13px;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Glowy Blob Effect (Hero Background)
+   ══════════════════════════════════════════════════════════════ */
+.glowy-blob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: url(#goo);
+  pointer-events: none;
+}
+.glowy-blob div {
+  width: 80px;
+  height: 80px;
+  background: #4F46E5;
+  border-radius: 500px;
+  display: inline-block;
+  position: absolute;
+  box-shadow: 0px 0px 50px #4F46E5;
+  opacity: 0.15;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ZigZag Border Animation (Section Decoration)
+   ══════════════════════════════════════════════════════════════ */
+.zigzag-container {
+  display: flex;
+  gap: 38px;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.zigzag-container.rotate {
+  transform: rotate(180deg);
+  z-index: -1;
+  margin-top: -40px;
+}
+.zigzag-item {
+  display: block;
+  height: 80px;
+  width: 80px;
+  position: relative;
+  overflow: hidden;
+  transform: rotate(315deg);
+}
+.zigzag-item::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4F46E5);
+  transform: translateX(-100%);
+  animation: zigzagBefore 4s linear infinite;
+  animation-delay: calc(1s * var(--i, 0));
+}
+@keyframes zigzagBefore {
+  0% { transform: translateX(-100%); }
+  25%, 100% { transform: translateX(100%); }
+}
+.zigzag-item::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #4F46E5);
+  transform: translateY(-100%);
+  animation: zigzagAfter 4s linear infinite;
+  animation-delay: calc(1s * var(--i, 0));
+}
+@keyframes zigzagAfter {
+  0%, 12.5% { transform: translateY(-100%); }
+  37.5%, 100% { transform: translateY(100%); }
+}
+.zigzag-item span {
+  position: absolute;
+  inset: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0A1628;
+  outline: 1px solid #C0C9D5;
+  transition: 0.3s linear;
+}
+.zigzag-item span b {
+  font-weight: 700;
+  font-size: 1.5em;
+  transform: rotate(45deg);
+  color: #fff;
+}
+@media screen and (max-width: 600px) {
+  .zigzag-container { gap: 19px; }
+  .zigzag-item { height: 50px; width: 50px; }
+  .zigzag-item span b { font-size: 0.8em; }
+  .zigzag-item span { inset: 6px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Conic Gradient Border Card
+   ══════════════════════════════════════════════════════════════ */
+@property --angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+.conic-card {
+  --border-width: 1px;
+  --radius: 24px;
+  position: relative;
+  border-radius: var(--radius);
+  border: var(--border-width) solid transparent;
+  isolation: isolate;
+}
+.conic-card::before {
+  content: " ";
+  position: absolute;
+  inset: calc(var(--border-width) * -1);
+  z-index: -1;
+  border: inherit;
+  border-radius: inherit;
+  background-image: conic-gradient(from var(--angle), #0A1628 70%, #4F46E5 80%, #818CF8 88%, #4F46E5 92%, #0A1628 100%);
+  background-origin: border-box;
+  -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  mask: linear-gradient(black, black), linear-gradient(black, black);
+  -webkit-mask-clip: content-box, border-box;
+  mask-clip: content-box, border-box;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: conicSpin 3s linear infinite;
+}
+.conic-card:hover::before {
+  animation-play-state: paused;
+}
+@keyframes conicSpin {
+  to { --angle: 1turn; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ZigZag Image Gallery
+   ══════════════════════════════════════════════════════════════ */
+.zigzag-gallery {
+  --z: 32px;
+  --s: 280px;
+  --g: 8px;
+  display: grid;
+  gap: var(--g);
+  width: calc(2 * var(--s) + var(--g));
+  grid-auto-flow: column;
+  margin: 0 auto;
+}
+.zigzag-gallery > img {
+  width: 0;
+  min-width: calc(100% + var(--z) / 2);
+  height: var(--s);
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.zigzag-gallery > img:hover {
+  width: calc(var(--s) / 2);
+}
+.zigzag-gallery > img:first-child {
+  place-self: start;
+  clip-path: polygon(calc(2 * var(--z)) 0, 100% 0, 100% 100%, 0 100%);
+  -webkit-mask: conic-gradient(from -135deg at right, #0000, #000 1deg 89deg, #0000 90deg) 50% / 100% calc(2 * var(--z)) repeat-y;
+  mask: conic-gradient(from -135deg at right, #0000, #000 1deg 89deg, #0000 90deg) 50% / 100% calc(2 * var(--z)) repeat-y;
+}
+.zigzag-gallery > img:last-child {
+  place-self: end;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 2 * var(--z)) 100%, 0 100%);
+  -webkit-mask: conic-gradient(from 45deg at left, #0000, #000 1deg 89deg, #0000 90deg) 50% calc(50% - var(--z)) / 100% calc(2 * var(--z)) repeat-y;
+  mask: conic-gradient(from 45deg at left, #0000, #000 1deg 89deg, #0000 90deg) 50% calc(50% - var(--z)) / 100% calc(2 * var(--z)) repeat-y;
+}
+@media screen and (max-width: 640px) {
+  .zigzag-gallery {
+    --s: 160px;
+    --z: 20px;
+    width: calc(2 * var(--s) + var(--g));
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SVG Blob Button
+   ══════════════════════════════════════════════════════════════ */
+.blob-btn-svg {
+  width: 100%;
+  max-width: 280px;
+  filter: drop-shadow(0 0 20px rgba(79, 70, 229, 0.3));
+  cursor: pointer;
+}
+.blob-btn-svg path {
+  fill: #4F46E5;
+  animation: blobPath 3s infinite forwards;
+  transform-origin: 50% 50%;
+  transition: fill 0.3s;
+}
+.blob-btn-svg:hover path {
+  fill: #4338CA;
+}
+.blob-btn-svg text {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  font-weight: 800;
+  fill: #fff;
+  pointer-events: none;
+}
+@keyframes blobPath {
+  25% {
+    d: path("M 90 210 C 90 180 110 160 130 160 C 160 160 180 140 200 130 C 230 120 270 100 290 140 C 310 170 340 100 360 140 C 370 160 390 180 390 210 C 390 240 380 290 350 280 C 330 270 300 280 280 290 C 260 300 230 300 220 290 C 200 270 160 310 140 280 C 130 260 90 240 90 210");
+    transform: rotate(-3deg);
+  }
+  50% {
+    d: path("M 90 210 C 90 180 100 150 120 130 C 150 100 180 140 200 130 C 230 120 270 100 290 140 C 300 160 330 130 360 140 C 390 150 390 180 390 210 C 390 240 380 300 350 280 C 330 270 320 230 280 260 C 260 280 220 310 200 290 C 180 270 160 280 140 280 C 110 280 90 240 90 210");
+  }
+  75% {
+    d: path("M 90 210 C 90 180 110 180 130 170 C 150 160 170 130 200 130 C 240 130 260 150 290 140 C 310 130 340 120 360 140 C 380 160 390 180 390 210 C 390 240 380 260 350 270 C 320 280 290 270 270 260 C 240 250 230 280 210 290 C 180 310 130 300 110 280 C 90 260 90 240 90 210");
+    transform: rotate(3deg);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Goo-filter Pagination
+   ══════════════════════════════════════════════════════════════ */
+.goo-pagination {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.goo-pagination ul {
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  font-size: 0;
+  filter: url(#goo-pagination);
+  min-height: 100px;
+  padding-top: 40px;
+  text-align: center;
+}
+.goo-pagination ul li {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: #1A1A2E;
+  line-height: 50px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 16px;
+  height: 50px;
+  width: 50px;
+  transition: ease all 0.3s;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+.goo-pagination ul li.current {
+  color: #fff;
+}
+.goo-pagination ul li:hover {
+  color: #fff;
+  background-color: rgba(79, 70, 229, 0.6);
+}
+.goo-pagination ul .active-indicator {
+  transition: cubic-bezier(0.34, 1.68, 1, 0.75) 0.3s left;
+  position: absolute;
+  z-index: -1;
+  left: 80px;
+  width: 50px;
+  height: 50px;
+  background-color: #4F46E5;
+  border-radius: 50%;
+}
+.goo-pagination ul .active-indicator::after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 20px;
+  height: 20px;
+  z-index: -1;
+  background: #4F46E5;
+  border-radius: 50%;
+  animation: gooRotate 3.5s ease-in-out infinite;
+}
+.goo-pagination ul .active-indicator::before {
+  z-index: -1;
+  position: absolute;
+  display: block;
+  content: '';
+  width: 30px;
+  height: 30px;
+  background: #4F46E5;
+  border-radius: 50%;
+  animation: gooRotate 3.5s ease-in-out 1.7s infinite;
+}
+@keyframes gooRotate {
+  from { transform: rotate(0deg) translateX(15px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(15px) rotate(-360deg); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Split Text Gradient (mark style)
+   ══════════════════════════════════════════════════════════════ */
+.gradient-mark {
+  background: linear-gradient(270deg, #4F46E5 0%, #818CF8 60%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Responsive helpers
+   ══════════════════════════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+  .goo-pagination ul li {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    margin-right: 12px;
+  }
+  .goo-pagination ul .active-indicator {
+    width: 40px;
+    height: 40px;
+  }
+}

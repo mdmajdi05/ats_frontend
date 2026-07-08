@@ -7,20 +7,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE,                         lastModified: new Date(), changeFrequency: 'daily',   priority: 1.0 },
     { url: `${BASE}/catalog`,            lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },
-    { url: `${BASE}/rfq`,                lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE}/inventory`,          lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/about`,              lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/quality`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/rfq`,                lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE}/inventory`,          lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.7 },
+    { url: `${BASE}/about`,              lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/quality`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/contact`,            lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/industries`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/industries/aerospace`,         lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/industries/military-defense`,  lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/industries/automotive`,        lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/industries/medical`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/industries/electronics`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/industries/telecom`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/terms`,              lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
-    { url: `${BASE}/privacy`,            lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/industries`,         lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/industries/aerospace`,         lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/industries/aircraft-components-accessories`,  lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/industries/aircraft-launching-landing-ground-handling`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${BASE}/industries/engines-turbines-components`,  lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${BASE}/industries/engine-accessories`,           lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${BASE}/industries/switches-electrical-connectors`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${BASE}/industries/microcircuits-electrical-hardware`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${BASE}/login`,              lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE}/register`,           lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${BASE}/terms`,              lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.4 },
+    { url: `${BASE}/privacy`,            lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.4 },
     { url: `${BASE}/blog`,               lastModified: new Date(), changeFrequency: 'daily',   priority: 0.9 },
   ];
 
@@ -34,9 +37,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // Category pages (from static category data)
+  const { default: categoriesData } = await import('@/data/categories.json');
+  const categoryPages: MetadataRoute.Sitemap = (categoriesData as { fsgCategories: Array<{ id: string; name: string }> }).fsgCategories.map((cat) => ({
+    url: `${BASE}/catalog?fsg=cat-${cat.id.split('-')[1]}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }));
+
+  // Industry pages (from static industry data)
+  const industryPages: MetadataRoute.Sitemap = (categoriesData as { industries: Array<{ slug: string }> }).industries
+    .filter((ind) => ind.slug)
+    .map((ind) => ({
+      url: `${BASE}/industries/${ind.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    }));
+
   // Blog posts (fetched from backend at request time)
   let blogPages: MetadataRoute.Sitemap = [];
-  let categoryPages: MetadataRoute.Sitemap = [];
+  let blogCategoryPages: MetadataRoute.Sitemap = [];
   let tagPages: MetadataRoute.Sitemap = [];
 
   try {
@@ -57,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           priority: 0.8,
         }));
 
-      categoryPages = (categories as Array<{ slug: string }>)
+      blogCategoryPages = (categories as Array<{ slug: string }>)
         .filter((c) => c.slug)
         .map((c) => ({
           url: `${BASE}/blog/category/${c.slug}`,
@@ -79,5 +101,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Backend unavailable — skip blog sitemap entries
   }
 
-  return [...staticPages, ...productPages, ...blogPages, ...categoryPages, ...tagPages];
+  return [...staticPages, ...productPages, ...categoryPages, ...industryPages, ...blogPages, ...blogCategoryPages, ...tagPages];
 }

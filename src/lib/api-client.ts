@@ -76,6 +76,11 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
   const method = options?.method?.toUpperCase() || 'GET';
   const [path, qs] = endpoint.split('?');
 
+  // ── Health check endpoint ─────────────────────────────
+  if (path === '/health' && method === 'GET') {
+    return { success: true, status: 'ok', timestamp: new Date().toISOString() } as T;
+  }
+
   // ── Static data — no backend call needed ────────────────────
   if (path === '/testimonials' && method === 'GET')
     return { success: true, data: testimonialsData } as T;
@@ -160,16 +165,29 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
     throw new Error('Session expired. Please log in again.');
   }
 
-  const res = await fetch(`${API_URL}${finalEndpoint}`, {
-    ...options,
-    method: realMethod,
-    body: realBody,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(session?.token ? { Authorization: `Bearer ${session.token}` } : {}),
-      ...options?.headers,
-    },
-  });
+  const doFetch = (signal?: AbortSignal) =>
+    fetch(`${API_URL}${finalEndpoint}`, {
+      ...options,
+      method: realMethod,
+      body: realBody,
+      keepalive: true,
+      signal,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(session?.token ? { Authorization: `Bearer ${session.token}` } : {}),
+        ...options?.headers,
+      },
+    });
+
+  let res: Response;
+  try {
+    res = await doFetch();
+  } catch (err) {
+    // Network error — retry once after a short delay
+    if (err instanceof DOMException && err.name === 'AbortError') throw err;
+    await new Promise((r) => setTimeout(r, 1000));
+    res = await doFetch(AbortSignal.timeout(15_000));
+  }
 
   if (res.status === 401) {
     // Try to refresh the token before giving up
@@ -179,6 +197,7 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
         ...options,
         method: realMethod,
         body: realBody,
+        keepalive: true,
         headers: {
           'Content-Type': 'application/json',
           ...{ Authorization: `Bearer ${newToken}` },

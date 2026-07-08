@@ -16,6 +16,7 @@ import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import PartCard from '@/components/catalog/PartCard';
+import { SchemaInjector } from '@/components/seo/SchemaInjector';
 import { Skeleton, SkeletonCard } from '@/components/ui/Skeleton';
 import { cn, formatPrice, formatDate } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -167,8 +168,48 @@ export default function PartDetailPage({
     ([, v]) => v !== undefined && v !== null && (Array.isArray(v) ? v.length > 0 : String(v).trim() !== '')
   );
 
+  const productSchemas: Record<string, unknown>[] = product
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.partNumber,
+          sku: product.id,
+          description: product.description,
+          manufacturer: {
+            '@type': 'Organization',
+            name: product.manufacturer,
+          },
+          identifier: [
+            { '@type': 'PropertyValue', name: 'NSN', value: product.nsn },
+            { '@type': 'PropertyValue', name: 'CAGE Code', value: product.cage },
+          ],
+          image: product.imageUrl || undefined,
+          category: product.category,
+          condition: product.condition === 'New' ? 'NewCondition' : 'UsedCondition',
+          offers: {
+            '@type': 'Offer',
+            url: `https://aeroturbinespare.com/catalog/${product.id}`,
+            priceCurrency: product.currency,
+            price: product.unitPrice > 0 ? product.unitPrice : undefined,
+            availability: product.stockStatus === 'In Stock'
+              ? 'https://schema.org/InStock'
+              : product.stockStatus === 'Limited'
+              ? 'https://schema.org/LimitedAvailability'
+              : product.stockStatus === 'On Order'
+              ? 'https://schema.org/PreOrder'
+              : 'https://schema.org/OutOfStock',
+            inventoryLevel: product.quantityAvailable > 0
+              ? { '@type': 'QuantitativeValue', value: product.quantityAvailable }
+              : undefined,
+          },
+        },
+      ]
+    : [];
+
   return (
     <div className="flex flex-col min-h-screen">
+      <SchemaInjector pageKey={`product-${id}`} staticSchemas={productSchemas} />
       <Header />
 
       <main className="flex-1 bg-bg">

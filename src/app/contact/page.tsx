@@ -10,11 +10,13 @@ import {
   MessageSquare, FileText, Wrench, Shield,
   CheckCircle2,
 } from 'lucide-react';
+import Head from 'next/head';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
@@ -101,6 +103,14 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Head>
+        <title>Contact Us | AeroTurbineSpare</title>
+        <meta name="description" content="Contact AeroTurbineSpare for aerospace parts sourcing. Call +91 9354764587, email rfq@aeroturbinespare.com, or submit an RFQ. AOG emergency line available 24/7." />
+      </Head>
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Contact Us', url: '/contact' },
+      ]} />
       <Header />
 
       <main className="flex-1">

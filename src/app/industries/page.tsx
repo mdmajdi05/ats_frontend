@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Plane, Shield, Car, Heart, Cpu, Radio } from 'lucide-react';
+import Head from 'next/head';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { request } from '@/lib/api-client';
 import type { Industry } from '@/types';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 // ─── Icon map ────────────────────────────────────────────────────────────────
 
@@ -45,6 +47,14 @@ export default function IndustriesPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Head>
+        <title>Industries We Serve | AeroTurbineSpare</title>
+        <meta name="description" content="Aerospace parts sourcing for commercial aviation, military defense, marine, medical, electronics, and telecom industries. ISO 9001 & AS9120 certified. 150+ countries served." />
+      </Head>
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Industries', url: '/industries' },
+      ]} />
       <Header />
 
       <main className="flex-1">

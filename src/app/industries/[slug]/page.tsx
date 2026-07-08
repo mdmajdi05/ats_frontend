@@ -12,6 +12,7 @@ import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { request } from '@/lib/api-client';
 import type { Industry, NavCategoryTree } from '@/types';
+import { SchemaInjector } from '@/components/seo/SchemaInjector';
 import { cn } from '@/lib/utils';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -119,6 +120,7 @@ export default function IndustryPage({
 
   return (
     <div className="flex flex-col min-h-screen">
+      <SchemaInjector pageKey={`industry-${industryId}`} />
       <Header />
 
       <main className="flex-1">

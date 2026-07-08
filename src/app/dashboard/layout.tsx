@@ -22,6 +22,7 @@ import {
   BarChart3,
   Search,
   FileJson,
+  Globe,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -57,6 +58,7 @@ const NAV_ITEMS: NavItem[] = [
   { type: 'divider', label: 'SEO', roles: CONTENT_ROLES },
   { label: 'Link Equity',  href: '/dashboard/seo/link-equity',  icon: BarChart3,    roles: CONTENT_ROLES },
   { label: 'Link Checker', href: '/dashboard/seo/link-checker', icon: Search,       roles: CONTENT_ROLES },
+  { label: 'SEO Manager',  href: '/dashboard/seo',              icon: Globe,        roles: CONTENT_ROLES },
   { label: 'Schema Manager', href: '/dashboard/schemas',        icon: FileJson,     roles: CONTENT_ROLES },
 ];
 

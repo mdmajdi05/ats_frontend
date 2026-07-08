@@ -68,7 +68,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo */}
         <div className="px-5 py-4 border-b border-white/10">
           <Link href="/" className="flex items-center gap-2.5">
-            <AeroLogo variant="white" size={32} showText={false} />
+            <AeroLogo variant="white" size={32} showText={false} src="/logo.png" />
             <div>
               <div className="text-sm font-bold leading-tight">AeroTurbineSpare</div>
               <div className="text-[10px] text-white/50 uppercase tracking-widest">Admin Panel</div>

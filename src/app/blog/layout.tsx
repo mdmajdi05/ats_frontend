@@ -1,18 +1,18 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog | Aero Turbine Spare',
-  description: 'Read the latest articles on aerospace parts, aviation industry insights, maintenance tips, and procurement guides from AeroTurbineSpare.',
+  title: 'Aerospace Parts Blog & Industry Insights',
+  description: 'Expert aerospace procurement guides, MRO best practices, NSN decoding tutorials, AS9120 quality insights, and aviation industry news from AeroTurbineSpare.',
   openGraph: {
-    title: 'Blog | Aero Turbine Spare',
-    description: 'Read the latest articles on aerospace parts, aviation industry insights, maintenance tips, and procurement guides from AeroTurbineSpare.',
+    title: 'Aerospace Parts Blog & Industry Insights | AeroTurbineSpare',
+    description: 'Expert aerospace procurement guides, MRO best practices, NSN decoding tutorials, and AS9120 quality insights from AeroTurbineSpare.',
     type: 'website',
     url: 'https://aeroturbinespare.com/blog',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog | Aero Turbine Spare',
-    description: 'Read the latest articles on aerospace parts, aviation industry insights, maintenance tips, and procurement guides from AeroTurbineSpare.',
+    title: 'Aerospace Parts Blog & Industry Insights | AeroTurbineSpare',
+    description: 'Expert aerospace procurement guides, MRO best practices, and NSN decoding tutorials from AeroTurbineSpare.',
   },
 };
 

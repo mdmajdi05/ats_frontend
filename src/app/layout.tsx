@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import QueryProvider from '@/providers/QueryProvider';
+import DataRefreshProvider from '@/providers/DataRefreshProvider';
 import ChatProvider from '@/components/chat/ChatProvider';
+import { OrganizationJsonLd, WebsiteJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
 
 const inter = Inter({
@@ -24,43 +26,61 @@ export const metadata: Metadata = {
     template: '%s | AeroTurbineSpare',
   },
   description:
-    'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO-certified, 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide.',
+    'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO 9001 & AS9120 certified. 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide. Global inventory of 32,000+ parts.',
   keywords: [
     'aerospace parts', 'NSN parts', 'CAGE code', 'turbine components',
     'MRO supplies', 'aircraft parts', 'aerospace procurement',
     'military parts', 'gas turbine', 'jet engine parts',
+    'aircraft components', 'aviation parts', 'defense parts',
+    'AS9120', 'ISO 9001', 'aerospace distributor',
+    'turbine blades', 'landing gear', 'avionics',
+    'AOG parts', 'aircraft on ground', 'FAA certified parts',
+    'EASA parts', 'NSN 2840', 'CAGE 8ATR9',
   ],
   authors: [{ name: 'AeroTurbineSpare' }],
+  publisher: 'AeroTurbineSpare',
+  category: 'aerospace',
   openGraph: {
     type: 'website',
     siteName: 'AeroTurbineSpare',
     title: 'AeroTurbineSpare — Precision Aerospace Parts Sourcing',
-    description: 'Fast, certified aerospace parts sourcing. ISO 9001, AS9120 certified. 100% inspection on every order.',
+    description: 'Fast, certified aerospace parts sourcing. ISO 9001, AS9120 certified. 100% inspection on every order. 32,000+ parts in catalog.',
     url: 'https://aeroturbinespare.com',
+    locale: 'en_US',
+    images: [{ url: '/og-image.svg', width: 1200, height: 630 }],
   },
-  twitter: {
+  twitter: { 
     card: 'summary_large_image',
     title: 'AeroTurbineSpare',
-    description: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global',
+    description: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global. ISO 9001 & AS9120 Certified.',
+    images: ['/og-image.svg'],
   },
   robots: { index: true, follow: true },
   verification: {
     google: 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
+  },
+  other: {
+    'google-site-verification': 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
   },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  themeColor: '#0A1628',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
+        <OrganizationJsonLd />
+        <WebsiteJsonLd />
         <QueryProvider>
-          {children}
-          <ChatProvider />
+          <DataRefreshProvider>
+            {children}
+            <ChatProvider />
+          </DataRefreshProvider>
         </QueryProvider>
         <Toaster
           position="top-right"

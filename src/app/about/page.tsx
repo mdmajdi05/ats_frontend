@@ -1,6 +1,17 @@
+import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-react';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+
+export const metadata: Metadata = {
+  title: 'About AeroTurbineSpare',
+  description: 'Founded in 2009, AeroTurbineSpare is an ISO 9001 & AS9120 certified aerospace parts distributor serving OEMs, MROs, and defense contractors across 150+ countries. 32,000+ parts in catalog.',
+  openGraph: {
+    title: 'About AeroTurbineSpare — Precision Aerospace Parts Sourcing',
+    description: 'Founded in 2009. ISO 9001 & AS9120 certified. Serving 150+ countries. Your trusted partner for certified aerospace parts.',
+  },
+};
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -82,6 +93,10 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'About', url: '/about' },
+      ]} />
 
       <main className="flex-1">
         {/* ── Hero ──────────────────────────────────────────────────────── */}

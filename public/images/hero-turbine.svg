@@ -1,0 +1,25 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.6">
+    <!-- Turbine blade silhouette -->
+    <ellipse cx="300" cy="300" rx="120" ry="40" stroke="#818CF8" stroke-width="2" fill="none"/>
+    <ellipse cx="300" cy="300" rx="80" ry="25" stroke="#4F46E5" stroke-width="3" fill="none"/>
+    <ellipse cx="300" cy="300" rx="40" ry="12" stroke="#818CF8" stroke-width="2" fill="none"/>
+    <circle cx="300" cy="300" r="15" stroke="#4F46E5" stroke-width="4" fill="none"/>
+    <!-- Fan blades -->
+    <path d="M300 285 L320 200 L310 195 L300 270 Z" fill="#4F46E5" opacity="0.3"/>
+    <path d="M300 315 L320 400 L310 405 L300 330 Z" fill="#818CF8" opacity="0.3"/>
+    <path d="M285 300 L200 280 L195 290 L270 300 Z" fill="#4F46E5" opacity="0.3"/>
+    <path d="M315 300 L400 280 L405 290 L330 300 Z" fill="#818CF8" opacity="0.3"/>
+    <path d="M292 292 L220 220 L225 215 L297 287 Z" fill="#4F46E5" opacity="0.2"/>
+    <path d="M308 308 L380 380 L375 385 L303 313 Z" fill="#818CF8" opacity="0.2"/>
+    <path d="M308 292 L380 220 L375 215 L303 287 Z" fill="#4F46E5" opacity="0.2"/>
+    <path d="M292 308 L220 380 L225 385 L297 313 Z" fill="#818CF8" opacity="0.2"/>
+    <!-- Arrow indicators -->
+    <path d="M300 150 L300 180 M300 420 L300 450 M150 300 L180 300 M420 300 L450 300" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrow)"/>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#4F46E5"/>
+      </marker>
+    </defs>
+  </g>
+</svg>

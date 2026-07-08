@@ -8,6 +8,12 @@ interface AeroLogoProps {
   showText?: boolean;
   animated?: boolean;
   variant?: 'icon' | 'full' | 'minimal' | 'white';
+  /** When set, renders an <img> instead of the SVG turbine icon */
+  src?: string | null;
+  /** Alt text for the image */
+  alt?: string;
+  /** Called when the image src fails to load */
+  onImgError?: () => void;
 }
 
 const bladeColors = ['#4F46E5', '#6366F1', '#818CF8', '#7C3AED', '#6D28D9', '#4F46E5'];
@@ -241,11 +247,30 @@ export default function AeroLogo({
   showText = true,
   animated = true,
   variant = 'full',
+  src,
+  alt,
+  onImgError,
 }: AeroLogoProps) {
+  // ── Image mode: render <img> when src is provided ──────────
+  if (src) {
+    return (
+      <div className="flex items-center gap-3">
+        <img
+          src={src}
+          alt={alt || 'Logo'}
+          className="flex-shrink-0 object-contain"
+          style={{ height: size, width: 'auto' }}
+          onError={onImgError}
+        />
+        {showText && variant === 'white' && <LogoText variant="white" />}
+        {showText && variant !== 'white' && <LogoText />}
+      </div>
+    );
+  }
+
   if (variant === 'icon') {
     return (
       <div className="relative">
-        {/* Sparkle particles */}
         {animated && <Sparkles id="icon" />}
         <TurbineIcon size={size} animated={animated} />
       </div>
@@ -293,7 +318,6 @@ export default function AeroLogo({
           hover: { scale: 1.08 },
         }}
       >
-        {/* Glow on hover */}
         <motion.div
           className="absolute inset-0 rounded-full blur-xl"
           style={{ background: 'radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 70%)' }}
@@ -303,7 +327,6 @@ export default function AeroLogo({
           }}
           transition={{ duration: 0.4 }}
         />
-        {/* Sparkle particles on hover */}
         {animated && <Sparkles id="full" />}
         <TurbineIcon size={size} animated={animated} />
       </motion.div>

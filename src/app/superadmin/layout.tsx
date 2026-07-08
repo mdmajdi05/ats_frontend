@@ -54,7 +54,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
       <aside className="w-64 bg-[#13132B] text-white flex flex-col fixed top-0 left-0 h-full z-30 border-r border-purple-900/30">
         <div className="px-5 py-4 border-b border-purple-900/30">
           <Link href="/" className="flex items-center gap-2.5">
-            <AeroLogo variant="white" size={32} showText={false} />
+            <AeroLogo variant="white" size={32} showText={false} src="/logo.png" />
             <div>
               <div className="text-sm font-bold leading-tight">AeroTurbineSpare</div>
               <div className="text-[10px] text-purple-400 uppercase tracking-widest">Super Admin</div>

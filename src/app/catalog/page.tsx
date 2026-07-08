@@ -18,6 +18,7 @@ import Select from '@/components/ui/Select';
 import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { SkeletonCard } from '@/components/ui/Skeleton';
+import { SchemaInjector } from '@/components/seo/SchemaInjector';
 import { cn } from '@/lib/utils';
 import { request } from '@/lib/api-client';
 
@@ -306,8 +307,18 @@ export default function CatalogPage({
     </div>
   );
 
+  const catalogSchemas: Record<string, unknown>[] = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Parts Catalog | AeroTurbineSpare',
+      description: 'Browse our extensive catalog of aerospace parts, NSN components, turbine spares, and MRO supplies.',
+    },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen">
+      <SchemaInjector pageKey="catalog" staticSchemas={catalogSchemas} />
       <Header />
 
       <main className="flex-1 bg-bg">

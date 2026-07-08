@@ -58,6 +58,9 @@ next-env.d.ts
 # ── Vercel / deployment ─────────────────────────────────────────
 .vercel
 
+# ── Auto-generated runtime files ───────────────────────────────
+/public/data/seo-config.json
+
 # ── Misc ────────────────────────────────────────────────────────
 *.tmp
 *.temp

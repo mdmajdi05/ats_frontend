@@ -105,7 +105,7 @@ function LeftPanel() {
       {/* Logo & brand */}
       <div className="relative z-10">
         <div className="mb-10">
-          <AeroLogo variant="white" size={42} animated={false} />
+          <AeroLogo variant="white" size={42} animated={false} src="/logo.png" showText={false} />
         </div>
 
         <h2 className="text-white text-3xl font-bold leading-snug mb-3">
@@ -222,7 +222,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="flex lg:hidden mb-6 justify-center">
-            <AeroLogo size={36} variant="minimal" animated={false} />
+            <AeroLogo size={36} variant="minimal" animated={false} src="/logo.png" showText={false} />
           </div>
 
           {/* Card */}
