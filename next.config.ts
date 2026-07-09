@@ -15,16 +15,34 @@ let nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'i.ytimg.com' },
     ],
   },
+  generateBuildId: () => {
+    // Use GIT_COMMIT from env (Hostinger/CI sets this) or fallback to timestamp
+    return process.env.GIT_COMMIT || `build-${Date.now()}`;
+  },
   async headers() {
     return [
+      // ── HTML pages: prevent CDN caching (so new deploy → fresh content instantly) ──
       {
-        source: '/(.*)',
+        source: '/:path((?!_next|favicon|images|og-image|logo).*)',
         headers: [
           { key: 'X-Frame-Options',           value: 'SAMEORIGIN' },
           { key: 'X-Content-Type-Options',     value: 'nosniff' },
           { key: 'Referrer-Policy',            value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy',         value: 'camera=(), microphone=(), geolocation=()' },
           { key: 'X-XSS-Protection',           value: '1; mode=block' },
+          // CDN ko HTML cache karne se roke — har request fresh build se serve ho
+          { key: 'Cache-Control',              value: 'private, no-cache, no-store, must-revalidate, max-age=0' },
+          { key: 'Pragma',                     value: 'no-cache' },
+          { key: 'Expires',                    value: '0' },
+          // Auth cookie ke hisaab se different cache (logged in vs anonymous)
+          { key: 'Vary',                       value: 'Cookie, Accept-Encoding' },
+        ],
+      },
+      // ── Static assets (hashed filenames → safe to cache long) ──
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
     ];
