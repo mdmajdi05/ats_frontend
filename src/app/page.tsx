@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import {
   Search, ArrowRight, ChevronDown, Filter, X,
@@ -11,30 +12,31 @@ import type { Product, Category, Testimonial } from '@/types';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import TrustBar from '@/components/home/TrustBar';
-import IndustriesGrid from '@/components/home/IndustriesGrid';
-import FeaturedCategories from '@/components/home/FeaturedCategories';
-import HowItWorks from '@/components/home/HowItWorks';
-import StatsCounter from '@/components/home/StatsCounter';
-import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
-import FAQSection from '@/components/home/FAQSection';
+import GlowyBlobBg from '@/components/home/GlowyBlobBg';
+import ZigZagDivider from '@/components/home/ZigZagDivider';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
 import PartCard from '@/components/catalog/PartCard';
 import Button from '@/components/ui/Button';
 import { request } from '@/lib/api-client';
 import { SkeletonCard } from '@/components/ui/Skeleton';
 import { useSiteConfig } from '@/hooks/useSiteConfig';
-import BrandLogos from '@/components/home/BrandLogos';
-import WhyUs from '@/components/home/WhyUs';
-import BlogPreviewSection from '@/components/home/BlogPreviewSection';
-import GlowyBlobBg from '@/components/home/GlowyBlobBg';
-import ZigZagDivider from '@/components/home/ZigZagDivider';
-import ConicCard from '@/components/home/ConicCard';
-import BlobButton from '@/components/home/BlobButton';
-import QuickQuoteForm from '@/components/home/QuickQuoteForm';
-import SubscribeForm from '@/components/home/SubscribeForm';
-import ZigZagGallery from '@/components/home/ZigZagGallery';
-// Light-weight fallback â€” backend fail hone par hi use hota hai (poora products.json bundle na ho)
 import homeFallback from '@/data/home-fallback.json';
+
+// Dynamic imports — below-fold components load lazily, reducing initial bundle
+const BrandLogos = dynamic(() => import('@/components/home/BrandLogos').catch(() => ({ default: () => null })), { loading: () => <div className="h-32 bg-white animate-pulse" /> });
+const IndustriesGrid = dynamic(() => import('@/components/home/IndustriesGrid').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-navy animate-pulse" /> });
+const FeaturedCategories = dynamic(() => import('@/components/home/FeaturedCategories').catch(() => ({ default: () => null })), { loading: () => <div className="h-80 bg-white animate-pulse" /> });
+const HowItWorks = dynamic(() => import('@/components/home/HowItWorks').catch(() => ({ default: () => null })), { loading: () => <div className="h-96 bg-white animate-pulse" /> });
+const StatsCounter = dynamic(() => import('@/components/home/StatsCounter').catch(() => ({ default: () => null })), { loading: () => <div className="h-48 bg-navy animate-pulse" /> });
+const WhyUs = dynamic(() => import('@/components/home/WhyUs').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-white animate-pulse" /> });
+const TestimonialsCarousel = dynamic(() => import('@/components/home/TestimonialsCarousel').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-white animate-pulse" /> });
+const ConicCard = dynamic(() => import('@/components/home/ConicCard').catch(() => ({ default: () => null })), { loading: () => <div className="h-96 bg-navy animate-pulse rounded-2xl" /> });
+const ZigZagGallery = dynamic(() => import('@/components/home/ZigZagGallery').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-navy animate-pulse rounded-2xl" /> });
+const BlobButton = dynamic(() => import('@/components/home/BlobButton').catch(() => ({ default: () => null })), { loading: () => <div className="h-14 w-64 bg-navy animate-pulse rounded-xl" /> });
+const QuickQuoteForm = dynamic(() => import('@/components/home/QuickQuoteForm').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-white animate-pulse" /> });
+const BlogPreviewSection = dynamic(() => import('@/components/home/BlogPreviewSection').catch(() => ({ default: () => null })), { loading: () => <div className="h-80 bg-white animate-pulse" /> });
+const SubscribeForm = dynamic(() => import('@/components/home/SubscribeForm').catch(() => ({ default: () => null })), { loading: () => <div className="h-48 bg-navy animate-pulse" /> });
+const FAQSection = dynamic(() => import('@/components/home/FAQSection').catch(() => ({ default: () => null })), { loading: () => <div className="h-64 bg-white animate-pulse" /> });
 
 const SEARCH_TYPES = ['Part Number', 'NSN', 'CAGE Code', 'Description', 'Manufacturer'];
 const CONDITIONS   = ['Any Condition', 'New', 'Overhauled', 'Refurbished', 'Used'];
