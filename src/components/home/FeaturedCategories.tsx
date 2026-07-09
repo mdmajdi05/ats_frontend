@@ -30,12 +30,11 @@ export default function FeaturedCategories({ categories }: { categories: Categor
       <div className="relative max-w-7xl mx-auto px-6 z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-orange text-[11px] font-bold uppercase tracking-[0.2em] mb-4 bg-white border border-slate-200 shadow-sm px-3.5 py-1.5 rounded-full">
-              <span className="w-2 h-2 bg-orange rounded-full shadow-[0_0_8px_#f97316] animate-pulse" />
-              Aerospace Components Catalog
+            <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+              <span className="w-6 h-px bg-brand" /> Catalog <span className="w-6 h-px bg-brand" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-              Browse Premium <span className="bg-gradient-to-r from-orange to-amber-500 bg-clip-text text-transparent">Categories</span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
+              Browse Premium <span className="bg-gradient-to-r from-brand to-[#818CF8] bg-clip-text text-transparent">Categories</span>
             </h2>
           </div>
           <Link href="/catalog" className="group/btn inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-orange transition-all duration-300 px-5 py-2.5 bg-white/80 border border-slate-200/80 backdrop-blur-md rounded-xl hover:shadow-md hover:-translate-y-0.5">
@@ -44,7 +43,7 @@ export default function FeaturedCategories({ categories }: { categories: Categor
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="reveal-stagger grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
           {featured.map((cat) => {
             const Icon = ICON_MAP[cat.icon] || Settings;
             return (

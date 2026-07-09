@@ -40,8 +40,8 @@ export default function SubscribeForm() {
     <section className="py-16 bg-[#0A1628] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 text-[#818CF8] text-xs font-semibold uppercase tracking-widest mb-3">
-            <Mail className="w-3.5 h-3.5" /> Newsletter
+          <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-[#818CF8]" /> Newsletter <span className="w-6 h-px bg-[#818CF8]" />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Stay Updated on New Inventory</h2>
           <p className="text-white/60 text-sm mb-8 max-w-md mx-auto">

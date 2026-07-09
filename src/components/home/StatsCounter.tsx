@@ -31,7 +31,7 @@ function StatItem({ value, suffix, label, sub, start }: typeof STATS[0] & { star
   const count = useCountUp(value, 1800, start);
   return (
     <div className="text-center">
-      <div className="text-4xl lg:text-5xl font-bold text-white counter-target">
+      <div className="text-4xl lg:text-5xl font-bold text-white counter-target counter-glow">
         {count.toLocaleString()}{suffix}
       </div>
       <div className="text-silver font-semibold mt-1">{label}</div>
@@ -56,10 +56,13 @@ export default function StatsCounter() {
     <div ref={ref} className="bg-navy py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-white">Trusted by Industry Leaders</h2>
-          <p className="text-silver/70 mt-2">Numbers that reflect our commitment to aerospace excellence</p>
+          <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-[#818CF8]" /> By the Numbers <span className="w-6 h-px bg-[#818CF8]" />
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-white">Trusted by Industry Leaders</h2>
+          <p className="text-silver/70 mt-3 max-w-2xl mx-auto">Numbers that reflect our commitment to aerospace excellence</p>
         </div>
-        <div className={cn('grid grid-cols-2 lg:grid-cols-4 gap-8')}>
+        <div className={cn('reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-8')}>
           {STATS.map((s) => <StatItem key={s.label} {...s} start={started} />)}
         </div>
       </div>

@@ -39,10 +39,14 @@ export default function BrandLogos() {
   return (
     <section className="py-12 bg-white border-y border-silver">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-8">
-          <span className="text-xs font-bold uppercase tracking-widest text-text-muted">
-            Trusted OEM &amp; Manufacturer Partners
-          </span>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-brand" /> Our Partners <span className="w-6 h-px bg-brand" />
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-text">Trusted by Global Manufacturers</h2>
+          <p className="text-text-muted mt-3 max-w-2xl mx-auto text-sm">
+            We source from leading OEMs and certified manufacturers worldwide.
+          </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
           {BRAND_LOGOS.map((brand, i) => (

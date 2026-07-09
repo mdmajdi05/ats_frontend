@@ -14,9 +14,9 @@ export default function TrustBar() {
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-row flex-wrap items-center justify-between gap-3 sm:gap-4">
           {BADGES.map(({ icon: Icon, label, sub }) => (
-            <div key={label} className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="w-9 h-9 rounded-lg bg-navy/8 flex items-center justify-center">
-                <Icon className="w-4.5 h-4.5 text-navy" />
+            <div key={label} className="flex items-center gap-2 sm:gap-3 flex-shrink-0 group">
+              <div className="w-9 h-9 rounded-lg bg-navy/8 flex items-center justify-center group-hover:bg-navy/15 transition-colors duration-300">
+                <Icon className="w-4.5 h-4.5 text-navy group-hover:scale-110 transition-transform duration-300" />
               </div>
               <div>
                 <div className="text-xs font-semibold text-text">{label}</div>

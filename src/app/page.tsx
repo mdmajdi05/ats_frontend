@@ -75,6 +75,15 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [fetchHomeData]);
 
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
@@ -175,14 +184,14 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
           <div className="max-w-3xl">
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 text-sm font-semibold text-white mb-8 shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse flex-shrink-0" />
+            {/* Badge — glass pill with entrance */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-sm font-semibold text-white shadow-lg mb-6 reveal">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_6px_rgba(74,222,128,0.6)]" />
               {site.heroBadgeText || 'Trusted by 500+ Aviation Companies'}
             </div>
 
             {/* Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-black text-white leading-[1.05] mb-5 tracking-tight reveal">
               {site.heroHeading
                 ? site.heroHeading.split(',').map((part, i, arr) => (
                     <span key={i}>
@@ -201,13 +210,13 @@ export default function HomePage() {
             </h1>
 
             {/* Sub-heading */}
-            <p className="text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-8 sm:mb-10 max-w-2xl">
+            <p className="text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-8 sm:mb-10 max-w-2xl reveal">
               {site.heroSubheading ||
-                'Global inventory of aviation, turbine, and defense components â€” NSN, CAGE, and part-number searchable in seconds.'}
+                'Global inventory of aviation, turbine, and defense components — NSN, CAGE, and part-number searchable in seconds.'}
             </p>
 
-            {/* â”€â”€â”€ Advanced Search Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-            <form onSubmit={handleSearch} className="bg-white rounded-2xl shadow-2xl overflow-hidden mb-6">
+            {/* ──── Premium Search Bar ──────────────── */}
+            <form onSubmit={handleSearch} className="bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)] ring-1 ring-white/20 overflow-hidden mb-6 reveal">
               {/* Main search row */}
               <div className="flex items-stretch">
                 {/* Filter type selector */}
@@ -227,8 +236,8 @@ export default function HomePage() {
                   type="search"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder={`Search by ${searchType}â€¦`}
-                  className="flex-1 text-sm text-[#0A1628] px-5 py-4 focus:outline-none placeholder:text-[#4A4A6A]/50 min-w-0"
+                  placeholder={`Search by ${searchType}…`}
+                  className="flex-1 text-sm text-[#0A1628] px-5 py-4 focus:outline-none placeholder:text-[#4A4A6A]/50 min-w-0 bg-transparent"
                   autoComplete="off"
                 />
 
@@ -251,10 +260,10 @@ export default function HomePage() {
                   )}
                 </button>
 
-                {/* Search button */}
+                {/* Search button with glow */}
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-4 sm:px-6 bg-[#4F46E5] text-white text-sm font-semibold hover:bg-[#4338CA] transition-colors flex-shrink-0"
+                  className="flex items-center gap-2 px-5 sm:px-7 bg-brand text-white text-sm font-semibold hover:bg-brand-dark transition-all duration-300 flex-shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
                   aria-label="Search"
                 >
                   <Search className="w-4 h-4" />
@@ -270,7 +279,7 @@ export default function HomePage() {
                     <select
                       value={condition}
                       onChange={(e) => setCondition(e.target.value)}
-                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 cursor-pointer"
+                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand/30 cursor-pointer"
                     >
                       {CONDITIONS.map((c) => <option key={c}>{c}</option>)}
                     </select>
@@ -282,7 +291,7 @@ export default function HomePage() {
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 cursor-pointer"
+                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand/30 cursor-pointer"
                     >
                       {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
                     </select>
@@ -294,7 +303,7 @@ export default function HomePage() {
                     <select
                       value={stock}
                       onChange={(e) => setStock(e.target.value)}
-                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 cursor-pointer"
+                      className="appearance-none pl-3 pr-8 py-1.5 text-xs font-medium text-[#0A1628] bg-white border border-[#E8EDF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-brand/30 cursor-pointer"
                     >
                       {STOCK_OPTS.map((s) => <option key={s}>{s}</option>)}
                     </select>
@@ -316,13 +325,13 @@ export default function HomePage() {
             </form>
 
             {/* Quick-search tags */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 mb-8 reveal">
               {['GE90 Turbine Blades', 'CFM56 Parts', 'Boeing 737 Components', 'NSN 2840-01'].map((tag) => (
                 <button
                   key={tag}
                   type="button"
                   onClick={() => { setSearch(tag); router.push(`/catalog?search=${encodeURIComponent(tag)}`); }}
-                  className="px-3 py-1 text-xs font-medium text-white/70 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-colors"
+                  className="px-3 py-1 text-xs font-medium text-white/80 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all duration-200 hover:scale-105 hover:text-white"
                 >
                   {tag}
                 </button>
@@ -330,16 +339,16 @@ export default function HomePage() {
             </div>
 
             {/* CTA row */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 reveal">
               <Link href={site.heroCta1Href || '/rfq'}>
-                <Button variant="blue" size="lg">
+                <Button variant="blue" size="lg" className="shadow-lg shadow-brand/25 hover:shadow-xl hover:shadow-brand/30 transition-all duration-300">
                   {site.heroCta1Label || 'Request a Quote'} <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
               <Link href={site.heroCta2Href || '/catalog'}>
                 <Button
                   variant="outline" size="lg"
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50"
+                  className="border-white/30 text-white hover:bg-white/10 hover:text-white hover:border-white/50 backdrop-blur-sm"
                 >
                   {site.heroCta2Label || 'Browse Catalog'}
                 </Button>
@@ -347,8 +356,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Trust chips â€” inline on mobile/tablet, right panel on xl+ */}
-          <div className="xl:hidden grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10 max-w-3xl">
+          {/* Trust chips — inline on mobile/tablet, right panel on xl+ */}
+          <div className="xl:hidden grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10 max-w-3xl reveal">
             {[
               { icon: ShieldCheck, label: 'ISO 9001 & AS9120B', sub: 'Quality Certified' },
               { icon: Clock,       label: '24-Hr Quote Response', sub: 'SLA Guaranteed' },
@@ -356,8 +365,8 @@ export default function HomePage() {
               { icon: Truck,       label: '150+ Countries Served', sub: 'Global Logistics' },
               { icon: Zap,         label: 'AOG Priority Response', sub: '4-Hour Escalation' },
             ].slice(0, 3).map(({ icon: Icon, label, sub }) => (
-              <div key={label} className="flex items-center gap-2.5 bg-white/8 border border-white/12 rounded-xl px-3.5 py-2.5 backdrop-blur-sm">
-                <div className="w-8 h-8 rounded-lg bg-[#4F46E5]/30 flex items-center justify-center flex-shrink-0">
+              <div key={label} className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-3.5 py-2.5 hover:bg-white/15 transition-all duration-200">
+                <div className="w-8 h-8 rounded-lg bg-brand/30 flex items-center justify-center flex-shrink-0">
                   <Icon className="w-4 h-4 text-[#818CF8]" />
                 </div>
                 <div className="min-w-0">
@@ -368,8 +377,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Trust chips â€” desktop right panel */}
-          <div className="hidden xl:flex flex-col gap-3 absolute right-8 top-1/2 -translate-y-1/2 w-64">
+          {/* Trust chips — desktop right panel */}
+          <div className="hidden xl:flex flex-col gap-3 absolute right-8 top-1/2 -translate-y-1/2 w-64 reveal-right">
             {[
               { icon: ShieldCheck, label: 'ISO 9001 & AS9120B', sub: 'Quality Certified' },
               { icon: Clock,       label: '24-Hr Quote Response', sub: 'SLA Guaranteed' },
@@ -377,8 +386,8 @@ export default function HomePage() {
               { icon: Truck,       label: '150+ Countries Served', sub: 'Global Logistics' },
               { icon: Zap,         label: 'AOG Priority Response', sub: '4-Hour Escalation' },
             ].map(({ icon: Icon, label, sub }) => (
-              <div key={label} className="flex items-center gap-3 bg-white/8 border border-white/12 rounded-xl px-4 py-3 backdrop-blur-sm">
-                <div className="w-9 h-9 rounded-lg bg-[#4F46E5]/30 flex items-center justify-center flex-shrink-0">
+              <div key={label} className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-4 py-3 hover:bg-white/15 transition-all duration-200 hover:translate-x-1">
+                <div className="w-9 h-9 rounded-lg bg-brand/30 flex items-center justify-center flex-shrink-0">
                   <Icon className="w-4.5 h-4.5 text-[#818CF8]" />
                 </div>
                 <div>
@@ -389,33 +398,27 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        {/* <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30">
-          <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-          <ChevronDown className="w-4 h-4 animate-bounce" />
-        </div> */}
       </section>
 
-      <TrustBar />
-      <BrandLogos />
-      <IndustriesGrid />
+      <div className="reveal"><TrustBar /></div>
+      <div className="reveal"><BrandLogos /></div>
+      <div className="reveal"><IndustriesGrid /></div>
       <ZigZagDivider text="PARTS" />
-      <FeaturedCategories categories={categories} />
-      <HowItWorks />
+      <div className="reveal"><FeaturedCategories categories={categories} /></div>
+      <div className="reveal"><HowItWorks /></div>
       <ZigZagDivider />
-      <StatsCounter />
-      <WhyUs />
+      <div className="reveal"><StatsCounter /></div>
+      <div className="reveal"><WhyUs /></div>
 
       {/* LATEST PARTS */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white reveal">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 text-[#4F46E5] text-sm font-semibold uppercase tracking-wider mb-2">
-                <span className="w-6 h-px bg-[#4F46E5]" /> Fresh Inventory
+              <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+                <span className="w-6 h-px bg-brand" /> Fresh Inventory <span className="w-6 h-px bg-brand" />
               </div>
-              <h2 className="text-3xl font-bold text-[#0A1628]">Recently Added Parts</h2>
+              <h2 className="text-3xl lg:text-4xl font-bold text-text">Recently Added Parts</h2>
             </div>
             <Link href="/catalog" className="text-sm font-medium text-[#4F46E5] hover:underline">
               View all â†’
@@ -433,7 +436,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <TestimonialsCarousel testimonials={testimonials} />
+      <div className="reveal"><TestimonialsCarousel testimonials={testimonials} /></div>
 
       {/* WHY US â€” ZigZag Divider + Conic Card */}
       <ZigZagDivider text="ADVANTAGE" />
@@ -501,7 +504,7 @@ export default function HomePage() {
       </section>
 
       {/* URGENT CTA with Blob Button */}
-      <section className="py-20 bg-gradient-to-r from-[#0A1628] via-[#1E1B4B] to-[#312E81] relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-r from-[#0A1628] via-[#1E1B4B] to-[#312E81] relative overflow-hidden reveal">
         <div className="absolute inset-0 opacity-10">
           <svg className="w-full h-full" preserveAspectRatio="none">
             <pattern id="cta-grid" width="48" height="48" patternUnits="userSpaceOnUse">
@@ -511,6 +514,9 @@ export default function HomePage() {
           </svg>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-[#818CF8]" /> AOG Support
+          </div>
           <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">Need a Part Urgently?</h2>
           <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto">
             AOG situations require immediate action. Our urgent team is on standby 24/7.
@@ -527,12 +533,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <QuickQuoteForm />
+      <div className="reveal"><QuickQuoteForm /></div>
 
-      <BlogPreviewSection />
-      <SubscribeForm />
+      <div className="reveal"><BlogPreviewSection /></div>
+      <div className="reveal"><SubscribeForm /></div>
 
-      <FAQSection />
+      <div className="reveal"><FAQSection /></div>
       <Footer />
     </div>
   );

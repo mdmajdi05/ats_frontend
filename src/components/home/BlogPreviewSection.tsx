@@ -69,8 +69,8 @@ export default function BlogPreviewSection() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 text-orange text-sm font-semibold uppercase tracking-wider mb-3">
-              <span className="w-6 h-px bg-orange" /> Resources <span className="w-6 h-px bg-orange" />
+            <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+              <span className="w-6 h-px bg-brand" /> Resources <span className="w-6 h-px bg-brand" />
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-text">
               Aerospace Industry Insights

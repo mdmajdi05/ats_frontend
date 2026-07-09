@@ -18,10 +18,11 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
     <section className="py-20 bg-bg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-orange text-sm font-semibold uppercase tracking-wider mb-3">
-            <span className="w-6 h-px bg-orange" /> Client Reviews <span className="w-6 h-px bg-orange" />
+          <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-brand" /> Client Reviews <span className="w-6 h-px bg-brand" />
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-text">Trusted Worldwide</h2>
+          <p className="text-text-muted mt-3 max-w-2xl mx-auto">Hear from aerospace professionals who rely on us for critical parts.</p>
         </div>
 
         <div className="max-w-3xl mx-auto relative">

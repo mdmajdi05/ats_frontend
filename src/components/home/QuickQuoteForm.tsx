@@ -64,8 +64,8 @@ export default function QuickQuoteForm() {
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 text-[#818CF8] text-xs font-semibold uppercase tracking-widest mb-4">
-              <span className="w-6 h-px bg-[#4F46E5]" /> Quick Quote
+            <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
+              <span className="w-6 h-px bg-[#818CF8]" /> Quick Quote <span className="w-6 h-px bg-[#818CF8]" />
             </div>
             <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-4">
               Get an Instant<br />

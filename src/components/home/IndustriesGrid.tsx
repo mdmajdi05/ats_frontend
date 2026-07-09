@@ -59,15 +59,13 @@ export default function IndustriesGrid() {
 
       <div className="relative max-w-7xl mx-auto px-6 z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 text-orange text-xs font-bold uppercase tracking-widest mb-4 px-4 py-1.5 bg-orange/5 rounded-full border border-orange/10">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
-            What We Serve
-            <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" />
+          <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+            <span className="w-6 h-px bg-brand" /> Industries <span className="w-6 h-px bg-brand" />
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-text tracking-tight max-w-2xl mx-auto leading-tight">
+          <h2 className="text-3xl lg:text-4xl font-bold text-text">
             Industries We Supply
           </h2>
-          <p className="text-text-muted mt-4 text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-text-muted mt-3 max-w-2xl mx-auto">
             Certified aerospace components for every critical sector — from commercial aviation to defense and beyond.
           </p>
         </div>

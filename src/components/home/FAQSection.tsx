@@ -44,13 +44,13 @@ export default function FAQSection() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 text-[#4F46E5] text-sm font-semibold uppercase tracking-wider mb-3">
-              <span className="w-6 h-px bg-[#4F46E5]" /> FAQ
+            <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
+              <span className="w-6 h-px bg-brand" /> FAQ <span className="w-6 h-px bg-brand" />
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-[#0A1628] mb-3">
+            <h2 className="text-3xl lg:text-4xl font-bold text-text mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-[#4A4A6A]/80">
+            <p className="text-text-muted">
               Quick answers to common questions about sourcing aerospace parts.
             </p>
           </div>
