@@ -64,3 +64,5 @@ next-env.d.ts
 # ── Misc ────────────────────────────────────────────────────────
 *.tmp
 *.temp
+
+# Lighthouse cache.lighthouse/
