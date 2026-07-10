@@ -4,9 +4,9 @@ export const COMPANY_INFO = {
   cageCode: '8ATR9',
   phone: '+91 9354764587',
   emails: {
-    rfq: 'rfq@aeroturbinespare.com',
-    info: 'info@aeroturbinespare.com',
-    quality: 'quality@aeroturbinespare.com',
+    sales: 'sales@aeroturbinespare.com',
+    contact: 'contact@aeroturbinespare.com',
+    support: 'support@aeroturbinespare.com',
   },
   address: 'A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044',
   certifications: ['ISO 9001', 'AS9120B'],

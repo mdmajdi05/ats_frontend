@@ -18,7 +18,7 @@ export const siteConfig = {
     country: 'IN',
   },
   phone: '+919354764587',
-  email: 'rfq@aeroturbinespare.com',
+  email: 'sales@aeroturbinespare.com',
   cageCode: '8ATR9',
   certifications: ['ISO 9001:2015', 'AS9120 Rev B'],
 };

@@ -72,7 +72,7 @@ function partBodyToDB(body: Record<string, unknown>): Record<string, unknown> {
 }
 
 // ─── Real API call ──────────────────────────────────────────
-async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
+async function realRequest<T>(endpoint: string, options?: RequestInit, opts?: { publicEndpoint?: boolean }): Promise<T> {
   const method = options?.method?.toUpperCase() || 'GET';
   const [path, qs] = endpoint.split('?');
 
@@ -236,11 +236,14 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
       throw new Error((retryErr.error as string) || (retryErr.message as string) || `API Error ${retryRes.status}`);
     }
 
-    // Refresh failed — clear session and redirect
+    // Refresh failed — clear session
     clearTokens();
-    if (typeof window !== 'undefined') {
-      if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
-        window.location.href = '/login';
+    // Public endpoints pe 401 aane par redirect nahi, bas error throw
+    if (!opts?.publicEndpoint) {
+      if (typeof window !== 'undefined') {
+        if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
+          window.location.href = '/login';
+        }
       }
     }
     const err = await res.json().catch(() => ({})) as Record<string, unknown>;
@@ -1058,7 +1061,7 @@ function getDefaultSettings(): SystemSettings {
     siteUrl: 'https://aeroturbinespare.com',
     maintenanceMode: false,
     allowRegistration: true,
-    rfqEmailRecipient: 'rfq@aeroturbinespare.com',
+    rfqEmailRecipient: 'sales@aeroturbinespare.com',
     smtpHost: 'smtp.sendgrid.net',
     smtpPort: 587,
     smtpUser: 'apikey',
@@ -1133,11 +1136,16 @@ function getMockBackups(): BackupRecord[] {
 }
 
 // ─── Public request function ─────────────────────────────────
+const PUBLIC_ENDPOINTS = new Set([
+  '/products', '/categories', '/testimonials', '/nav-categories',
+  '/config', '/industries', '/health', '/branding',
+]);
+
 export async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   if (USE_MOCK) {
     await ensureMockData();
     await delay(DELAY);
     return mockRouter<T>(endpoint, options);
   }
-  return realRequest<T>(endpoint, options);
+  return realRequest<T>(endpoint, options, { publicEndpoint: PUBLIC_ENDPOINTS.has(endpoint.split('?')[0]) });
 }

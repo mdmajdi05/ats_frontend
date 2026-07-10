@@ -242,10 +242,10 @@ export default function TermsPage() {
                 <p>
                   Questions about these Terms? Contact our legal department at{' '}
                   <a
-                    href="mailto:legal@aeroturbinespare.com"
+                    href="mailto:contact@aeroturbinespare.com"
                     className="text-orange hover:underline"
                   >
-                    legal@aeroturbinespare.com
+contact@aeroturbinespare.com
                   </a>{' '}
                   or by mail at AeroTurbineSpare, Inc., A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044, India.
                 </p>

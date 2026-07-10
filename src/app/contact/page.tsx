@@ -44,21 +44,21 @@ const CONTACT_CARDS = [
   {
     icon: MessageSquare,
     title: 'General Inquiries',
-    email: 'info@aeroturbinespare.com',
+    email: 'contact@aeroturbinespare.com',
     description: 'Company information, partnerships, supplier inquiries, and general questions.',
     response: 'Response within 1 business day',
   },
   {
     icon: FileText,
     title: 'RFQ Submissions',
-    email: 'rfq@aeroturbinespare.com',
+    email: 'sales@aeroturbinespare.com',
     description: 'Requests for quote, pricing inquiries, and part availability checks.',
     response: '24-hour quote guarantee',
   },
   {
     icon: Shield,
     title: 'Quality Issues',
-    email: 'quality@aeroturbinespare.com',
+    email: 'support@aeroturbinespare.com',
     description: 'Certificate requests, non-conformance reports, and quality escalations.',
     response: 'Same-day acknowledgment',
   },
@@ -105,7 +105,7 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-screen">
       <Head>
         <title>Contact Us | AeroTurbineSpare</title>
-        <meta name="description" content="Contact AeroTurbineSpare for aerospace parts sourcing. Call +91 9354764587, email rfq@aeroturbinespare.com, or submit an RFQ. AOG emergency line available 24/7." />
+        <meta name="description" content="Contact AeroTurbineSpare for aerospace parts sourcing. Call +91 9354764587, email sales@aeroturbinespare.com, or submit an RFQ. AOG emergency line available 24/7." />
       </Head>
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
@@ -198,10 +198,10 @@ export default function ContactPage() {
                     <div className="flex items-center gap-3 text-sm">
                       <Mail className="w-5 h-5 text-orange flex-shrink-0" />
                       <a
-                        href="mailto:rfq@aeroturbinespare.com"
+                        href="mailto:sales@aeroturbinespare.com"
                         className="text-text hover:text-orange transition-colors"
                       >
-                        rfq@aeroturbinespare.com
+                        sales@aeroturbinespare.com
                       </a>
                     </div>
                   </div>

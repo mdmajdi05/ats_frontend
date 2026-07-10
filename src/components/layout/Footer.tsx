@@ -78,8 +78,8 @@ export default function Footer() {
               <a href="tel:+919354764587" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
                 <Phone className="w-4 h-4 text-orange flex-shrink-0" /> +91 9354764587
               </a>
-              <a href="mailto:rfq@aeroturbinespare.com" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
-                <Mail className="w-4 h-4 text-orange flex-shrink-0" /> rfq@aeroturbinespare.com
+              <a href="mailto:sales@aeroturbinespare.com" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
+                <Mail className="w-4 h-4 text-orange flex-shrink-0" /> sales@aeroturbinespare.com
               </a>
               <div className="flex items-start gap-2 text-sm">
                 <MapPin className="w-4 h-4 text-orange flex-shrink-0 mt-0.5" />

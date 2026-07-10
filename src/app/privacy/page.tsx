@@ -34,10 +34,10 @@ export default function PrivacyPage() {
                   have regarding your personal data when you use our website and
                   services. If you have any questions, contact us at{' '}
                   <a
-                    href="mailto:privacy@aeroturbinespare.com"
+                    href="mailto:contact@aeroturbinespare.com"
                     className="text-orange hover:underline"
                   >
-                    privacy@aeroturbinespare.com
+                    contact@aeroturbinespare.com
                   </a>
                   .
                 </p>
@@ -265,10 +265,10 @@ export default function PrivacyPage() {
                   <p>
                     To exercise any of these rights, contact us at{' '}
                     <a
-                      href="mailto:privacy@aeroturbinespare.com"
+                      href="mailto:contact@aeroturbinespare.com"
                       className="text-orange hover:underline"
                     >
-                      privacy@aeroturbinespare.com
+                      contact@aeroturbinespare.com
                     </a>
                     . We will respond within 30 days. For EU/UK residents,
                     you also have the right to lodge a complaint with your local
@@ -339,19 +339,19 @@ export default function PrivacyPage() {
                     <p className="mt-2">
                       Privacy inquiries:{' '}
                       <a
-                        href="mailto:privacy@aeroturbinespare.com"
+                        href="mailto:contact@aeroturbinespare.com"
                         className="text-orange hover:underline"
                       >
-                        privacy@aeroturbinespare.com
+                        contact@aeroturbinespare.com
                       </a>
                     </p>
                     <p>
                       General contact:{' '}
                       <a
-                        href="mailto:info@aeroturbinespare.com"
+                        href="mailto:contact@aeroturbinespare.com"
                         className="text-orange hover:underline"
                       >
-                        info@aeroturbinespare.com
+contact@aeroturbinespare.com
                       </a>
                     </p>
                     <p>

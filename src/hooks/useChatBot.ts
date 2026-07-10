@@ -101,7 +101,7 @@ export function useChatBot() {
           `3️⃣ Fill in quantity, urgency, and shipping details\n` +
           `4️⃣ Receive your quote within **24 hours**\n\n` +
           `👉 [Start an RFQ Now](/rfq)\n\n` +
-          `Or you can email us directly at rfq@aeroturbinespare.com`,
+          `Or you can email us directly at sales@aeroturbinespare.com`,
           [
             { label: '📝 Start RFQ', payload: 'I want to start an RFQ' },
             { label: '📞 Call Us', payload: 'What is your phone number?' },
@@ -114,7 +114,7 @@ export function useChatBot() {
         reply = buildMessage(
           `Great! Let's get you started with a quote.\n\n` +
           `👉 [Click here to submit an RFQ](/rfq)\n\n` +
-          `You can also email your requirements to **rfq@aeroturbinespare.com** or call us at **+91 9354764587** for immediate assistance.`,
+          `You can also email your requirements to **sales@aeroturbinespare.com** or call us at **+91 9354764587** for immediate assistance.`,
           [
             { label: '🚀 Go to RFQ Page', payload: 'Open RFQ page' },
             { label: '📞 Call Now', payload: 'Call AeroTurbineSpare' },
@@ -142,9 +142,9 @@ export function useChatBot() {
       case 'contact_info':
         reply = buildMessage(
           `📞 **Phone:** +91 9354764587\n` +
-          `📧 **RFQ:** rfq@aeroturbinespare.com\n` +
-          `📧 **General:** info@aeroturbinespare.com\n` +
-          `📧 **Quality:** quality@aeroturbinespare.com\n\n` +
+          `📧 **RFQ:** sales@aeroturbinespare.com\n` +
+          `📧 **General:** contact@aeroturbinespare.com\n` +
+          `📧 **Quality:** support@aeroturbinespare.com\n\n` +
           `📍 **Address:** ${COMPANY_INFO.address}\n\n` +
           `⏰ **Support Hours:** 24/7 for AOG emergencies\n` +
           `📋 **Quote Response:** Within 24 business hours`,
@@ -240,7 +240,7 @@ export function useChatBot() {
         reply = buildMessage(
           `I'll connect you with our team. In the meantime, you can:\n\n` +
           `📞 **Call us:** +91 9354764587\n` +
-          `📧 **Email us:** info@aeroturbinespare.com\n\n` +
+          `📧 **Email us:** contact@aeroturbinespare.com\n\n` +
           `Our team typically responds within **2-4 hours** during business hours.`,
           [
             { label: '📞 Call Now', payload: 'Call +91 9354764587' },

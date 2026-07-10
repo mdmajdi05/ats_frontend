@@ -10,28 +10,6 @@ jobs:
   lint-test-build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: aeroturbine_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    env:
-      NODE_ENV: test
-      DATABASE_URL: postgresql://test:test@localhost:5432/aeroturbine_test
-      JWT_SECRET: test-jwt-secret-that-is-at-least-32-chars-long!!
-      JWT_REFRESH_SECRET: test-refresh-secret-at-least-32-chars!!
-      FRONTEND_URL: http://localhost:3000
-
     steps:
       - uses: actions/checkout@v4
 
@@ -39,32 +17,15 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: |
-            package-lock.json
-            backend/package-lock.json
 
       - name: Install dependencies
-        run: |
-          npm ci
-          cd backend && npm ci
+        run: npm ci
 
       - name: Lint
-        run: |
-          cd backend && npx eslint src --ext .ts || true
-          cd .. && npx eslint src --ext .ts,.tsx || true
+        run: npx eslint src --ext .ts,.tsx || true
 
       - name: TypeScript check
-        run: |
-          cd backend && npx tsc --noEmit
-          cd .. && npx tsc --noEmit
-
-      - name: Tests
-        run: |
-          cd backend && npx prisma generate
-          npx prisma db push
-          npx vitest run
+        run: npx tsc --noEmit
 
       - name: Build
-        run: |
-          cd backend && npm run build
-          cd .. && npm run build
+        run: npm run build

@@ -355,10 +355,10 @@ export default function AboutPage() {
                     <li className="flex items-center gap-3 text-sm">
                       <Mail className="w-5 h-5 text-orange flex-shrink-0" />
                       <a
-                        href="mailto:info@aeroturbinespare.com"
+                        href="mailto:contact@aeroturbinespare.com"
                         className="text-text hover:text-orange transition-colors"
                       >
-                        info@aeroturbinespare.com
+contact@aeroturbinespare.com
                       </a>
                     </li>
                   </ul>
