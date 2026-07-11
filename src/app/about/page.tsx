@@ -134,8 +134,8 @@ export default function AboutPage() {
                     AeroTurbineSpare was founded in 2009 by a team of aerospace
                     procurement veterans who experienced firsthand the frustration
                     of sourcing certified parts under AOG pressure. Headquartered
-                    in Houston, Texas — the heart of the U.S. energy and aviation
-                    corridor — we set out to build the platform we always wished
+                    in Doral, Florida — at the crossroads of Americas and Atlantic
+                    trade routes — we set out to build the platform we always wished
                     existed.
                   </p>
                   <p>
@@ -340,7 +340,7 @@ export default function AboutPage() {
                       <MapPin className="w-5 h-5 text-orange flex-shrink-0 mt-0.5" />
                       <div>
                         <div className="font-semibold text-text">Headquarters</div>
-                       <span>A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, <br />New Delhi, Delhi 110044</span>
+                       <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
                       </div>
                     </li>
                     <li className="flex items-center gap-3 text-sm">
@@ -371,8 +371,8 @@ contact@aeroturbinespare.com
                   </h3>
                   <dl className="space-y-2 text-sm">
                     {[
-                      { day: 'Monday – Friday', hours: '7:00 AM – 7:00 PM CST' },
-                      { day: 'Saturday', hours: '9:00 AM – 3:00 PM CST' },
+                      { day: 'Monday – Friday', hours: '7:00 AM – 7:00 PM EST' },
+                      { day: 'Saturday', hours: '9:00 AM – 3:00 PM EST' },
                       { day: 'Sunday', hours: 'Closed (AOG line active)' },
                     ].map((row) => (
                       <div key={row.day} className="flex justify-between gap-4">
@@ -394,7 +394,7 @@ contact@aeroturbinespare.com
                   <MapPin className="w-10 h-10 mx-auto mb-2 opacity-40" />
                   <div className="text-sm font-medium">Map Placeholder</div>
                   <div className="text-xs mt-1">
-                    A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, <br />New Delhi, Delhi 110044
+                    1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA
                   </div>
                 </div>
               </div>

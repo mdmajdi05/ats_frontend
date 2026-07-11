@@ -247,7 +247,7 @@ export default function TermsPage() {
                   >
 contact@aeroturbinespare.com
                   </a>{' '}
-                  or by mail at AeroTurbineSpare, Inc., A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044, India.
+                   or by mail at AeroTurbineSpare, Inc., 1360-1362 NW 78th Ave, Doral, FL 33126, USA.
                 </p>
               </div>
             </div>

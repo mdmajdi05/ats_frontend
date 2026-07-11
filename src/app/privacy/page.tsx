@@ -335,7 +335,7 @@ export default function PrivacyPage() {
                   </p>
                   <div className="bg-bg border border-silver rounded-xl px-5 py-4">
                     <p className="font-semibold text-text">AeroTurbineSpare, Inc.</p>
-                    <p>A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, <br />New Delhi, Delhi 110044</p>
+                    <p>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</p>
                     <p className="mt-2">
                       Privacy inquiries:{' '}
                       <a

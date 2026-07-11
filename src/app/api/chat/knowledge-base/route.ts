@@ -16,7 +16,7 @@ const DEFAULT_KB = [
     id: 'kb-2',
     category: 'contact',
     question: 'What is your phone number and email?',
-    answer: 'You can reach us at:\n\n📞 **Phone:** +91 9354764587\n📧 **RFQ Email:** sales@aeroturbinespare.com\n📧 **General:** contact@aeroturbinespare.com\n\n**Address:** A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044',
+    answer: 'You can reach us at:\n\n📞 **Phone:** +91 9354764587\n📧 **RFQ Email:** sales@aeroturbinespare.com\n📧 **General:** contact@aeroturbinespare.com\n\n**Address:** 1360-1362 NW 78th Ave, Doral, FL 33126, USA',
     keywords: ['phone', 'email', 'contact', 'call', 'address'],
     priority: 7,
     isActive: true,

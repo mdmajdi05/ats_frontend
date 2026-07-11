@@ -17,7 +17,7 @@ const FAQS = [
   {
     question: 'Do you ship internationally?',
     answer:
-      'Yes, we ship to over 150 countries worldwide. We handle all logistics including export documentation, customs clearance, and Incoterms management. Our global logistics network ensures reliable delivery whether you are in North America, Europe, Asia, or the Middle East.',
+      'Yes, we ship to over 150 countries worldwide. We handle all logistics including export documentation, customs clearance, and Incoterms management. Our global logistics network ensures reliable delivery whether you are in Europe, the Middle East, Asia, or North America.',
   },
   {
     question: 'What is a CAGE code and why is it important?',

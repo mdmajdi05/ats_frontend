@@ -186,7 +186,7 @@ export default function ContactPage() {
                         <div className="font-semibold text-text mb-0.5">
                           AeroTurbineSpare, Inc.
                         </div>
-                        <span>A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, <br />New Delhi, Delhi 110044</span>
+                        <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 text-sm">
@@ -218,8 +218,8 @@ export default function ContactPage() {
                   </h2>
                   <dl className="space-y-2 text-sm">
                     {[
-                      { day: 'Mon – Fri', hours: '7:00 AM – 7:00 PM CST' },
-                      { day: 'Saturday', hours: '9:00 AM – 3:00 PM CST' },
+                      { day: 'Mon – Fri', hours: '7:00 AM – 7:00 PM EST' },
+                      { day: 'Saturday', hours: '9:00 AM – 3:00 PM EST' },
                       { day: 'Sunday', hours: 'Closed' },
                     ].map((row) => (
                       <div

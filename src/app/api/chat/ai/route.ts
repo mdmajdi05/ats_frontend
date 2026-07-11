@@ -14,7 +14,7 @@ Company info:
 - Name: AeroTurbineSpare
 - Phone: +91 9354764587
 - Email: sales@aeroturbinespare.com
-- Address: A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044
+- Address: 1360-1362 NW 78th Ave, Doral, FL 33126, USA
 - Certifications: ISO 9001, AS9120B
 - CAGE Code: 8ATR9
 - Inventory: 55,000+ parts

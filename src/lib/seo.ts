@@ -11,11 +11,11 @@ export const siteConfig = {
   twitterHandle: '@AeroTurbineSpare',
   locale: 'en_US',
   address: {
-    street: 'A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate',
-    city: 'New Delhi',
-    state: 'Delhi',
-    zip: '110044',
-    country: 'IN',
+    street: '1360-1362 NW 78th Ave',
+    city: 'Doral',
+    state: 'FL',
+    zip: '33126',
+    country: 'US',
   },
   phone: '+919354764587',
   email: 'sales@aeroturbinespare.com',
@@ -189,7 +189,7 @@ export const HOMEPAGE_FAQ = [
   },
   {
     question: 'Do you ship to my country?',
-    answer: 'We ship to over 150 countries worldwide through our global logistics network. We handle all export compliance and ITAR documentation. Whether you are in North America, Europe, Asia, Africa, or the Middle East, we can deliver to your facility.',
+    answer: 'We ship to over 150 countries worldwide through our global logistics network. We handle all export compliance and ITAR documentation. Whether you are in Europe, the Middle East, Asia, Africa, or North America, we can deliver to your facility.',
   },
   {
     question: 'What is your AOG (Aircraft on Ground) response time?',

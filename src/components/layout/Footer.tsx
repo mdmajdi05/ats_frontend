@@ -63,7 +63,7 @@ export default function Footer() {
             <AeroLogo variant="white" src="/logo.png" showText={false} />
             <p className="text-sm leading-relaxed text-silver/70">
               US-based aerospace parts procurement platform. ISO 9001 &amp; AS9120 certified.
-              Serving OEMs, MROs, military contractors, and procurement professionals worldwide.
+              Serving OEMs, MROs, military contractors, and procurement professionals across Europe, the Middle East, and worldwide.
             </p>
             {/* Trust badges */}
             <div className="flex flex-wrap gap-2 pt-2">
@@ -83,7 +83,7 @@ export default function Footer() {
               </a>
               <div className="flex items-start gap-2 text-sm">
                 <MapPin className="w-4 h-4 text-orange flex-shrink-0 mt-0.5" />
-                <span>A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, <br />New Delhi, Delhi 110044</span>
+                <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
               </div>
             </div>
           </div>

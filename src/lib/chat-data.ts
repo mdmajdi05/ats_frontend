@@ -8,7 +8,7 @@ export const COMPANY_INFO = {
     contact: 'contact@aeroturbinespare.com',
     support: 'support@aeroturbinespare.com',
   },
-  address: 'A- 24/5 3rd floor, NH - 19, Mohan Cooperative Industrial Estate, New Delhi, Delhi 110044',
+  address: '1360-1362 NW 78th Ave, Doral, FL 33126, USA',
   certifications: ['ISO 9001', 'AS9120B'],
   founded: '2018',
   website: 'https://aeroturbinespare.com',
