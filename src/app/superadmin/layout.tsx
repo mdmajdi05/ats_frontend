@@ -6,9 +6,11 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard, Users, Settings,
   Download, Shield, ChevronRight, LogOut,
-  Bell, Database, ScrollText,
+  Bell, Database, ScrollText, ToggleLeft,
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import PendingBadge from '@/components/admin/PendingBadge';
+import NotificationBadge from '@/components/notifications/NotificationBadge';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import AeroLogo from '@/components/branding/AeroLogo';
@@ -16,6 +18,7 @@ import AeroLogo from '@/components/branding/AeroLogo';
 const SA_NAV = [
   { href: '/superadmin',             icon: LayoutDashboard, label: 'SA Dashboard',   exact: true },
   { href: '/superadmin/users',       icon: Users,           label: 'All Users'       },
+  { href: '/superadmin/features',    icon: ToggleLeft,      label: 'Feature Delegation' },
   { href: '/superadmin/audit-logs',  icon: ScrollText,      label: 'Audit Logs'      },
   { href: '/superadmin/settings',    icon: Settings,        label: 'System Settings' },
   { href: '/superadmin/backup',      icon: Database,        label: 'DB Backup'       },
@@ -104,11 +107,20 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
           <Link href="/admin" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:bg-white/5 hover:text-white/80 transition-colors">
             <LayoutDashboard className="w-4 h-4" /> Admin Panel
           </Link>
+          <Link href="/admin/pending-submissions" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:bg-white/5 hover:text-white/80 transition-colors">
+            <Database className="w-4 h-4" /> Pending <PendingBadge />
+          </Link>
+          <Link href="/admin/notifications" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:bg-white/5 hover:text-white/80 transition-colors">
+            <Bell className="w-4 h-4" /> Notifications <NotificationBadge />
+          </Link>
+          <Link href="/superadmin/notification-settings" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-purple-400/50 hover:bg-purple-900/20 hover:text-purple-300 transition-colors">
+            <Settings className="w-4 h-4" /> Notification Settings
+          </Link>
         </nav>
 
         <div className="px-3 py-3 border-t border-purple-900/30 space-y-1">
-          <Link href="/superadmin" className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs text-purple-300/50 hover:text-white hover:bg-purple-900/20 transition-colors">
-            <Bell className="w-4 h-4" /> Notifications
+          <Link href="/admin/notifications" className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs text-purple-300/50 hover:text-white hover:bg-purple-900/20 transition-colors">
+            <Bell className="w-4 h-4" /> Notifications <NotificationBadge />
           </Link>
           <button
             onClick={handleLogout}

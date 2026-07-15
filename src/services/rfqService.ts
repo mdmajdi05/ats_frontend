@@ -27,3 +27,11 @@ export async function getMyRFQs(): Promise<RFQ[]> {
   const res = await request<{ success: boolean; data: RFQ[] }>('/dashboard/rfqs');
   return res.data;
 }
+
+export async function acceptQuote(rfqId: string): Promise<void> {
+  await request(`/dashboard/rfqs/${rfqId}/accept`, { method: 'POST' });
+}
+
+export async function rejectQuote(rfqId: string): Promise<void> {
+  await request(`/dashboard/rfqs/${rfqId}/reject`, { method: 'POST' });
+}

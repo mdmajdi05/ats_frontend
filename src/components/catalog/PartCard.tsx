@@ -33,12 +33,12 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
         )}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="part-number text-xs font-bold text-navy">{product.partNumber}</span>
+            <span className="text-xs font-bold text-navy">{product.partNumber}</span>
             <Badge label={product.stockStatus} type="stock" />
             <Badge label={product.condition} type="condition" />
           </div>
           <p className="text-sm text-text truncate">{product.shortDescription}</p>
-          <p className="text-xs text-text-muted mt-0.5">NSN: <span className="part-number">{product.nsn}</span> · CAGE: <span className="part-number">{product.cage}</span> · {product.manufacturer}</p>
+          <p className="text-xs text-text-muted mt-0.5">NSN: <span>{product.nsn}</span> · CAGE: <span>{product.cage}</span> · {product.manufacturer}</p>
         </div>
         <div className="flex items-center gap-4 flex-shrink-0">
           <div className="text-right" />
@@ -79,14 +79,14 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
         </div>
 
         <div className="mb-3 flex-1">
-          <div className="part-number text-sm font-bold text-navy mb-1">{product.partNumber}</div>
+          <div className="text-sm font-bold text-navy mb-1">{product.partNumber}</div>
           <h3 className="text-sm text-text font-medium leading-snug line-clamp-2">{product.shortDescription}</h3>
           <p className="text-xs text-text-muted mt-1">{product.manufacturer}</p>
         </div>
 
         <div className="flex gap-3 text-[11px] text-text-muted mb-4 bg-bg rounded-lg p-2">
-          <div><span className="text-text-muted/60">NSN</span><br /><span className="part-number text-text font-medium">{product.nsn}</span></div>
-          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/60">CAGE</span><br /><span className="part-number text-text font-medium">{product.cage}</span></div>
+          <div><span className="text-text-muted/60">NSN</span><br /><span className="text-text font-medium">{product.nsn}</span></div>
+          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/60">CAGE</span><br /><span className="text-text font-medium">{product.cage}</span></div>
           <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/60">Qty</span><br /><span className="text-text font-medium">{product.quantityAvailable}</span></div>
         </div>
 

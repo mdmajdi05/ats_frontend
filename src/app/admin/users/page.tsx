@@ -12,8 +12,10 @@ import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 const ROLE_COLORS: Record<UserRole, string> = {
+  Dev:            'bg-emerald-100 text-emerald-800',
   SuperAdmin:     'bg-purple-100 text-purple-800',
   Admin:          'bg-[#0A1628]/10 text-[#0A1628]',
+  SEOManager:     'bg-cyan-100 text-cyan-800',
   ContentManager: 'bg-green-100 text-green-800',
   Trader:         'bg-blue-100 text-blue-800',
   User:           'bg-gray-100 text-gray-600',

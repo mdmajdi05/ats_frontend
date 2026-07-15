@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FileText, ChevronDown, ChevronUp, Plus } from 'lucide-react';
-import { getMyRFQs } from '@/services/rfqService';
+import { FileText, ChevronDown, ChevronUp, Plus, Check, X } from 'lucide-react';
+import { getMyRFQs, acceptQuote, rejectQuote } from '@/services/rfqService';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { SkeletonTable } from '@/components/ui/Skeleton';
 import { cn, formatDate, formatPrice } from '@/lib/utils';
 import type { RFQ } from '@/types';
+import toast from 'react-hot-toast';
 
 type StatusFilter = 'All' | 'Pending' | 'Under Review' | 'Quoted' | 'Ordered' | 'Cancelled';
 
@@ -107,6 +108,36 @@ function RFQRow({ rfq }: { rfq: RFQ }) {
                 <div className="sm:col-span-2 lg:col-span-3">
                   <div className="font-semibold text-navy mb-1.5">Special Instructions</div>
                   <p className="text-text-muted">{rfq.specialInstructions}</p>
+                </div>
+              )}
+              {rfq.status === 'Quoted' && (
+                <div className="sm:col-span-2 lg:col-span-3 flex gap-3 pt-2">
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      try {
+                        await acceptQuote(rfq.id);
+                        toast.success('Quote accepted!');
+                        window.location.reload();
+                      } catch { toast.error('Failed to accept quote'); }
+                    }}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors"
+                  >
+                    <Check className="w-3.5 h-3.5" /> Accept Quote
+                  </button>
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      try {
+                        await rejectQuote(rfq.id);
+                        toast.success('Quote rejected');
+                        window.location.reload();
+                      } catch { toast.error('Failed to reject quote'); }
+                    }}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-100 text-red-700 text-xs font-semibold hover:bg-red-200 transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" /> Reject Quote
+                  </button>
                 </div>
               )}
             </div>

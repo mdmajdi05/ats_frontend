@@ -293,6 +293,7 @@ export default function LoginPage() {
             {/* Demo hint */}
             <div className="mt-5 rounded-lg bg-navy/4 border border-silver px-4 py-3 space-y-1">
               <p className="text-xs text-text-muted text-center font-semibold text-navy mb-1">Demo accounts:</p>
+              <p className="text-xs text-text-muted text-center">Dev: mdmajdi05@gmail.com&nbsp;/&nbsp;password</p>
               <p className="text-xs text-text-muted text-center">SuperAdmin: superadmin@aeroturbinespare.com&nbsp;/&nbsp;SuperAdmin@2025!</p>
               <p className="text-xs text-text-muted text-center">Admin: admin@aeroturbinespare.com&nbsp;/&nbsp;Admin@2025!</p>
               <p className="text-xs text-text-muted text-center">Trader: trader@aeroturbinespare.com&nbsp;/&nbsp;Trader@2025!</p>

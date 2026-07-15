@@ -40,7 +40,7 @@ export default function HowItWorks() {
             From initial inquiry to delivery, we make aerospace parts procurement effortless.
           </p>
         </div>
-        <div className="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {STEPS.map(({ icon: Icon, step, title, desc }, i) => (
             <div key={step} className="relative">
               {i < STEPS.length - 1 && (

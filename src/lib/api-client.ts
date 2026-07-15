@@ -46,6 +46,58 @@ function delay(ms: number) {
   return new Promise<void>((r) => setTimeout(r, ms));
 }
 
+// ─── Pending queue fallback (production: DB down → server-side file) ──
+const QUEUEABLE_PATHS = ['/rfq/submit', '/contact/submit', '/auth/register', '/inventory/submit'];
+
+function isWriteOp(method?: string): boolean {
+  return !!method && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method.toUpperCase());
+}
+
+function isQueueable(path: string): boolean {
+  return QUEUEABLE_PATHS.some((p) => path.startsWith(p));
+}
+
+function pendingType(path: string): string {
+  if (path.startsWith('/rfq')) return 'rfq';
+  if (path.startsWith('/contact')) return 'contact';
+  if (path.startsWith('/auth/register')) return 'registration';
+  if (path.startsWith('/inventory')) return 'inventory';
+  return 'unknown';
+}
+
+async function queuePending(endpoint: string, options?: RequestInit): Promise<void> {
+  try {
+    const body = options?.body ? JSON.parse(options.body as string) : {};
+    await fetch('/api/pending', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: pendingType(endpoint),
+        data: { endpoint, method: options?.method || 'POST', body },
+        source: USE_MOCK ? 'mock-fallback' : 'real-api-fallback',
+      }),
+    });
+  } catch { /* silent */ }
+}
+
+async function autoNotify(type: string, title: string, message: string, extra?: Record<string, string>) {
+  try {
+    const forRole = type.startsWith('rfq_') && !type.startsWith('rfq_submitted') ? 'User' : 'Admin';
+    await fetch('/api/notifications', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type,
+        title,
+        message,
+        forRole,
+        ...extra,
+        source: USE_MOCK ? 'mock-fallback' : 'real-api-fallback',
+      }),
+    });
+    appendAuditLog({ action: 'NOTIFICATION_CREATED', resource: 'notification', details: `${type}: ${title}` });
+  } catch { /* silent */ }
+}
+
 // ─── Enum value maps (frontend display ↔ DB enum) ───────────
 const STOCK_TO_DB: Record<string, string> = {
   'In Stock': 'InStock', 'On Order': 'OnOrder',
@@ -112,6 +164,11 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
   else if (path.startsWith('/products/'))                                     realPath = path.replace('/products/', '/parts/');
   else if (path === '/rfq/submit')                                            realPath = '/rfqs';
   else if (path === '/dashboard/rfqs')                                        realPath = '/rfqs/my';
+  else if (path.match(/^\/dashboard\/rfqs\/(.+)\/(accept|reject)$/)) {
+    const match = path.match(/^\/dashboard\/rfqs\/(.+)\/(accept|reject)$/);
+    realPath = `/rfqs/${match![1]}/status`;
+    realBody = match![2] === 'accept' ? JSON.stringify({ status: 'Accepted' }) : JSON.stringify({ status: 'Cancelled' });
+  }
   else if (path === '/dashboard/orders')                                      realPath = '/dashboard/orders';
   else if (path === '/dashboard/saved')                                       realPath = '/dashboard/saved-parts';
   else if (path.startsWith('/dashboard/saved/'))
@@ -145,6 +202,12 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
     realPath = path; // already correct
   else if (path.startsWith('/admin/users/') && path.endsWith('/change-email'))
     realPath = path; // already correct
+  else if (path.startsWith('/admin/users/') && (path.endsWith('/ban') || path.endsWith('/unban')))
+    realPath = path; // passed through
+  else if (path === '/admin/transfer-ownership')
+    realPath = path; // passed through
+  else if (path.startsWith('/admin/impersonate/'))
+    realPath = path; // passed through
   // ── Excel live-feed endpoints ──────────────────────────────
   else if (path === '/admin/excel/status')     realPath = '/admin/excel/status';
   else if (path === '/admin/excel/rows')        realPath = '/admin/excel/rows';
@@ -251,13 +314,15 @@ async function realRequest<T>(endpoint: string, options?: RequestInit): Promise<
 
     // Refresh failed — clear session
     clearTokens();
-    // Sirf tab redirect karo jab user ke paas session tha (token expired)
-    // Bina session ke 401 public endpoints ke liye normal hai — redirect mat karo
-    if (session) {
-      if (typeof window !== 'undefined') {
-        if (!window.location.pathname.startsWith('/login') && !window.location.pathname.startsWith('/register')) {
-          window.location.href = '/login';
-        }
+    // Redirect sirf protected pages pr, public pages pr nahi
+    // Homepage, catalog, parts, blog etc. ko redirect nahi karna
+    if (session && typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const isPublicPage = !path.startsWith('/dashboard') && !path.startsWith('/admin')
+        && !path.startsWith('/superadmin') && !path.startsWith('/dev')
+        && !path.startsWith('/inventory');
+      if (!isPublicPage && !path.startsWith('/login') && !path.startsWith('/register')) {
+        window.location.href = '/login';
       }
     }
     const err = await res.json().catch(() => ({})) as Record<string, unknown>;
@@ -422,6 +487,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
     const session: AuthResponse = { success: true, token: 'mock-jwt-' + newUser.id, user: newUser };
     lsSet('ats_session', session);
     appendAuditLog({ action: 'REGISTER', resource: 'auth', resourceId: newUser.id, details: `New user registered: ${newUser.email}` });
+    autoNotify('user_registered', 'New User Registration', `${body.fullName || body.email} registered an account`, { fromName: body.fullName || body.email });
     return { success: true, message: 'Registration successful' } as T;
   }
 
@@ -571,6 +637,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
     };
     const existing = ls<Record<string, unknown>[]>('ats_contact_submissions', []);
     lsSet('ats_contact_submissions', [submission, ...existing]);
+    autoNotify('contact_submitted', 'New Contact Form', `${body.name || 'Someone'} sent a message: ${body.subject || 'No subject'}`, { fromName: body.name || 'Unknown' });
     return { success: true, data: submission, message: 'Message sent successfully' } as T;
   }
 
@@ -626,6 +693,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
     const existing = ls<RFQ[]>('ats_rfqs', []);
     lsSet('ats_rfqs', [rfq, ...existing]);
     appendAuditLog({ action: 'SUBMIT_RFQ', resource: 'rfq', resourceId: rfq.id, details: `RFQ submitted: ${rfq.id}` });
+    autoNotify('rfq_submitted', `New RFQ: ${rfq.id}`, `${body.companyName || 'Unknown'} submitted an RFQ`, { relatedType: 'rfq', relatedId: rfq.id });
     return { success: true, rfqId: rfq.id, message: 'RFQ submitted. Our team will respond within 24 hours.' } as T;
   }
 
@@ -633,6 +701,26 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
   if (path === '/dashboard/rfqs' && method === 'GET') {
     const rfqs = ls<RFQ[]>('ats_rfqs', []);
     return { success: true, data: rfqs } as T;
+  }
+
+  if (path.match(/^\/dashboard\/rfqs\/(.+)\/accept$/) && method === 'POST') {
+    const rfqId = path.match(/^\/dashboard\/rfqs\/(.+)\/accept$/)?.[1] || '';
+    const rfqs = ls<RFQ[]>('ats_rfqs', []).map((r) =>
+      r.id === rfqId ? { ...r, status: 'Accepted' as RFQ['status'], updatedAt: new Date().toISOString() } : r
+    );
+    lsSet('ats_rfqs', rfqs);
+    autoNotify('rfq_accepted', 'RFQ Accepted', `You accepted the quote for RFQ ${rfqId}`, { relatedType: 'rfq', relatedId: rfqId });
+    return { success: true, message: 'Quote accepted' } as T;
+  }
+
+  if (path.match(/^\/dashboard\/rfqs\/(.+)\/reject$/) && method === 'POST') {
+    const rfqId = path.match(/^\/dashboard\/rfqs\/(.+)\/reject$/)?.[1] || '';
+    const rfqs = ls<RFQ[]>('ats_rfqs', []).map((r) =>
+      r.id === rfqId ? { ...r, status: 'Cancelled' as RFQ['status'], updatedAt: new Date().toISOString() } : r
+    );
+    lsSet('ats_rfqs', rfqs);
+    autoNotify('rfq_rejected', 'RFQ Rejected', `You rejected the quote for RFQ ${rfqId}`, { relatedType: 'rfq', relatedId: rfqId });
+    return { success: true, message: 'Quote rejected' } as T;
   }
 
   if (path === '/dashboard/orders' && method === 'GET') {
@@ -687,6 +775,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
     const existing = ls<InventorySubmission[]>('ats_inventory', []);
     lsSet('ats_inventory', [sub, ...existing]);
     appendAuditLog({ action: 'SUBMIT_INVENTORY', resource: 'inventory', resourceId: sub.id });
+    autoNotify('inventory_submitted', 'New Inventory Submission', `${sub.companyName || 'Unknown'} — ${sub.fileName || 'No file'}`, { relatedType: 'inventory', relatedId: sub.id });
     return { success: true, submissionId: sub.id, status: 'Processing' } as T;
   }
 
@@ -773,11 +862,23 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
   if (path.startsWith('/admin/rfqs/') && method === 'PUT') {
     const rfqId = path.split('/admin/rfqs/')[1];
     const body = JSON.parse(options?.body as string || '{}');
-    const rfqs = ls<RFQ[]>('ats_rfqs', []).map((r) =>
+    const allRfqs = ls<RFQ[]>('ats_rfqs', []);
+    const rfqs = allRfqs.map((r) =>
       r.id === rfqId ? { ...r, ...body, updatedAt: new Date().toISOString() } : r
     );
     lsSet('ats_rfqs', rfqs);
     appendAuditLog({ action: 'UPDATE_RFQ', resource: 'rfq', resourceId: rfqId, details: JSON.stringify(body) });
+    if (body.status === 'Quoted' || body.status === 'Accepted' || body.status === 'Rejected') {
+      const rfq = allRfqs.find((r) => r.id === rfqId);
+      if (rfq?.email) {
+        autoNotify(
+          body.status === 'Quoted' ? 'rfq_quoted' : body.status === 'Accepted' ? 'rfq_accepted' : 'rfq_rejected',
+          `RFQ ${body.status === 'Quoted' ? 'Quote Ready' : body.status === 'Accepted' ? 'Accepted' : 'Rejected'}`,
+          `Your RFQ ${rfqId} has been ${body.status.toLowerCase()}`,
+          { forUserId: rfq.email, relatedType: 'rfq', relatedId: rfqId }
+        );
+      }
+    }
     return { success: true, message: 'RFQ updated' } as T;
   }
 
@@ -962,6 +1063,40 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
     const { email } = JSON.parse(options?.body as string || '{}');
     appendAuditLog({ action: 'CHANGE_EMAIL', resource: 'user', resourceId: userId, details: `Email changed to ${email}` });
     return { success: true, message: `Email updated to ${email}` } as T;
+  }
+
+  // ── ADMIN: ban user ──────────────────────────────────────────
+  if (path.match(/\/admin\/users\/[^/]+\/ban/) && method === 'PUT') {
+    const userId = path.split('/admin/users/')[1].replace('/ban', '');
+    const overrides = ls<Record<string, Partial<User>>>('ats_user_overrides', {});
+    overrides[userId] = { ...(overrides[userId] || {}), isActive: false };
+    lsSet('ats_user_overrides', overrides);
+    appendAuditLog({ action: 'BAN_USER', resource: 'user', resourceId: userId, details: `User banned` });
+    return { success: true, message: 'User banned' } as T;
+  }
+
+  // ── ADMIN: unban user ────────────────────────────────────────
+  if (path.match(/\/admin\/users\/[^/]+\/unban/) && method === 'PUT') {
+    const userId = path.split('/admin/users/')[1].replace('/unban', '');
+    const overrides = ls<Record<string, Partial<User>>>('ats_user_overrides', {});
+    overrides[userId] = { ...(overrides[userId] || {}), isActive: true };
+    lsSet('ats_user_overrides', overrides);
+    appendAuditLog({ action: 'UNBAN_USER', resource: 'user', resourceId: userId, details: `User unbanned` });
+    return { success: true, message: 'User unbanned' } as T;
+  }
+
+  // ── ADMIN: transfer ownership ─────────────────────────────────
+  if (path === '/admin/transfer-ownership' && method === 'POST') {
+    const body = JSON.parse(options?.body as string || '{}');
+    appendAuditLog({ action: 'TRANSFER_OWNERSHIP', resource: 'user', resourceId: body.userId, details: `Ownership transferred to ${body.newEmail}` });
+    return { success: true, data: { email: body.newEmail, fullName: body.fullName }, message: 'Ownership transferred' } as T;
+  }
+
+  // ── ADMIN: impersonate user ──────────────────────────────────
+  if (path.match(/\/admin\/impersonate\/.+/) && method === 'POST') {
+    const userId = path.split('/admin/impersonate/')[1];
+    appendAuditLog({ action: 'IMPERSONATE', resource: 'user', resourceId: userId, details: `Impersonating user ${userId}` });
+    return { success: true, data: { token: `mock-jwt-impersonate-${userId}` }, message: 'Impersonation token' } as T;
   }
 
   // ── SITE CONFIG (public read) ────────────────────────────────
@@ -1359,7 +1494,45 @@ export async function request<T>(endpoint: string, options?: RequestInit): Promi
   if (USE_MOCK) {
     await ensureMockData();
     await delay(DELAY);
-    return mockRouter<T>(endpoint, options);
+    const result = await mockRouter<T>(endpoint, options);
+    // Mock mode: write operations also go to pending queue (admin review)
+    if (isWriteOp(options?.method) && isQueueable(endpoint)) {
+      queuePending(endpoint, options);
+    }
+    return result;
   }
-  return realRequest<T>(endpoint, options);
+
+  // Runtime data source check (Dev Dashboard toggle)
+  if (typeof window !== 'undefined') {
+    const ds = localStorage.getItem('ats_data_source');
+    if (ds === 'fallback') {
+      const { fallbackRouter } = await import('./fallback-router');
+      return fallbackRouter<T>(endpoint, options);
+    }
+  }
+
+  // Real mode: try backend, auto-fallback to IndexedDB on failure
+  try {
+    return await realRequest<T>(endpoint, options);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : '';
+    const isNetworkError = msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Network request failed');
+    const isBackendDown = msg.includes('API Error 5') || msg.includes('503') || msg.includes('502') || msg.includes('500');
+    const isQueueableWrite = isWriteOp(options?.method) && isQueueable(endpoint);
+
+    if (isQueueableWrite) {
+      await queuePending(endpoint, options);
+      return { success: true, message: 'Backend unavailable. Saved to pending queue — admin will review.' } as T;
+    }
+
+    // Auto-fallback: backend unreachable → use IndexedDB fallback
+    if (isNetworkError || isBackendDown || msg.includes('backend')) {
+      if (typeof window !== 'undefined') {
+        const { fallbackRouter } = await import('./fallback-router');
+        return fallbackRouter<T>(endpoint, options);
+      }
+    }
+
+    throw err;
+  }
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import {
   Search, ChevronLeft, ChevronRight, UserCheck, UserX, Edit2, RefreshCw,
-  UserPlus, KeyRound, Mail, X, Eye, EyeOff,
+  UserPlus, KeyRound, Mail, X, Eye, EyeOff, Ban, Shield, LogIn,
 } from 'lucide-react';
 import { request } from '@/lib/api-client';
 import type { User, UserRole } from '@/types';
@@ -11,8 +11,10 @@ import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 const ROLE_COLORS: Record<UserRole, string> = {
+  Dev:            'bg-emerald-900/40 text-emerald-300 border border-emerald-700/40',
   SuperAdmin:     'bg-purple-900/40 text-purple-300 border border-purple-700/40',
   Admin:          'bg-blue-900/40 text-blue-300 border border-blue-700/40',
+  SEOManager:     'bg-cyan-900/40 text-cyan-300 border border-cyan-700/40',
   ContentManager: 'bg-green-900/40 text-green-300 border border-green-700/40',
   Trader:         'bg-teal-900/40 text-teal-300 border border-teal-700/40',
   User:           'bg-white/10 text-white/60 border border-white/10',
@@ -284,6 +286,58 @@ function CreateUserPanel({ onClose, onCreated }: { onClose: () => void; onCreate
   );
 }
 
+// ── Transfer Ownership Modal ──────────────────────────────
+function TransferOwnershipModal({ user, onClose, onDone }: { user: Omit<User, 'password'>; onClose: () => void; onDone: () => void }) {
+  const [newEmail, setNewEmail] = useState('');
+  const [fullName, setFullName] = useState(user.fullName);
+  const [saving, setSaving] = useState(false);
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail) && newEmail !== user.email;
+
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-[#13132B] border border-purple-900/40 rounded-2xl shadow-2xl w-full max-w-md p-6">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-10 h-10 rounded-xl bg-amber-900/40 flex items-center justify-center">
+            <LogIn className="w-5 h-5 text-amber-400" />
+          </div>
+          <div>
+            <h2 className="font-bold text-white text-lg">Transfer Ownership</h2>
+            <p className="text-purple-300/50 text-xs">Change email + name (Dev only)</p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          <div className="px-4 py-3 rounded-xl bg-purple-900/20 border border-purple-900/30 text-sm text-purple-300/60">Current: {user.email}</div>
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-purple-300/50 mb-1.5">New Email</label>
+            <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-purple-900/40 bg-[#1A1A35] text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/50" />
+          </div>
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-purple-300/50 mb-1.5">Full Name</label>
+            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-purple-900/40 bg-[#1A1A35] text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-600/50" />
+          </div>
+        </div>
+        <div className="flex gap-3 mt-6">
+          <button onClick={onClose} className="flex-1 py-3 rounded-xl border border-white/10 text-sm text-white/60 hover:bg-white/5">Cancel</button>
+          <button disabled={saving || !valid} onClick={async () => {
+            setSaving(true);
+            try {
+              await request('/admin/transfer-ownership', { method: 'POST', body: JSON.stringify({ userId: user.id, newEmail, fullName }) });
+              toast.success('Ownership transferred');
+              onDone(); onClose();
+            } catch (err: unknown) { toast.error((err as Error).message); }
+            finally { setSaving(false); }
+          }}
+            className="flex-1 py-3 rounded-xl bg-amber-500 text-white text-sm font-medium hover:bg-amber-600 disabled:opacity-50 transition-colors">
+            {saving ? 'Transferring…' : 'Transfer'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────
 export default function SAUsersPage() {
   const [users,      setUsers]      = useState<Omit<User, 'password'>[]>([]);
@@ -294,6 +348,7 @@ export default function SAUsersPage() {
   const [editUser,   setEditUser]   = useState<Omit<User, 'password'> | null>(null);
   const [resetUser,  setResetUser]  = useState<Omit<User, 'password'> | null>(null);
   const [emailUser,  setEmailUser]  = useState<Omit<User, 'password'> | null>(null);
+  const [transferUser, setTransferUser] = useState<Omit<User, 'password'> | null>(null);
   const [createOpen, setCreateOpen] = useState(false);
   const limit = 10;
 
@@ -325,6 +380,32 @@ export default function SAUsersPage() {
       toast.success(isActive ? 'User suspended' : 'User reactivated');
       load();
     } catch { toast.error('Action failed'); }
+  };
+
+  const handleBan = async (userId: string) => {
+    try {
+      await request(`/admin/users/${userId}/ban`, { method: 'PUT' });
+      toast.success('User banned');
+      load();
+    } catch { toast.error('Ban failed'); }
+  };
+
+  const handleUnban = async (userId: string) => {
+    try {
+      await request(`/admin/users/${userId}/unban`, { method: 'PUT' });
+      toast.success('User unbanned');
+      load();
+    } catch { toast.error('Unban failed'); }
+  };
+
+  const handleImpersonate = async (userId: string) => {
+    try {
+      const res = await request<{ success: boolean; data: { token: string } }>(`/admin/impersonate/${userId}`, { method: 'POST' });
+      if (res?.data?.token) {
+        navigator.clipboard.writeText(res.data.token);
+        toast.success('Impersonation token copied to clipboard');
+      }
+    } catch { toast.error('Impersonation failed (Dev only)'); }
   };
 
   const totalPages = Math.ceil(total / limit);
@@ -451,6 +532,27 @@ export default function SAUsersPage() {
                         >
                           {u.isActive !== false ? <UserX className="w-3.5 h-3.5" /> : <UserCheck className="w-3.5 h-3.5" />}
                         </button>
+                        <button
+                          onClick={() => u.isActive !== false ? handleBan(u.id) : handleUnban(u.id)}
+                          title={u.isActive !== false ? 'Ban' : 'Unban'}
+                          className="p-1.5 rounded-lg bg-red-900/20 hover:bg-red-700/30 text-red-400 hover:text-red-300 transition-colors"
+                        >
+                          <Ban className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleImpersonate(u.id)}
+                          title="Impersonate (Dev)"
+                          className="p-1.5 rounded-lg bg-emerald-900/20 hover:bg-emerald-700/30 text-emerald-400 hover:text-emerald-300 transition-colors"
+                        >
+                          <Shield className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => setTransferUser(u)}
+                          title="Transfer ownership (Dev)"
+                          className="p-1.5 rounded-lg bg-amber-900/20 hover:bg-amber-700/30 text-amber-400 hover:text-amber-300 transition-colors"
+                        >
+                          <LogIn className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -478,10 +580,11 @@ export default function SAUsersPage() {
       </div>
 
       {/* Modals */}
-      {editUser   && <ChangeRoleModal    user={editUser}   onClose={() => setEditUser(null)}   onSave={handleRoleChange} />}
-      {resetUser  && <ResetPasswordModal user={resetUser}  onClose={() => setResetUser(null)} />}
-      {emailUser  && <ChangeEmailModal   user={emailUser}  onClose={() => setEmailUser(null)}  onDone={load} />}
-      {createOpen && <CreateUserPanel                       onClose={() => setCreateOpen(false)} onCreated={load} />}
+      {editUser     && <ChangeRoleModal           user={editUser}     onClose={() => setEditUser(null)}     onSave={handleRoleChange} />}
+      {resetUser    && <ResetPasswordModal        user={resetUser}    onClose={() => setResetUser(null)} />}
+      {emailUser    && <ChangeEmailModal          user={emailUser}    onClose={() => setEmailUser(null)}    onDone={load} />}
+      {transferUser && <TransferOwnershipModal    user={transferUser} onClose={() => setTransferUser(null)} onDone={load} />}
+      {createOpen   && <CreateUserPanel                                onClose={() => setCreateOpen(false)}  onCreated={load} />}
     </div>
   );
 }

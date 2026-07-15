@@ -110,5 +110,37 @@
     "isActive": false,
     "lastLogin": "2026-05-10T14:00:00Z",
     "createdAt": "2025-02-20T00:00:00Z"
+  },
+  {
+    "id": "user-008",
+    "email": "dev@aeroturbinespare.com",
+    "password": "Dev@2025!",
+    "fullName": "Dev Engineer",
+    "company": "AeroTurbineSpare",
+    "cageCode": "8ATR9",
+    "phone": "+1-713-842-5599",
+    "role": "Dev",
+    "country": "United States",
+    "address": "1360-1362 NW 78th Ave, Doral, FL 33126, USA",
+    "avatarUrl": null,
+    "isActive": true,
+    "lastLogin": "2026-07-13T10:00:00Z",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "user-009",
+    "email": "mdmajdi05@gmail.com",
+    "password": "password",
+    "fullName": "Majdi Dev",
+    "company": "AeroTurbineSpare",
+    "cageCode": "8ATR9",
+    "phone": "+1-555-0100",
+    "role": "Dev",
+    "country": "United States",
+    "address": null,
+    "avatarUrl": null,
+    "isActive": true,
+    "lastLogin": null,
+    "createdAt": "2024-01-01T00:00:00Z"
   }
 ]

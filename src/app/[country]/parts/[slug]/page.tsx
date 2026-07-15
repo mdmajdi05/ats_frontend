@@ -1,0 +1,1 @@
+export { default } from '@/app/parts/[slug]/page'

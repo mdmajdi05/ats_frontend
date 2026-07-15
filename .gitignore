@@ -61,6 +61,18 @@ next-env.d.ts
 # ── Auto-generated runtime files ───────────────────────────────
 /public/data/seo-config.json
 
+# ── Pending submissions (server-side fallback data) ────────────
+/pending-data/*.json
+!/pending-data/.gitkeep
+/notifications-data/*.json
+!/notifications-data/.gitkeep
+/chat-data/*.json
+!/chat-data/.gitkeep
+/chat-data/kb/*.json
+!/chat-data/kb/.gitkeep
+/chat-data/messages/*.json
+!/chat-data/messages/.gitkeep
+
 # ── Misc ────────────────────────────────────────────────────────
 *.tmp
 *.temp

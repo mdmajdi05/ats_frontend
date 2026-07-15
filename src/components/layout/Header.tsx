@@ -7,7 +7,7 @@ import {
   Search, Menu, X, ChevronDown, LogOut, User, LayoutDashboard,
   Phone, Shield, Settings, BookOpen, Package, Plane, Zap,
   Truck, Wrench, Star, Award, FileText, Factory, Radio,
-  HelpCircle, ArrowRight, Layers, Clock,
+  HelpCircle, ArrowRight, Layers, Clock, Bell,
   ShieldCheck, Globe, BadgeCheck, ChevronRight,
   LucidePlaneTakeoff,
   ShoppingBasketIcon,                      
@@ -18,8 +18,10 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import { useSiteConfig } from '@/hooks/useSiteConfig';
 import Button from '@/components/ui/Button';
+import NotificationBadge from '@/components/notifications/NotificationBadge';
 import AeroLogo from '@/components/branding/AeroLogo';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import CountrySwitcher from '@/components/layout/CountrySwitcher';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import type { NavCategory, Industry, NavCategoryTree } from '@/types';
@@ -260,7 +262,8 @@ export default function Header() {
       {/* ── Top bar ──────────────────────────────────────── */}
       <div className="bg-[#060F1A] text-[#C0C9D5] text-[11px] hidden lg:block">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-8">
-          <div className="flex items-center gap-4 xl:gap-6">
+          <div className="flex items-center gap-2 xl:gap-4">
+            <CountrySwitcher />
             <a
               href="tel:+91 9354764587"
               className="flex items-center gap-1.5 hover:text-[#4F46E5] transition-colors whitespace-nowrap"
@@ -351,9 +354,14 @@ export default function Header() {
             </form>
 
             {/* Desktop auth + CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-2">
               <ThemeToggle />
               {user ? (
+                <>
+                <Link href="/notifications" className="relative p-2 rounded-xl hover:bg-[#E8EDF2] transition-colors">
+                  <Bell className="w-5 h-5 text-[#4A4A6A]" />
+                  <NotificationBadge className="absolute -top-0.5 -right-0.5" />
+                </Link>
                 <div className="relative">
                   <button
                     onClick={() => setUserMenuOpen((p) => !p)}
@@ -420,6 +428,7 @@ export default function Header() {
                     </div>
                   )}
                 </div>
+                </>
               ) : (
                 <>
                   <Link href="/login" className="text-sm font-medium text-[#4A4A6A] hover:text-[#0A1628] transition-colors">

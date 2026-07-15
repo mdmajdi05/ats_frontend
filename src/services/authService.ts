@@ -34,6 +34,13 @@ export async function login(payload: LoginPayload): Promise<AuthResponse> {
     body: JSON.stringify(payload),
   });
   if (res.user?.role) setRoleCookie(res.user.role);
+  // Save session to localStorage so it persists across page refreshes
+  if (res.token && res.user) {
+    try {
+      localStorage.setItem('ats_session', JSON.stringify(res));
+      if (res.refreshToken) localStorage.setItem('ats_refresh_token', res.refreshToken);
+    } catch { /* ignore */ }
+  }
   return res;
 }
 

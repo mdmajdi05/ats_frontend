@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import { List, LayoutGrid, Search, X, ArrowLeft, Package, ChevronDown, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
+import { List, LayoutGrid, Search, X, ArrowLeft, Package, ChevronDown, SlidersHorizontal, ArrowUpDown, Scale } from 'lucide-react';
 import { request } from '@/lib/api-client';
 import type { NavCategoryTree, NavCategory, CategoryItem } from '@/types';
 import Header from '@/components/layout/Header';
@@ -417,6 +417,15 @@ export default function PartCategoryPage() {
                       <LayoutGrid className="w-3.5 h-3.5" /> Card
                     </button>
                   </div>
+                  {sortedItems.length > 0 && (
+                    <Link
+                      href={`/parts/compare?ids=${sortedItems.map((i) => i.id).join(',')}`}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-orange bg-orange/10 hover:bg-orange/20 border border-orange/20 transition-all self-start"
+                    >
+                      <Scale className="w-3.5 h-3.5" />
+                      Compare All
+                    </Link>
+                  )}
                   {effectiveView === 'list' && (
                     <select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}
                       className="border border-silver rounded-lg px-2.5 py-2.5 text-xs bg-white text-text-muted focus:outline-none focus:ring-1 focus:ring-orange/40 self-start">

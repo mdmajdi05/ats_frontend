@@ -5,6 +5,8 @@ import { Toaster } from 'react-hot-toast';
 import QueryProvider from '@/providers/QueryProvider';
 import DataRefreshProvider from '@/providers/DataRefreshProvider';
 import ChatProvider from '@/components/chat/ChatProvider';
+import { NotificationProvider } from '@/hooks/useNotifications';
+import NotificationToastHandler from '@/components/notifications/NotificationToastHandler';
 import { OrganizationJsonLd, WebsiteJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
 
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [{ url: '/og-image.svg', width: 1200, height: 630 }],
   },
-  twitter: { 
+  twitter: {
     card: 'summary_large_image',
     title: 'AeroTurbineSpare',
     description: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global. ISO 9001 & AS9120 Certified.',
@@ -70,9 +72,6 @@ export const metadata: Metadata = {
   },
 };
 
-
-
-
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -87,8 +86,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebsiteJsonLd />
         <QueryProvider>
           <DataRefreshProvider>
-            {children}
-            <ChatProvider />
+            <NotificationProvider>
+              {children}
+              <NotificationToastHandler />
+              <ChatProvider />
+            </NotificationProvider>
           </DataRefreshProvider>
         </QueryProvider>
         <Toaster

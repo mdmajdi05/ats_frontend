@@ -1,0 +1,5 @@
+[
+  { "id": "cat-1", "name": "Engines", "slug": "engines", "description": "Aircraft engine parts and maintenance" },
+  { "id": "cat-2", "name": "Avionics", "slug": "avionics", "description": "Electronic systems for aircraft" },
+  { "id": "cat-3", "name": "Maintenance", "slug": "maintenance", "description": "Aircraft maintenance tips and guides" }
+]

@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import 'react-data-grid/lib/styles.css';
 import { request } from '@/lib/api-client';
-import useSpreadsheetEditor from '@/app/admin/hooks/useSpreadsheetEditor';
+import useSpreadsheetEditor from '@/hooks/useSpreadsheetEditor';
 import SpreadsheetGrid from '@/components/admin/SpreadsheetGrid';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';

@@ -50,9 +50,12 @@ export function useAuth() {
     return roles.includes(user.role);
   }, [user]);
 
-  const isAdmin   = useCallback(() => hasRole('Admin', 'SuperAdmin'), [hasRole]);
-  const isSuperAdmin = useCallback(() => hasRole('SuperAdmin'), [hasRole]);
-  const isTrader  = useCallback(() => hasRole('Trader', 'Admin', 'SuperAdmin'), [hasRole]);
+  const isDev        = useCallback(() => hasRole('Dev'), [hasRole]);
+  const isSuperAdmin = useCallback(() => hasRole('SuperAdmin', 'Dev'), [hasRole]);
+  const isAdmin      = useCallback(() => hasRole('Admin', 'SuperAdmin', 'Dev'), [hasRole]);
+  const isSEOManager = useCallback(() => hasRole('SEOManager', 'Admin', 'SuperAdmin', 'Dev'), [hasRole]);
+  const isTrader     = useCallback(() => hasRole('Trader', 'Admin', 'SuperAdmin', 'Dev'), [hasRole]);
+  const isContent    = useCallback(() => hasRole('ContentManager', 'SEOManager', 'Admin', 'SuperAdmin', 'Dev'), [hasRole]);
 
   return {
     user,
@@ -62,8 +65,11 @@ export function useAuth() {
     register,
     logout,
     hasRole,
-    isAdmin,
+    isDev,
     isSuperAdmin,
+    isAdmin,
+    isSEOManager,
     isTrader,
+    isContent,
   };
 }

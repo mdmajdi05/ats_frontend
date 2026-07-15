@@ -3,17 +3,6 @@
 
 [
   {
-    "id": "ind-01",
-    "name": "Aerospace & Aviation",
-    "slug": "aerospace",
-    "icon": "plane",
-    "description": "Commercial, cargo, and regional aircraft parts sourcing for OEMs and MRO facilities.",
-    "longDescription": "We supply certified aerospace components for the full spectrum of commercial aviation — from narrow-body single-aisle jets to wide-body long-haul aircraft. Our inventory covers structural, propulsion, avionics, and cabin systems across all major airframe programs.",
-    "partCount": 12500,
-    "keyParts": ["Turbine Blades", "Landing Gear", "Flight Control Actuators", "Avionics Units", "Engine Mounts"],
-    "clients": ["Boeing", "Airbus", "Bombardier", "Embraer", "Textron Aviation"]
-  },
-  {
     "id": "ind-03",
     "name": "Aircraft Components & Accessories",
     "slug": "aircraft-components-accessories",

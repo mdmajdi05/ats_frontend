@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Phone, Mail, MapPin, ExternalLink, Linkedin, Twitter, Facebook, Youtube, Instagram } from 'lucide-react';
 import AeroLogo from '@/components/branding/AeroLogo';
 
 const QUICK_LINKS = [
@@ -86,6 +86,27 @@ export default function Footer() {
                 <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
               </div>
             </div>
+            {/* Social Media */}
+            <div className="pt-4">
+              <h4 className="text-white text-xs uppercase tracking-wider font-semibold mb-3">Follow Us</h4>
+              <div className="flex items-center gap-3">
+                <a href="https://linkedin.com/company/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-orange hover:text-white transition-all duration-200 text-silver/70" aria-label="LinkedIn">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="https://twitter.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-orange hover:text-white transition-all duration-200 text-silver/70" aria-label="Twitter">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="https://facebook.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-orange hover:text-white transition-all duration-200 text-silver/70" aria-label="Facebook">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="https://youtube.com/@aeroturbinespare" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-orange hover:text-white transition-all duration-200 text-silver/70" aria-label="YouTube">
+                  <Youtube className="w-4 h-4" />
+                </a>
+                <a href="https://instagram.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center hover:bg-orange hover:text-white transition-all duration-200 text-silver/70" aria-label="Instagram">
+                  <Instagram className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -130,7 +151,24 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-silver/50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-silver/50">
+          <div className="flex items-center gap-3">
+            <a href="https://linkedin.com/company/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors" aria-label="LinkedIn">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="https://twitter.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors" aria-label="Twitter">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="https://facebook.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors" aria-label="Facebook">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://youtube.com/@aeroturbinespare" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors" aria-label="YouTube">
+              <Youtube className="w-4 h-4" />
+            </a>
+            <a href="https://instagram.com/aeroturbinespare" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors" aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
+            </a>
+          </div>
           <span>&copy; {new Date().getFullYear()} AeroTurbineSpare. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <Link href="/terms" className="hover:text-orange transition-colors">Terms</Link>

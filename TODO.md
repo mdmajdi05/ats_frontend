@@ -56,17 +56,17 @@
 - [x] Zod validation on all blog backend endpoints — create/update post, category, tag, comment
 - [x] Rate limiting on comment submissions — 5 per 15 min per IP via express-rate-limit
 
-## 🟡 Medium Priority
-- [ ] Seed blog data (categories, tags, sample posts) in `backend/prisma/seed.ts`
-- [ ] Create blog mock JSON data in `src/data/` — blog frontend pages exist but no mock data
-- [ ] Clean up or remove `src/data/industries-old.json` (appears to be a duplicate/legacy copy)
-- [ ] Add a test framework and write initial tests (none exist anywhere in project)
-- [ ] Add `GET /api/branding` route or file-based handler — `useSiteConfig` calls `/api/branding` but no handler exists
+## ✅ Completed
+- [x] Add test framework + initial tests (Jest config + API test suite in `backend/src/__tests__/integration/api.test.ts`)
+### Blog Data + Docker Compose (July 2026)
+- [x] Seed blog data (categories, tags, sample posts) in `backend/prisma/seed.ts`
+- [x] Create blog mock JSON data in `src/data/blog-posts.json`, `blog-categories.json`, `blog-tags.json`
+- [x] Clean up or remove `src/data/industries-old.json` (appears to be a duplicate/legacy copy) — file does not exist
+- [x] Add `GET /api/branding` route or file-based handler — route exists at `src/app/api/branding/route.ts`
+- [x] Add Docker Compose config for local dev — `docker-compose.yml` at project root
+- [x] Add `Loading` / `ErrorBoundary` components — `loading.tsx` and `ErrorBoundary.tsx` exist
+- [x] Review 404 and error pages — `not-found.tsx` exists at app root
 
 ## 🟢 Low Priority
-- [ ] Implement Parts Comparison tool (mentioned in `prompt.md` §3.2, not implemented)
-- [ ] Add multi-currency / multi-language i18n support (stubbed in types, not wired)
-- [ ] Add Docker Compose config for local dev (for PostgreSQL + app)
+- [ ] Add multi-currency / multi-language i18n support (language selector, locale detection)
 - [ ] Implement PDF export for quotes/orders (`backend` has `json2csv` dep, no PDF library)
-- [ ] Add `Loading` / `ErrorBoundary` components for pages that currently lack them
-- [ ] Review 404 and error pages for consistency across the app

@@ -168,7 +168,7 @@ export interface Testimonial {
   date: string;
 }
 
-export type UserRole = 'SuperAdmin' | 'Admin' | 'ContentManager' | 'Trader' | 'User';
+export type UserRole = 'Dev' | 'SuperAdmin' | 'Admin' | 'SEOManager' | 'ContentManager' | 'Trader' | 'User';
 
 export interface User {
   id: string;
@@ -385,6 +385,7 @@ export interface PaginatedResponse<T> {
 export interface AuthResponse {
   success: boolean;
   token: string;
+  refreshToken?: string;
   user: Omit<User, 'password'>;
 }
 
@@ -440,4 +441,28 @@ export interface MegaMenuData {
     cta: string;
     badge: string;
   };
+}
+
+export type NotificationType =
+  | 'rfq_submitted'
+  | 'contact_submitted'
+  | 'user_registered'
+  | 'inventory_submitted'
+  | 'rfq_quoted'
+  | 'rfq_accepted'
+  | 'rfq_rejected';
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  forUserId?: string;
+  forRole?: string;
+  fromUserId?: string;
+  fromName?: string;
+  relatedType?: string;
+  relatedId?: string;
+  isRead: boolean;
+  createdAt: string;
 }

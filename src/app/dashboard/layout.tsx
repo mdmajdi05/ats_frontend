@@ -25,9 +25,11 @@ import {
   Globe,
   ChevronLeft,
   ChevronRight,
+  Bell,
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import Header from '@/components/layout/Header';
+import NotificationBadge from '@/components/notifications/NotificationBadge';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import type { UserRole } from '@/types';
@@ -36,7 +38,7 @@ type NavItem =
   | { type?: 'link'; label: string; href: string; icon: React.ElementType; roles?: UserRole[] }
   | { type: 'divider'; label: string; roles: UserRole[] };
 
-const CONTENT_ROLES: UserRole[] = ['ContentManager', 'Admin', 'SuperAdmin'];
+const CONTENT_ROLES: UserRole[] = ['ContentManager', 'SEOManager', 'Admin', 'SuperAdmin'];
 
 const NAV_ITEMS: NavItem[] = [
   // ── Standard dashboard ──────────────────────────────────────
@@ -106,11 +108,15 @@ function SidebarContent({
             {initials}
           </div>
           {!collapsed && (
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="text-sm font-semibold text-text truncate">{user.fullName}</div>
               <div className="text-xs text-text-muted truncate">{user.company}</div>
             </div>
           )}
+          <Link href="/notifications" className="relative p-1.5 rounded-lg hover:bg-silver transition-colors flex-shrink-0" title="Notifications">
+            <Bell className="w-4 h-4 text-text-muted" />
+            <NotificationBadge className="absolute -top-0.5 -right-0.5" />
+          </Link>
         </div>
       </div>
 

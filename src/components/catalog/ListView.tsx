@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Search, X, ArrowUpDown, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { Search, X, ArrowUpDown, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight, Scale } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getListConfig } from '@/types';
 
@@ -143,7 +144,6 @@ export default function ListView({ items, cardConfig, pageSize: overridePageSize
                       'group px-4 py-3 text-left text-[11px] font-bold uppercase tracking-widest cursor-pointer select-none transition-colors',
                       sortKey === key ? 'text-navy' : 'text-text-muted/70 hover:text-text-muted',
                       i === 0 && 'pl-5',
-                      i === allKeys.length - 1 && 'pr-5',
                     )}
                   >
                     <div className="flex items-center gap-1.5">
@@ -152,6 +152,9 @@ export default function ListView({ items, cardConfig, pageSize: overridePageSize
                     </div>
                   </th>
                 ))}
+                <th className="px-4 py-3 text-right pr-5 text-[11px] font-bold uppercase tracking-widest text-text-muted/70 w-24">
+                  Compare
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-silver/30">
@@ -178,7 +181,6 @@ export default function ListView({ items, cardConfig, pageSize: overridePageSize
                           'px-4 py-2.5 text-xs',
                           i === 0 && 'pl-5 font-semibold text-navy',
                           i !== 0 && 'text-text-muted',
-                          i === allKeys.length - 1 && 'pr-5',
                         )}
                       >
                         <span className={cn(
@@ -189,6 +191,15 @@ export default function ListView({ items, cardConfig, pageSize: overridePageSize
                         </span>
                       </td>
                     ))}
+                    <td className="px-4 py-2.5 text-right pr-5">
+                      <Link
+                        href={`/parts/compare?ids=${item.id},`}
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-orange hover:text-orange-dark transition-colors"
+                      >
+                        <Scale className="w-3 h-3" />
+                        Compare
+                      </Link>
+                    </td>
                   </tr>
                 ))
               )}
@@ -312,6 +323,15 @@ export default function ListView({ items, cardConfig, pageSize: overridePageSize
                     {allKeys.length === 1 ? 'Only one field available' : ''}
                   </div>
                 )}
+                <div className="mt-2 pt-2 border-t border-silver/30">
+                  <Link
+                    href={`/parts/compare?ids=${item.id},`}
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-orange hover:text-orange-dark transition-colors"
+                  >
+                    <Scale className="w-3 h-3" />
+                    Compare
+                  </Link>
+                </div>
               </div>
             </div>
           ))

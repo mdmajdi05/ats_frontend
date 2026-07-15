@@ -40,10 +40,14 @@ export function clearTokens(): void {
 }
 
 function redirectToLogin() {
-  if (typeof window !== 'undefined' &&
-      !window.location.pathname.startsWith('/login') &&
-      !window.location.pathname.startsWith('/register')) {
-    window.location.href = '/login';
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname;
+    const isPublicPage = !path.startsWith('/dashboard') && !path.startsWith('/admin')
+      && !path.startsWith('/superadmin') && !path.startsWith('/dev')
+      && !path.startsWith('/inventory');
+    if (!isPublicPage && !path.startsWith('/login') && !path.startsWith('/register')) {
+      window.location.href = '/login';
+    }
   }
 }
 

@@ -1,4 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+const WA_DIR = path.join(process.cwd(), 'pending-data');
+
+async function ensureDir() {
+  try { await fs.mkdir(WA_DIR, { recursive: true }); } catch { /* ok */ }
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -24,15 +32,41 @@ export async function POST(req: NextRequest) {
     const value = change?.value;
 
     if (value?.messages) {
+      await ensureDir();
       for (const msg of value.messages) {
         const from = msg.from;
         const text = msg.text?.body || '';
         const msgId = msg.id;
 
-        console.log(`WhatsApp message from ${from}: ${text}`);
+        const record = {
+          id: msgId,
+          from,
+          text,
+          timestamp: new Date().toISOString(),
+          raw: msg,
+          status: 'received',
+        };
 
-        // TODO: Process message through chatbot
-        // TODO: Send reply via WhatsApp Business API
+        await fs.writeFile(
+          path.join(WA_DIR, `wa_${msgId}.json`),
+          JSON.stringify(record, null, 2),
+          'utf-8'
+        );
+
+        // Auto-reply
+        const replyText = `Thanks for your message! We'll review your query about "${text.slice(0, 50)}" and get back to you shortly.`;
+
+        await fs.writeFile(
+          path.join(WA_DIR, `wa_reply_${msgId}.json`),
+          JSON.stringify({
+            id: `reply_${msgId}`,
+            to: from,
+            text: replyText,
+            timestamp: new Date().toISOString(),
+            status: 'pending_send',
+          }, null, 2),
+          'utf-8'
+        );
       }
     }
 

@@ -43,7 +43,7 @@ export default function FeaturedCategories({ categories }: { categories: Categor
           </Link>
         </div>
 
-        <div className="reveal-stagger grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
           {featured.map((cat) => {
             const Icon = ICON_MAP[cat.icon] || Settings;
             return (

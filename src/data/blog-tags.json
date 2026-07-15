@@ -1,0 +1,5 @@
+[
+  { "id": "tag-1", "name": "turbofan", "slug": "turbofan" },
+  { "id": "tag-2", "name": "components", "slug": "components" },
+  { "id": "tag-3", "name": "safety", "slug": "safety" }
+]

@@ -32,3 +32,18 @@ export function generateRFQId(): string {
   const rand = Math.random().toString(36).slice(2, 5).toUpperCase();
   return `RFQ-${ts}-${rand}`;
 }
+
+export function setCookie(name: string, value: string, days = 365) {
+  const maxAge = days * 24 * 60 * 60
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=${maxAge};sameSite=lax`
+}
+
+export function getCookie(name: string): string | null {
+  if (typeof document === 'undefined') return null
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`))
+  return match ? decodeURIComponent(match[2]) : null
+}
+
+export function deleteCookie(name: string) {
+  document.cookie = `${name}=;path=/;max-age=0;sameSite=lax`
+}

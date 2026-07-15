@@ -1,3 +1,5 @@
+import { COUNTRIES, COUNTRY_CODES, DEFAULT_COUNTRY, getCountry } from './countries'
+
 const SITE_URL = 'https://aeroturbinespare.com';
 const SITE_NAME = 'AeroTurbineSpare';
 const DEFAULT_DESC = 'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO 9001 & AS9120 certified. 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide.';
@@ -30,25 +32,36 @@ export function buildMetadata(overrides: {
   ogImage?: string;
   noIndex?: boolean;
   keywords?: string[];
+  country?: string;
 }) {
+  const country = overrides.country || DEFAULT_COUNTRY;
+  const cfg = getCountry(country);
+
   const title = overrides.title
     ? `${overrides.title} | AeroTurbineSpare`
     : 'AeroTurbineSpare — Precision Aerospace Parts Sourcing';
   const description = overrides.description || DEFAULT_DESC;
-  const url = overrides.path ? `${SITE_URL}${overrides.path}` : SITE_URL;
+  const url = overrides.path ? `${SITE_URL}/${country}${overrides.path}` : `${SITE_URL}/${country}`;
   const image = overrides.ogImage || DEFAULT_OG_IMAGE;
+
+  const languages: Record<string, string> = {};
+  for (const code of COUNTRY_CODES) {
+    const c = COUNTRIES[code];
+    languages[c.locale] = `${SITE_URL}/${code}${overrides.path || ''}`;
+  }
+  languages['x-default'] = `${SITE_URL}${overrides.path || ''}`;
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages },
     openGraph: {
       title,
       description,
       url,
       siteName: SITE_NAME,
       type: 'website' as const,
-      locale: siteConfig.locale,
+      locale: cfg.locale,
       images: [{ url: image, width: 1200, height: 630 }],
     },
     twitter: {
@@ -119,7 +132,8 @@ export function jsonLdWebsite() {
   };
 }
 
-export function jsonLdBreadcrumb(items: { name: string; url: string }[]) {
+export function jsonLdBreadcrumb(items: { name: string; url: string }[], country?: string) {
+  const prefix = country ? `/${country}` : '';
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -127,7 +141,7 @@ export function jsonLdBreadcrumb(items: { name: string; url: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
+      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${prefix}${item.url}`,
     })),
   };
 }

@@ -11,7 +11,7 @@ import { request } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import type { NavCategory, NavCategoryTree, CategoryItem } from '@/types';
 import toast from 'react-hot-toast';
-import useSpreadsheetEditor from '@/app/admin/hooks/useSpreadsheetEditor';
+import useSpreadsheetEditor from '@/hooks/useSpreadsheetEditor';
 import SpreadsheetGrid from '@/components/admin/SpreadsheetGrid';
 
 // ── Helpers ─────────────────────────────────────────────

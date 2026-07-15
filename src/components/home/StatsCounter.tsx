@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
 
 const STATS = [
   { value: 250000, suffix: '+', label: 'Parts Available',     sub: 'NSN-cataloged inventory' },
@@ -62,7 +61,7 @@ export default function StatsCounter() {
           <h2 className="text-3xl lg:text-4xl font-bold text-white">Trusted by Industry Leaders</h2>
           <p className="text-silver/70 mt-3 max-w-2xl mx-auto">Numbers that reflect our commitment to aerospace excellence</p>
         </div>
-        <div className={cn('reveal-stagger grid grid-cols-2 lg:grid-cols-4 gap-8')}>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {STATS.map((s) => <StatItem key={s.label} {...s} start={started} />)}
         </div>
       </div>

@@ -1,4 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+const KB_DIR = path.join(process.cwd(), 'chat-data', 'kb');
+
+async function ensureDir() {
+  try { await fs.mkdir(KB_DIR, { recursive: true }); } catch { /* ok */ }
+}
 
 const DEFAULT_KB = [
   {
@@ -25,19 +33,44 @@ const DEFAULT_KB = [
   },
 ];
 
+async function seedDefaults() {
+  await ensureDir();
+  for (const item of DEFAULT_KB) {
+    const fp = path.join(KB_DIR, `${item.id}.json`);
+    try { await fs.access(fp); } catch {
+      await fs.writeFile(fp, JSON.stringify(item, null, 2), 'utf-8');
+    }
+  }
+}
+
+async function readAll() {
+  await seedDefaults();
+  const items: Record<string, unknown>[] = [];
+  const files = await fs.readdir(KB_DIR);
+  for (const f of files) {
+    if (!f.endsWith('.json')) continue;
+    const content = await fs.readFile(path.join(KB_DIR, f), 'utf-8');
+    items.push(JSON.parse(content));
+  }
+  return items;
+}
+
 export async function GET() {
-  return NextResponse.json({ items: DEFAULT_KB });
+  const items = await readAll();
+  return NextResponse.json({ items });
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const item = {
-      id: `kb-${Date.now()}`,
+      id: `kb_${Date.now()}`,
       ...body,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+    await ensureDir();
+    await fs.writeFile(path.join(KB_DIR, `${item.id}.json`), JSON.stringify(item, null, 2), 'utf-8');
     return NextResponse.json({ item }, { status: 201 });
   } catch {
     return NextResponse.json({ error: 'Failed to create KB item' }, { status: 500 });
@@ -47,10 +80,11 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    return NextResponse.json({
-      ...body,
-      updatedAt: new Date().toISOString(),
-    });
+    const fp = path.join(KB_DIR, `${body.id}.json`);
+    const existing = JSON.parse(await fs.readFile(fp, 'utf-8'));
+    const updated = { ...existing, ...body, updatedAt: new Date().toISOString() };
+    await fs.writeFile(fp, JSON.stringify(updated, null, 2), 'utf-8');
+    return NextResponse.json(updated);
   } catch {
     return NextResponse.json({ error: 'Failed to update KB item' }, { status: 500 });
   }
@@ -60,6 +94,9 @@ export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
+    if (id) {
+      try { await fs.unlink(path.join(KB_DIR, `${id}.json`)); } catch { /* already gone */ }
+    }
     return NextResponse.json({ deleted: id, success: true });
   } catch {
     return NextResponse.json({ error: 'Failed to delete KB item' }, { status: 500 });
