@@ -589,19 +589,15 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link href="/categories" className={cn(
+                  'px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60'
+                )}>Categories</Link>
             <Link href="/about" className={cn(
                   'px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60'
                 )}>About</Link>
-
-
-
-                
             <Link href="/blog" className={cn(
                   'px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60'
                 )}>Blog</Link>
-
-                
-
             <Link href="/contact" className={cn(
                   'px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60'
                 )}>Contact</Link>

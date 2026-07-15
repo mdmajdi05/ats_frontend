@@ -29,6 +29,7 @@ import { useSiteConfig } from '@/hooks/useSiteConfig'
 import homeFallback from '@/data/home-fallback.json'
 import BrandLogos from '@/components/home/BrandLogos'
 import IndustriesGrid from '@/components/home/IndustriesGrid'
+import CategoriesSection from '@/components/home/CategoriesSection'
 import FeaturedCategories from '@/components/home/FeaturedCategories'
 import HowItWorks from '@/components/home/HowItWorks'
 import StatsCounter from '@/components/home/StatsCounter'
@@ -386,6 +387,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
       <TrustBar />
       <BrandLogos />
       <IndustriesGrid />
+      <CategoriesSection />
       <ZigZagDivider text="TURBINE" />
       <FeaturedCategories categories={categories} />
       <HowItWorks />
