@@ -7,7 +7,7 @@ import DataRefreshProvider from '@/providers/DataRefreshProvider';
 import ChatProvider from '@/components/chat/ChatProvider';
 import { NotificationProvider } from '@/hooks/useNotifications';
 import NotificationToastHandler from '@/components/notifications/NotificationToastHandler';
-import { OrganizationJsonLd, WebsiteJsonLd } from '@/components/seo/JsonLd';
+import { OrganizationJsonLd, WebsiteJsonLd, FAQJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
 
 const inter = Inter({
@@ -25,20 +25,21 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://aeroturbinespare.com'),
   title: {
-    default: 'AeroTurbineSpare — Precision Aerospace Parts Sourcing',
+    default: 'Global Gas Turbine Services & Spare Parts Supplier | AeroTurbineSpare',
     template: '%s | AeroTurbineSpare',
   },
   description:
-    'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO 9001 & AS9120 certified. 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide. Global inventory of 32,000+ parts.',
+    'Global supplier of gas turbine spare parts and services for GE, Siemens, Rolls-Royce & Solar Turbines platforms. NSN/CAGE-referenced parts, 24-hr quotes, shipping to USA, Russia & 150+ countries.',
   keywords: [
-    'aerospace parts', 'NSN parts', 'CAGE code', 'turbine components',
-    'MRO supplies', 'aircraft parts', 'aerospace procurement',
-    'military parts', 'gas turbine', 'jet engine parts',
+    'gas turbine spare parts', 'turbine services', 'GE turbines', 'Siemens turbines',
+    'Rolls-Royce turbines', 'Solar Turbines', 'NSN parts', 'CAGE code',
+    'aerospace parts', 'turbine components', 'MRO supplies', 'aircraft parts',
+    'aerospace procurement', 'military parts', 'jet engine parts',
     'aircraft components', 'aviation parts', 'defense parts',
     'AS9120', 'ISO 9001', 'aerospace distributor',
     'turbine blades', 'landing gear', 'avionics',
     'AOG parts', 'aircraft on ground', 'FAA certified parts',
-    'EASA parts', 'NSN 2840', 'CAGE 8ATR9',
+    'EASA parts', 'CAGE 8ATR9',
   ],
   authors: [{ name: 'AeroTurbineSpare' }],
   publisher: 'AeroTurbineSpare',
@@ -46,17 +47,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'AeroTurbineSpare',
-    title: 'AeroTurbineSpare — Precision Aerospace Parts Sourcing',
-    description: 'Fast, certified aerospace parts sourcing. ISO 9001, AS9120 certified. 100% inspection on every order. 32,000+ parts in catalog.',
-    url: 'https://aeroturbinespare.com',
+    title: 'Global Gas Turbine Services & Spare Parts Supplier',
+    description:
+      'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced inventory, 24-hr quotes, worldwide shipping.',
+    url: 'https://aeroturbinespare.com/',
     locale: 'en_US',
-    images: [{ url: '/og-image.svg', width: 1200, height: 630 }],
+    images: [{ url: '/images/og-cover.svg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AeroTurbineSpare',
-    description: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global. ISO 9001 & AS9120 Certified.',
-    images: ['/og-image.svg'],
+    title: 'Global Gas Turbine Services & Spare Parts Supplier',
+    description:
+      'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced, worldwide shipping.',
+    images: ['/images/og-cover.svg'],
   },
   icons: {
     icon: '/favicon.png',
@@ -69,6 +72,8 @@ export const metadata: Metadata = {
   },
   other: {
     'google-site-verification': 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
+    'geo.region': 'US',
+    'geo.placename': 'United States',
   },
 };
 
@@ -84,6 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col antialiased">
         <OrganizationJsonLd />
         <WebsiteJsonLd />
+        <FAQJsonLd />
         <QueryProvider>
           <DataRefreshProvider>
             <NotificationProvider>

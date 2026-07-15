@@ -1,0 +1,25 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0A1628"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg-gradient)"/>
+  <defs>
+    <linearGradient id="bg-gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="50%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="60%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="200" cy="150" r="250" fill="#4F46E5" opacity="0.15"/>
+  <circle cx="1000" cy="450" r="300" fill="#818CF8" opacity="0.1"/>
+  <circle cx="600" cy="315" r="200" fill="#38BDF8" opacity="0.08"/>
+  <text x="80" y="220" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="white">Precision Aerospace</text>
+  <text x="80" y="290" font-family="system-ui, sans-serif" font-size="56" font-weight="800" fill="url(#text-gradient)">Parts Sourcing</text>
+  <text x="80" y="350" font-family="system-ui, sans-serif" font-size="24" fill="#C0C9D5">ISO 9001 &amp; AS9120 Certified • 32,000+ Parts</text>
+  <text x="80" y="390" font-family="system-ui, sans-serif" font-size="24" fill="#C0C9D5">24-Hour Quotes • 150+ Countries Served</text>
+  <rect x="80" y="440" width="200" height="50" rx="8" fill="#4F46E5"/>
+  <text x="180" y="472" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">aeroturbinespare.com</text>
+</svg>
