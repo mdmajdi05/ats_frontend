@@ -154,7 +154,7 @@ export default async function AboutPage({ params }: { params: Promise<{ country:
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: 'Parts in Catalog', value: '32,000+' },
+                  { label: 'Parts in Catalog', value: '1 Million+' },
                   { label: 'Countries Served', value: '150+' },
                   { label: 'Years in Business', value: '15+' },
                   { label: 'Quote Response', value: '24 hrs' },

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const STATS = [
-  { value: 250000, suffix: '+', label: 'Parts Available',     sub: 'NSN-cataloged inventory' },
+  { value: 5000000, suffix: '+', label: 'Parts Available',     sub: 'NSN-cataloged inventory' },
   { value: 3200,   suffix: '+', label: 'Clients Worldwide',   sub: 'MROs, OEMs & contractors' },
   { value: 150,    suffix: '+', label: 'Countries Served',    sub: 'Global shipping network' },
   { value: 15,     suffix: '+', label: 'Years in Business',   sub: 'Aerospace procurement' },
