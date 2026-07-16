@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Zap, Flame, Ship, Factory, Shield, Package } from 'lucide-react';
+import { Zap, Flame, Ship, Factory, Shield, Package, ArrowUpRight, Target } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Industry } from '@/types';
 import { request } from '@/lib/api-client';
 import fallbackIndustries from '@/data/industries-fallback.json';
+import type { ElementType } from 'react';
 
-const INDUSTRY_ICONS: Record<string, React.ElementType> = {
+const INDUSTRY_ICONS: Record<string, ElementType> = {
   zap: Zap,
   flame: Flame,
   ship: Ship,
@@ -16,93 +17,133 @@ const INDUSTRY_ICONS: Record<string, React.ElementType> = {
   shield: Shield,
 };
 
-const INDUSTRY_COLORS = [
-  'bg-blue-50 text-blue-600',
-  'bg-slate-50 text-slate-600',
-  'bg-teal-50 text-teal-600',
-  'bg-rose-50 text-rose-600',
-  'bg-violet-50 text-violet-600',
-  'bg-orange-50 text-orange-600',
-];
-
 const INDUSTRY_IMAGES = [
   '/images/part-engine-1.jpg',
   '/images/part-landing-gear.jpg',
   '/images/part-controls.jpg',
+  '/images/part-exhaust.jpg',
   '/images/part-fuselage.jpg',
   '/images/part-turbofan.jpg',
-  '/images/part-exhaust.jpg',
   '/images/part-propeller.jpg',
   '/images/part-cockpit.jpg',
 ];
 
 export default function IndustriesGrid() {
-  const [industries, setIndustries] = useState<Industry[]>([]);
+  const [industries, setIndustries] = useState<Industry[]>(fallbackIndustries as unknown as Industry[]);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await request<{ success: boolean; data: Industry[] }>('/industries');
-        if (res?.data) setIndustries(res.data);
-        else setIndustries(fallbackIndustries as Industry[]);
-      } catch { setIndustries(fallbackIndustries as Industry[]); }
+        if (res?.data?.length) setIndustries(res.data);
+      } catch { /* keep fallback */ }
     })();
   }, []);
 
   return (
-    <section className="relative py-16 sm:py-24 bg-gradient-to-b from-white via-slate-50/50 to-white overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-30 sm:opacity-40">
-        <div className="absolute top-12 left-10 w-48 sm:w-72 h-48 sm:h-72 bg-orange/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-12 right-10 w-56 sm:w-96 h-56 sm:h-96 bg-slate-200/50 rounded-full blur-3xl" />
-      </div>
+    <section className="relative py-20 sm:py-28 bg-[#f4f8fc] overflow-hidden text-slate-800 antialiased">
+      
+      {/* Dynamic Cyber Ambient Glow Effects */}
+      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_rgba(6,182,212,0.15)_0%,_transparent_65%)] blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_rgba(37,99,235,0.1)_0%,_transparent_65%)] blur-[100px] pointer-events-none" />
+      
+      {/* High-Tech Grid Pattern Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2ecf5_1px,transparent_1px),linear-gradient(to_bottom,#e2ecf5_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black_80%,transparent_100%)]" />
 
       <div className="relative max-w-7xl mx-auto px-6 z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
-            <span className="w-6 h-px bg-brand" /> Industries <span className="w-6 h-px bg-brand" />
+        
+        {/* ================= HEADER SECTION ================= */}
+        <div className="max-w-3xl mb-14 relative">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-600/10 border border-blue-500/20 text-blue-600 text-[11px] font-black uppercase tracking-wider mb-4 shadow-xs">
+            <Target className="w-3.5 h-3.5" /> Sectors & Global Scope
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-text">
-            Industries We Supply
+          <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1] text-slate-900">
+            Industries <br />
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">We Power Ahead</span>
           </h2>
-          <p className="text-text-muted mt-3 max-w-3xl mx-auto">
-            Wherever a gas turbine is spinning, chances are we've already sourced a part for it. From baseload power plants to offshore platforms, we understand what each industry actually needs when a unit goes down.
+          <p className="text-slate-600 text-sm sm:text-base mt-3 font-normal leading-relaxed max-w-xl">
+            Wherever a critical turbine spins, we deliver. From baseline heavy stations to high-stress offshore setups, we provide precision components.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {industries.slice(0, 8).map((ind, idx) => {
+        {/* ================= ASYMMETRIC BENTO GRID ================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 auto-rows-[240px]">
+          {industries.slice(0, 7).map((ind, idx) => {
             const Icon = (ind.icon && INDUSTRY_ICONS[ind.icon]) || Package;
-            const color = INDUSTRY_COLORS[idx % INDUSTRY_COLORS.length];
+            const bgImage = INDUSTRY_IMAGES[idx % INDUSTRY_IMAGES.length];
+            
+            // Premium layout row/column span system
+            const gridSpans = [
+              'lg:col-span-5 lg:row-span-2 h-full', 
+              'lg:col-span-4 h-full',               
+              'lg:col-span-3 h-full',               
+              'lg:col-span-3 h-full',               
+              'lg:col-span-4 h-full',               
+              'lg:col-span-3 h-full',               
+              'lg:col-span-4 h-full',               
+            ];
+
+            const currentSpan = gridSpans[idx % gridSpans.length];
+
             return (
               <Link
                 key={ind.slug}
                 href={`/industries/${ind.slug}`}
-                className="group relative flex flex-col items-center text-center p-6 rounded-2xl border border-slate-200/80 bg-[#e5ecf0] hover:bg-gradient-to-b hover:from-white hover:to-slate-50/50 hover:border-orange/30 hover:shadow-[0_10px_30px_-15px_rgba(249,115,22,0.15)] transition-all duration-300 ease-out overflow-hidden"
+                className={cn(
+                  "group relative flex flex-col justify-between p-6 rounded-3xl overflow-hidden border border-slate-200 bg-white transition-all duration-500 ease-out shadow-[0_4px_20px_rgba(163,191,222,0.2)] hover:border-blue-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)]",
+                  currentSpan
+                )}
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                {/* 100% CLEAR IMAGE LAYER (No Grayscale, Strong Contrast Gradient) */}
+                <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-105">
                   <img
-                    src={INDUSTRY_IMAGES[idx % INDUSTRY_IMAGES.length]}
-                    alt=""
-                    className="w-full h-full object-cover"
+                    src={bgImage}
+                    alt={ind.name}
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                     loading="lazy"
                   />
+                  {/* High contrast mask: Bottom text area remains sharp, top stays bright */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-black/10 transition-opacity duration-500 group-hover:opacity-95" />
                 </div>
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-orange/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl z-10" />
-                <div className={cn('w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-sm relative z-10', color)}>
-                  <Icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-105" />
-                </div>
-                <h3 className="text-sm font-bold text-text leading-snug mb-2 group-hover:text-orange transition-colors duration-200 min-h-[36px] flex items-center justify-center relative z-10">
-                  {ind.name}
-                </h3>
-                {ind.partCount != null && (
-                  <div className="mt-auto px-2.5 py-0.5 rounded-full bg-green-100 text-slate-600 font-semibold text-[10px] uppercase tracking-wider group-hover:bg-orange/10 group-hover:text-orange transition-all duration-200 relative z-10">
-                    {ind.partCount.toLocaleString()} parts
+
+                {/* TOP ACTIONS LAYER */}
+                <div className="relative z-10 flex items-center justify-between gap-4">
+                  {/* Glowing Icon Container */}
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-white/95 border border-slate-200 shadow-sm group-hover:bg-blue-600 group-hover:border-transparent group-hover:shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all duration-300">
+                    <Icon className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors duration-200" />
                   </div>
-                )}
+
+                  {/* High-Visibility Parts Badge */}
+                  {ind.partCount != null && (
+                    <span className="px-2.5 py-1 rounded-lg bg-cyan-400 text-slate-950 font-mono text-xs font-black tracking-wide shadow-sm group-hover:bg-white group-hover:text-blue-600 transition-all duration-300">
+                      {ind.partCount.toLocaleString()} Pts
+                    </span>
+                  )}
+                </div>
+
+                {/* BOTTOM BLOCK: Super Vibrant Text visibility over Dark Mask */}
+                <div className="relative z-10 space-y-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className={cn(
+                      "font-black tracking-wide text-white group-hover:text-cyan-300 transition-colors duration-200",
+                      idx % 7 === 0 ? "text-xl sm:text-2xl" : "text-base"
+                    )}>
+                      {ind.name}
+                    </h3>
+                    <ArrowUpRight className="w-4 h-4 text-cyan-400 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                  </div>
+                  <p className="text-[12px] text-slate-300 font-medium leading-relaxed line-clamp-1 group-hover:text-white transition-colors duration-300">
+                    Precision infrastructure & system modules.
+                  </p>
+                </div>
+
+                {/* Cyber Bottom Glowing Edge Bar */}
+                <div className="absolute bottom-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </Link>
             );
           })}
         </div>
+
       </div>
     </section>
   );

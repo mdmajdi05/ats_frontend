@@ -1,10 +1,17 @@
-﻿import Link from 'next/link';
-import { Zap, Settings, Circle, Wrench, Cpu, Activity, ArrowUpRight } from 'lucide-react';
+﻿'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { Zap, Settings, Circle, Wrench, Cpu, Activity, ArrowRight, Layers } from 'lucide-react';
 import type { Category } from '@/types';
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  zap: Zap, settings: Settings, circle: Circle,
-  tool: Wrench, cpu: Cpu, activity: Activity,
+  zap: Zap, 
+  settings: Settings, 
+  circle: Circle,
+  tool: Wrench, 
+  cpu: Cpu, 
+  activity: Activity,
   wrench: Wrench,
 };
 
@@ -19,65 +26,116 @@ const CAT_IMAGES = [
 
 export default function FeaturedCategories({ categories }: { categories: Category[] }) {
   const featured = categories.slice(0, 6);
+  
+  // Total inventory parts count dynamically compute karne ke liye
+  const totalParts = featured.reduce((acc, curr) => acc + (curr.partCount || 0), 0);
 
   return (
-    <section className="relative py-20 sm:py-28 bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] text-slate-800 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#cbd5e1_1px,transparent_1px),linear-gradient(to_bottom,#cbd5e1_1px,transparent_1px)] bg-[size:5rem_5rem] opacity-25 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" />
-      <div className="absolute top-10 left-10 w-[250px] sm:w-[350px] h-[250px] sm:h-[350px] bg-indigo-200/40 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[280px] sm:w-[400px] h-[280px] sm:h-[400px] bg-orange-100/50 rounded-full blur-[100px] sm:blur-[130px] pointer-events-none" />
-      <div className="absolute -bottom-10 left-1/4 w-[250px] sm:w-[350px] h-[250px] sm:h-[350px] bg-emerald-100/40 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
+    <section className="relative py-20 lg:py-28 bg-[#fafcff] overflow-hidden isolate">
+      {/* Absolute High-End Fluid Visuals */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-sky-200/30 via-indigo-100/20 to-transparent rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-[600px] h-[600px] bg-sky-100/40 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
-              <span className="w-6 h-px bg-brand" /> Catalog <span className="w-6 h-px bg-brand" />
+      {/* Futuristic Isometric Dot Matrix Grid */}
+      <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:24px_24px] opacity-40 [mask-image:radial-gradient(ellipse_at_top_left,black_60%,transparent_100%)] pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-6 z-10 text-slate-800">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+          
+          {/* LEFT SIDE PANEL: Dynamic Header & Sticky Control Vibe */}
+          <div className="lg:col-span-4 lg:sticky lg:top-8 space-y-8">
+            <div>
+              <div className="inline-flex items-center gap-2 text-indigo-600 text-[10px] font-extrabold uppercase tracking-widest mb-4 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" /> Precision Navigation
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.05] mb-4">
+                Engineered <br />
+                <span className="bg-gradient-to-r from-sky-600 via-indigo-600 to-slate-900 bg-clip-text text-transparent">Categories</span>
+              </h2>
+              <p className="text-slate-500 text-sm font-normal leading-relaxed max-w-sm">
+                Structured specifically around turbine operator frameworks: search components via advanced systems, exact platforms, or discrete part groups instantly.
+              </p>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Browse Premium <span className="bg-gradient-to-r from-brand to-[#818CF8] bg-clip-text text-transparent">Categories</span>
-            </h2>
-            <p className="text-slate-500 mt-2 max-w-xl text-sm">
-              Every category below is organized around what turbine operators actually search for: by platform, by system, or by part type. Not a generic aerospace catalog.
-            </p>
-          </div>
-          <Link href="/catalog" className="group/btn inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-orange transition-all duration-300 px-5 py-2.5 bg-white/80 border border-slate-200/80 backdrop-blur-md rounded-xl hover:shadow-md hover:-translate-y-0.5">
-            <span>Explore Full Inventory</span>
-            <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover/btn:text-orange transition-colors transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 duration-300" />
-          </Link>
-        </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-          {featured.map((cat) => {
-            const Icon = ICON_MAP[cat.icon] || Settings;
-            return (
-              <Link
-                key={cat.id}
-                href={`/catalog?fsg=${cat.fsg}`}
-                className="group relative flex flex-col justify-between p-6 rounded-2xl border border-white/60 bg-white/40 backdrop-blur-xl shadow-[0_4px_20px_-4px_rgba(148,163,184,0.1),inset_0_1px_2px_rgba(255,255,255,0.7)] hover:bg-white/80 hover:border-orange/30 hover:shadow-[0_20px_40px_-15px_rgba(148,163,184,0.3),inset_0_1px_2px_rgba(255,255,255,0.9)] transition-all duration-500 ease-out min-h-[240px] text-center items-center overflow-hidden"
+            {/* Unique Real-time Inventory Counter Widget */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-[0_10px_30px_rgba(148,163,184,0.08)] backdrop-blur-md relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-sky-50 rounded-bl-full transition-all duration-500 group-hover:scale-110 pointer-events-none" />
+              <div className="flex items-center gap-4 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Live Repository</span>
+              </div>
+              <div className="text-3xl font-black text-slate-900 tracking-tight">
+                {totalParts.toLocaleString()}+
+              </div>
+              <p className="text-xs text-slate-400 mt-1">Verified components active across core sets</p>
+              
+              <Link 
+                href="/catalog" 
+                className="mt-5 w-full inline-flex items-center justify-between text-xs font-bold text-white bg-slate-950 hover:bg-indigo-600 px-4 py-3 rounded-xl transition-all duration-300 group/btn shadow-md shadow-slate-950/10"
               >
-                <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                  <img
-                    src={cat.imageUrl || CAT_IMAGES[featured.indexOf(cat) % CAT_IMAGES.length]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-orange/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-2xl z-10" />
-                <div className="relative z-10 w-13 h-13 rounded-2xl bg-gradient-to-b from-slate-50 to-slate-100/80 border border-slate-200/60 flex items-center justify-center shadow-sm group-hover:from-orange group-hover:to-amber-500 group-hover:border-transparent group-hover:shadow-[0_10px_20px_rgba(249,115,22,0.25)] transition-all duration-500 transform group-hover:-translate-y-2 group-hover:rotate-6">
-                  <Icon className="w-5.5 h-5.5 text-slate-600 group-hover:text-white transition-colors duration-300 stroke-[1.8]" />
-                </div>
-                <div className="relative z-10 mt-auto w-full">
-                  <h3 className="text-[13px] font-bold text-slate-800 tracking-wide group-hover:text-slate-950 mb-2.5 line-clamp-2 leading-snug transition-colors duration-300 min-h-[36px] flex items-center justify-center">
-                    {cat.name}
-                  </h3>
-                  <div className="inline-block px-3 py-0.5 rounded-full bg-slate-200/50 border border-slate-300/30 text-[10px] font-bold text-slate-500 tracking-wider uppercase group-hover:bg-orange/10 group-hover:border-orange/20 group-hover:text-orange transition-all duration-300">
-                    {cat.partCount.toLocaleString()} Parts
-                  </div>
-                </div>
+                <span>View Full Grid System</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
               </Link>
-            );
-          })}
+            </div>
+          </div>
+
+          {/* RIGHT SIDE PANEL: The Unique Stacked Slide Layout */}
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {featured.map((cat, idx) => {
+              const Icon = ICON_MAP[cat.icon] || Settings;
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/catalog?fsg=${cat.fsg}`}
+                  className="group relative flex items-center justify-between p-5 rounded-2xl border border-slate-100 bg-white shadow-[0_4px_20px_rgba(148,163,184,0.03)] hover:border-indigo-200 hover:shadow-[0_20px_35px_rgba(99,102,241,0.08)] transition-all duration-400 overflow-hidden min-h-[110px]"
+                >
+                  {/* Geometric Micro Graphic Accent */}
+                  <div className="absolute right-[-20px] bottom-[-20px] w-28 h-28 bg-gradient-to-tr from-sky-500/[0.02] to-indigo-500/[0.04] rounded-full group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
+                  
+                  {/* Subtle Image Hint Strip on left border hover */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-slate-200 group-hover:bg-gradient-to-b group-hover:from-sky-500 group-hover:to-indigo-500 transition-all duration-300" />
+
+                  {/* Micro Tech Blueprint Pattern inside hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] pointer-events-none transition-opacity duration-300">
+                    <img 
+                      src={cat.imageUrl || CAT_IMAGES[idx % CAT_IMAGES.length]} 
+                      alt="" 
+                      className="w-full h-full object-cover scale-110"
+                    />
+                  </div>
+
+                  {/* Left Content Cluster */}
+                  <div className="flex items-center gap-4 relative z-10 pl-2">
+                    {/* Compact Structured Icon */}
+                    <div className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-indigo-50 group-hover:text-indigo-600 group-hover:border-indigo-100 transition-all duration-300 shrink-0">
+                      <Icon className="w-5 h-5 stroke-[2]" />
+                    </div>
+
+                    <div className="space-y-1">
+                      <h3 className="text-[14px] font-black text-slate-800 tracking-tight group-hover:text-slate-950 transition-colors duration-200 group-hover:translate-x-0.5 transition-transform">
+                        {cat.name}
+                      </h3>
+                      {/* Technical Detail Label */}
+                      <span className="inline-block text-[10px] font-extrabold text-indigo-600/80 uppercase tracking-widest bg-indigo-50/50 px-2 py-0.5 rounded">
+                        FSG Group: {cat.fsg || '000'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Data Badge Component */}
+                  <div className="flex flex-col items-end gap-1.5 relative z-10 shrink-0 text-right">
+                    <span className="text-[13px] font-black text-slate-900 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-xl group-hover:bg-slate-950 group-hover:text-white group-hover:border-transparent transition-all duration-300">
+                      {cat.partCount.toLocaleString()}
+                    </span>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Parts</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
         </div>
       </div>
     </section>

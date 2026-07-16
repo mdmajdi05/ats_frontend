@@ -24,7 +24,6 @@ import { SchemaInjector } from '@/components/seo/SchemaInjector'
 import PartCard from '@/components/catalog/PartCard'
 import Button from '@/components/ui/Button'
 import { request } from '@/lib/api-client'
-import { SkeletonCard } from '@/components/ui/Skeleton'
 import { useSiteConfig } from '@/hooks/useSiteConfig'
 import homeFallback from '@/data/home-fallback.json'
 import BrandLogos from '@/components/home/BrandLogos'
@@ -60,10 +59,9 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
   const [category, setCategory] = useState('All Categories')
   const [stock, setStock] = useState('Any Stock')
   const [showFilters, setShowFilters] = useState(false)
-  const [products, setProducts] = useState<Product[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([])
-  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState<Product[]>(homeFallback.products.slice(0, 8) as unknown as Product[])
+  const [categories, setCategories] = useState<Category[]>(homeFallback.categories.fsgCategories.slice(0, 6) as unknown as Category[])
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(homeFallback.testimonials as unknown as Testimonial[])
 
   const fetchHomeData = useCallback(async () => {
     const [prods, cats, tests] = await Promise.all([
@@ -80,7 +78,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
   }, [])
 
   useEffect(() => {
-    fetchHomeData().finally(() => setLoading(false))
+    fetchHomeData()
     const interval = setInterval(fetchHomeData, 60_000)
     return () => clearInterval(interval)
   }, [fetchHomeData])
@@ -130,7 +128,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
 
       {/* ── HERO ── Blue/Indigo theme, dynamic from SiteConfig ── */}
       <section
-        className="relative min-h-screen sm:min-h-[90vh] flex items-center overflow-hidden"
+        className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center overflow-hidden"
         style={heroBg ? { background: heroBg } : undefined}
       >
         {/* Glowy blob background effect */}
@@ -180,22 +178,22 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
           />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
           <div className="max-w-3xl">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 text-sm font-semibold text-white mb-8 shadow-lg">
+            <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 text-xs font-semibold text-white mb-6 shadow-lg">
               <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse flex-shrink-0" />
               {site.heroBadgeText || 'Gas Turbine Parts & Services. Global Inventory.'}
             </div>
 
             {/* Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-black text-white leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.1] mb-6 tracking-tight">
               <span className="gradient-text">Gas Turbine</span> Parts &amp; Services<br />
               When You Need Them Most
             </h1>
 
             {/* Sub-heading */}
-            <p className="text-white/70 text-base sm:text-lg lg:text-xl leading-relaxed mb-8 sm:mb-10 max-w-2xl">
+            <p className="text-white/70 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 sm:mb-10 max-w-2xl">
               Power plants, offshore platforms, pipelines. Wherever a turbine is running, we supply the parts to keep it going. GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, Ansaldo. Search by part number, NSN, or CAGE code. Most quotes come back the same day.
             </p>
 
@@ -388,7 +386,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
       <BrandLogos />
       <IndustriesGrid />
       <CategoriesSection />
-      <ZigZagDivider text="TURBINE" />
+      {/* <ZigZagDivider text="   " /> */}
       <FeaturedCategories categories={categories} />
       <HowItWorks />
       <ZigZagDivider />
@@ -426,15 +424,9 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
             ))}
           </div>
 
-          {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {products.slice(0, 8).map((p) => <PartCard key={p.id} product={p} />)}
             </div>
-          )}
         </div>
       </section>
 

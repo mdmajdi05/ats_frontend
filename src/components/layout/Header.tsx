@@ -125,7 +125,7 @@ export default function Header() {
   }, []);
 
   const scheduleClose = useCallback(() => {
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
+    closeTimer.current = setTimeout(() => setOpenMenu(null), 400);
   }, []);
 
   const cancelClose = useCallback(() => {
@@ -158,11 +158,11 @@ export default function Header() {
       {
         title: 'Hot Stock',
         items: [
-          { label: 'LM2500 Turbine Parts', href: '/catalog?category=hot-stock&type=product', icon: Flame, desc: 'High-demand LM2500 components ready for dispatch' },
-          { label: 'LM6000 Turbine Parts', href: '/catalog?category=hot-stock&type=product', icon: Flame, desc: 'LM6000 gas generator & power turbine spares' },
-          { label: 'LM9000 Turbine Parts', href: '/catalog?category=hot-stock&type=product', icon: Flame, desc: 'LM9000 hot section & rotating components' },
-          { label: 'LMS100 Turbine Parts', href: '/catalog?category=hot-stock&type=product', icon: Flame, desc: 'LMS100 intercooled gas turbine spares' },
-          { label: 'LM500/LM1600 Turbine Parts', href: '/catalog?category=hot-stock&type=product', icon: Flame, desc: 'LM500 & LM1600 marine & industrial parts' },
+          { label: 'LM2500 Turbine Parts', href: '/catalog?category=hot-stock&model=lm2500&type=product', icon: Flame, desc: 'High-demand LM2500 components ready for dispatch' },
+          { label: 'LM6000 Turbine Parts', href: '/catalog?category=hot-stock&model=lm6000&type=product', icon: Flame, desc: 'LM6000 gas generator & power turbine spares' },
+          { label: 'LM9000 Turbine Parts', href: '/catalog?category=hot-stock&model=lm9000&type=product', icon: Flame, desc: 'LM9000 hot section & rotating components' },
+          { label: 'LMS100 Turbine Parts', href: '/catalog?category=hot-stock&model=lms100&type=product', icon: Flame, desc: 'LMS100 intercooled gas turbine spares' },
+          { label: 'LM500/LM1600 Turbine Parts', href: '/catalog?category=hot-stock&model=lm500-lm1600&type=product', icon: Flame, desc: 'LM500 & LM1600 marine & industrial parts' },
         ],
       },
       {
@@ -235,30 +235,41 @@ export default function Header() {
   const INDUSTRIES_MENU = {
     label: 'Industries',
     href: '/industries',
-    sections: [
-      {
-        title: 'Sectors We Serve',
-        items: hasDynamic && navTree?.industries?.length
-          ? navTree.industries.slice(0, 8).map((ind) => {
-              const IconComp = iconMap[ind.icon ?? ''] || Package;
-              return {
-                label: ind.name,
-                href: `/industries/${ind.slug}`,
-                icon: IconComp,
-                desc: ind.description || 'Industry vertical',
-              };
-            })
-          : [
-              { label: 'Aerospace & Aviation', href: '/industries/aerospace', icon: Plane, desc: 'Commercial & military aviation parts' },
-              { label: 'Aircraft Components & Accessories', href: '/industries/aircraft-components-accessories', icon: ShoppingBasketIcon, desc: 'High-grade structural components, actuation systems, and avionics accessories for fixed-wing and rotary-wing aircraft.' },
-            ],
-      },
-    ],
+    sections: (() => {
+      const fallback: Record<string, { label: string; href: string; icon: typeof Package; desc: string }[]> = {
+        'Core Sectors': [
+          { label: 'Aerospace & Aviation', href: '/industries/aerospace', icon: Plane, desc: 'Commercial, military & general aviation parts' },
+          { label: 'Aircraft Components', href: '/industries/aircraft-components-accessories', icon: Plane, desc: 'Structural, actuation & avionics accessories' },
+          { label: 'Energy & Power Generation', href: '/industries/energy', icon: Zap, desc: 'Gas turbine power plants & electrical systems' },
+          { label: 'Marine & Offshore', href: '/industries/marine', icon: Anchor, desc: 'Marine propulsion & offshore platform systems' },
+        ],
+        'Specialized Sectors': [
+          { label: 'Oil & Gas', href: '/industries/oil-and-gas', icon: Fuel, desc: 'Drilling, pipeline & refinery turbine components' },
+          { label: 'Defense & Military', href: '/industries/defense', icon: Shield, desc: 'Mil-spec parts, MRO & fleet readiness' },
+          { label: 'Industrial Manufacturing', href: '/industries/industrial', icon: Factory, desc: 'Heavy machinery & industrial turbine spares' },
+          { label: 'Transportation & Rail', href: '/industries/transportation', icon: Truck, desc: 'Locomotive & transit power systems' },
+        ],
+      };
+
+      if (hasDynamic && navTree?.industries?.length) {
+        const allInds = navTree.industries.slice(0, 8).map((ind) => {
+          const IconComp = iconMap[ind.icon ?? ''] || Package;
+          return { label: ind.name, href: `/industries/${ind.slug}`, icon: IconComp, desc: ind.description || 'Industry vertical' };
+        });
+        const half = Math.ceil(allInds.length / 2);
+        return [
+          { title: 'Core Sectors', items: allInds.slice(0, half) },
+          { title: 'Specialized Sectors', items: allInds.slice(half) },
+        ];
+      }
+
+      return Object.entries(fallback).map(([title, items]) => ({ title, items }));
+    })(),
     featured: {
-      label: 'Manufacturing Partners',
-      desc: 'Over 1,200 certified OEM manufacturers in our global supplier network.',
+      label: 'Global Supplier Network',
+      desc: '1,200+ certified OEM manufacturers — ISO 9001, AS9120B & Nadcap accredited suppliers across 40+ countries.',
       href: '/about',
-      cta: 'Our Supplier Network',
+      cta: 'View Our Network',
       badge: '1,200+ OEMs',
     },
   };
@@ -310,32 +321,22 @@ export default function Header() {
       <header
         ref={headerRef}
         className={cn(
-          'sticky top-0 z-50 bg-white border-b border-[#E8EDF2] transition-shadow duration-200',
+          'sticky top-0 z-50 bg-white border-b border-[#E8EDF2] transition-shadow duration-200 overflow-visible',
           scrolled && 'shadow-lg'
         )}
       >
-        <div className="max-w-7xl mx-auto px-4">
+         <div className="max-w-7xl mx-auto px-2">
           <div className="flex items-center justify-between h-16 lg:h-[70px] gap-4">
 
             {/* Logo — image / AeroLogo controlled by Admin Branding panel */}
             <Link
               href={siteConfig.logoLink || '/'}
-              className="flex items-center gap-2.5 flex-shrink-0"
-              style={{
-                paddingLeft:  siteConfig.logoPaddingX,
-                paddingRight: siteConfig.logoPaddingX,
-                paddingTop:   siteConfig.logoPaddingY,
-                paddingBottom:siteConfig.logoPaddingY,
-                marginLeft:   siteConfig.logoMarginX,
-                marginRight:  siteConfig.logoMarginX,
-                marginTop:    siteConfig.logoMarginY,
-                marginBottom: siteConfig.logoMarginY,
-              }}
+              className="flex items-center flex-shrink-0 relative -my-4"
             >
               <AeroLogo
                 src={siteConfig.logoImageUrl && !logoImgError ? siteConfig.logoImageUrl : '/logo.png'}
                 alt={siteConfig.logoText || 'AeroTurbineSpare Logo'}
-                size={siteConfig.logoHeight || 56}
+                size={siteConfig.logoHeight || 96}
                 showText={false}
                 animated={false}
                 onImgError={() => setLogoImgError(true)}
@@ -461,21 +462,16 @@ export default function Header() {
           </div>
 
           {/* ── Desktop mega-nav bar ──────────────────────── */}
-          <nav className="hidden lg:flex items-center justify-center gap-0.5 h-11 border-t border-[#E8EDF2]/70">
+          <nav className="hidden lg:flex items-center justify-center gap-0.5 h-11 border-t border-[#E8EDF2]/70 relative"
+             onMouseLeave={() => setOpenMenu(null)}>
 <Link href="/" className="px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60">Home</Link>
             {/* Mega menu items */}
             {MEGA_MENUS.map((menu) => (
               <div
                 key={menu.label}
-                className="relative"
+                className=""
                 onMouseEnter={() => { cancelClose(); setOpenMenu(menu.label); }}
                 onMouseLeave={scheduleClose}
-                onClick={(e) => {
-                  // Only trigger on direct button clicks, not when clicking inside the dropdown
-                  if ((e.target as HTMLElement).closest('button')) {
-                    setOpenMenu((prev) => (prev === menu.label ? null : menu.label));
-                  }
-                }}
               >
                 <button
                   className={cn(
@@ -500,13 +496,13 @@ export default function Header() {
                       ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
                       : 'opacity-0 scale-95 pointer-events-none -translate-y-2'
                   )}
-                  style={{ minWidth: 'min(1150px, calc(100vw - 2rem))', maxWidth: 'calc(100vw - 2rem)' }}
+                  style={{ width: 'min(1280px, calc(100vw - 2rem))' }}
                 >
                   <div className="flex">
                     {/* Sections */}
-                    <div className="flex gap-0 flex-1 p-6 overflow-scroll max-h-[500px]">
+                    <div className="flex gap-0 flex-1 p-4 overflow-y-auto max-h-[500px]">
                       {(menu as MegaMenuData).sections.map((section) => (
-                        <div key={section.title} className="flex-1 min-w-0 px-4 first:pl-0 last:pr-0 border-r border-[#E8EDF2] last:border-r-0 ">
+                        <div key={section.title} className="flex-1 min-w-0 px-3 first:pl-0 last:pr-0 border-r border-[#E8EDF2] last:border-r-0">
                           <h3 className="text-[10px] font-bold uppercase tracking-widest text-[#4A4A6A] mb-3">
                             {section.title}
                           </h3>
@@ -521,10 +517,10 @@ export default function Header() {
                                     <item.icon className="w-4 h-4 text-[#4A4A6A] group-hover:text-[#4F46E5] transition-colors" />
                                   </div>
                                   <div className="min-w-0">
-                                    <div className="text-sm font-medium text-[#1A1A2E] group-hover:text-[#4F46E5] transition-colors leading-tight truncate max-w-52">
+                                    <div className="text-sm font-medium text-[#1A1A2E] group-hover:text-[#4F46E5] transition-colors leading-tight truncate">
                                       {item.label}
                                     </div>
-                                    <div className="text-xs text-[#4A4A6A] mt-0.5 leading-snug truncate max-w-52">{item.desc}</div>
+                                    <div className="text-xs text-[#4A4A6A] mt-0.5 leading-snug truncate">{item.desc}</div>
                                   </div>
                                 </Link>
                               </li>
@@ -535,7 +531,7 @@ export default function Header() {
                     </div>
 
                     {/* Featured promo panel */}
-                    <div className="w-52 bg-gradient-to-br from-[#0A1628] to-[#0B1A33] rounded-r-2xl rounded-bl-none p-5 flex flex-col justify-between">
+                    <div className="w-44 shrink-0 bg-gradient-to-br from-[#0A1628] to-[#0B1A33] rounded-r-2xl rounded-bl-none p-5 flex flex-col justify-between">
                       <div>
                         <span className="inline-block bg-[#4F46E5] text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-3 uppercase tracking-wider">
                           {(menu as MegaMenuData).featured.badge}

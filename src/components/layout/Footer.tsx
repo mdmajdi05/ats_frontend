@@ -60,7 +60,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2 space-y-4">
-            <AeroLogo variant="white" src="/logo.png" showText={false} />
+            <div className="inline-flex items-center justify-center bg-white rounded-2xl p-4 w-fit">
+              <AeroLogo variant="white" src="/logo.png" size={64} showText={false} />
+            </div>
             <p className="text-sm leading-relaxed text-silver/70">
               Global supplier of gas turbine spare parts and services for power generation, oil &amp; gas, marine, and industrial operators. AS9100 &amp; AS9120 certified.
             </p>

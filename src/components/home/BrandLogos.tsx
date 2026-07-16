@@ -1,7 +1,5 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
 const BRAND_LOGOS = [
   { name: 'General Electric', file: 'ge.png' },
   { name: 'Pratt & Whitney', file: 'pratt-whitney.png' },
@@ -14,17 +12,6 @@ const BRAND_LOGOS = [
 ];
 
 export default function BrandLogos() {
-  const [mounted, setMounted] = useState(false);
-  const ref = useRef(false);
-  useEffect(() => {
-    if (!ref.current) {
-      ref.current = true;
-      setMounted(true);
-    }
-  }, []);
-
-  if (!mounted) return null;
-
   return (
     <section className="py-12 bg-white border-y border-silver">
       <div className="max-w-7xl mx-auto px-4">
