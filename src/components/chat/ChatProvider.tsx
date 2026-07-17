@@ -30,11 +30,11 @@ const NOTIF_DISPLAY_DURATION = 8000;
 const NOTIF_CYCLE_INTERVAL = 60000;
 
 const NOTIF_MESSAGES = [
-  { text: 'Are you finding products? Let\u2019s connect you with our best executive for your query.', action: 'Let\u2019s Talk' },
-  { text: 'We stock 5000+ certified aerospace parts \u2014 turbine blades, nozzles, bearings & more.', action: 'Browse Parts' },
-  { text: 'Need a quote fast? Our team responds within 2 hours on business days.', action: 'Get Quote' },
-  { text: 'LM2500, LM6000, GE Frame parts in stock \u2014 ready for immediate dispatch.', action: 'View Inventory' },
-  { text: 'MIL-SPEC, FAA & EASA certified components \u2014 full traceability provided.', action: 'Learn More' },
+  { text: 'Hey, let\u2019s talk! Are you finding products? We\u2019ll connect you with our best executive.', action: 'Let\u2019s Talk' },
+  { text: 'Hey, let\u2019s talk! We stock 5000+ certified turbine spare parts \u2014 blades, nozzles, bearings & more.', action: 'Browse Parts' },
+  { text: 'Hey, let\u2019s talk! Need a quote fast? Our team responds within 2 hours on business days.', action: 'Get Quote' },
+  { text: 'Hey, let\u2019s talk! LM2500, LM6000, GE Frame turbine spares in stock \u2014 ready for dispatch.', action: 'View Inventory' },
+  { text: 'Hey, let\u2019s talk! MIL-SPEC, FAA & EASA certified turbine components \u2014 full traceability.', action: 'Learn More' },
 ];
 
 export default function ChatProvider() {
