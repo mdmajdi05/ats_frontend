@@ -1490,34 +1490,63 @@ function getMockBackups(): BackupRecord[] {
 }
 
 // ─── Public request function ─────────────────────────────────
+async function fallbackToIndexedDB<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  if (typeof window !== 'undefined') {
+    const { fallbackRouter } = await import('./fallback-router');
+    return fallbackRouter<T>(endpoint, options);
+  }
+  throw new Error('Fallback not available on server');
+}
+
+function isReadRequest(options?: RequestInit): boolean {
+  return !options?.method || options.method.toUpperCase() === 'GET';
+}
+
+function isProductEndpoint(endpoint: string): boolean {
+  const path = endpoint.split('?')[0];
+  return path === '/products' || path.startsWith('/products/')
+    || path === '/nav-categories' || path === '/categories'
+    || path === '/industries' || path.startsWith('/industries/')
+    || path === '/site-config' || path === '/health';
+}
+
+function hasEmptyData<T>(result: T): boolean {
+  if (!result || typeof result !== 'object') return false;
+  const obj = result as Record<string, unknown>;
+  if (obj.success === false) return true;
+  if (Array.isArray(obj.data) && obj.data.length === 0) return true;
+  return false;
+}
+
 export async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   if (USE_MOCK) {
     await ensureMockData();
     await delay(DELAY);
     const result = await mockRouter<T>(endpoint, options);
-    // Mock mode: write operations also go to pending queue (admin review)
     if (isWriteOp(options?.method) && isQueueable(endpoint)) {
       queuePending(endpoint, options);
     }
     return result;
   }
 
-  // Runtime data source check (Dev Dashboard toggle)
   if (typeof window !== 'undefined') {
     const ds = localStorage.getItem('ats_data_source');
     if (ds === 'fallback') {
-      const { fallbackRouter } = await import('./fallback-router');
-      return fallbackRouter<T>(endpoint, options);
+      return fallbackToIndexedDB<T>(endpoint, options);
     }
   }
 
-  // Real mode: try backend, auto-fallback to IndexedDB on failure
+  const isGet = isReadRequest(options);
+
   try {
-    return await realRequest<T>(endpoint, options);
+    const result = await realRequest<T>(endpoint, options);
+    if (isGet && isProductEndpoint(endpoint) && hasEmptyData(result)) {
+      console.warn(`[request] Backend returned empty data for ${endpoint} — falling back to local data`);
+      return fallbackToIndexedDB<T>(endpoint, options);
+    }
+    return result;
   } catch (err) {
     const msg = err instanceof Error ? err.message : '';
-    const isNetworkError = msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Network request failed');
-    const isBackendDown = msg.includes('API Error 5') || msg.includes('503') || msg.includes('502') || msg.includes('500');
     const isQueueableWrite = isWriteOp(options?.method) && isQueueable(endpoint);
 
     if (isQueueableWrite) {
@@ -1525,12 +1554,9 @@ export async function request<T>(endpoint: string, options?: RequestInit): Promi
       return { success: true, message: 'Backend unavailable. Saved to pending queue — admin will review.' } as T;
     }
 
-    // Auto-fallback: backend unreachable → use IndexedDB fallback
-    if (isNetworkError || isBackendDown || msg.includes('backend')) {
-      if (typeof window !== 'undefined') {
-        const { fallbackRouter } = await import('./fallback-router');
-        return fallbackRouter<T>(endpoint, options);
-      }
+    if (isGet) {
+      console.warn(`[request] Backend error for ${endpoint}: ${msg} — falling back to local data`);
+      return fallbackToIndexedDB<T>(endpoint, options);
     }
 
     throw err;
