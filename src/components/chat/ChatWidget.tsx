@@ -37,14 +37,14 @@ function FloatingParticles() {
 }
 
 const containerVariants = {
-  hidden: { opacity: 0, scale: 0.88, y: 30, rotateX: 5 },
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
   visible: {
-    opacity: 1, scale: 1, y: 0, rotateX: 0,
-    transition: { type: 'spring' as const, damping: 20, stiffness: 260, mass: 0.7 },
+    opacity: 1, scale: 1, y: 0,
+    transition: { type: 'spring' as const, damping: 30, stiffness: 300, mass: 0.8 },
   },
   exit: {
-    opacity: 0, scale: 0.92, y: 15,
-    transition: { duration: 0.18, ease: 'easeIn' as const },
+    opacity: 0, scale: 0.97, y: 10,
+    transition: { duration: 0.15, ease: 'easeIn' as const },
   },
 };
 
@@ -98,7 +98,7 @@ export default function ChatWidget({ botName }: ChatWidgetProps) {
           animate="visible"
           exit="exit"
           className="fixed bottom-24 right-4 sm:right-6 z-50 w-[390px] max-w-[calc(100vw-2rem)] origin-bottom-right"
-          style={{ maxHeight: 'calc(100vh - 8rem)' }}
+          style={{ maxHeight: 'calc(100vh - 5rem)' }}
         >
           {/* Outer glow */}
           <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/10 blur-2xl pointer-events-none" />
@@ -114,7 +114,7 @@ export default function ChatWidget({ botName }: ChatWidgetProps) {
           </div>
 
           {/* Main glassmorphism container */}
-          <div className="relative bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl flex flex-col h-full max-h-[calc(100vh-8rem)] shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
+          <div className="relative bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl flex flex-col h-full max-h-[calc(100vh-5rem)] shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
             {/* Animated header gradient */}
             <div className="relative overflow-hidden">
               <motion.div
@@ -163,7 +163,7 @@ export default function ChatWidget({ botName }: ChatWidgetProps) {
             {/* Messages area */}
             <div
               className="overflow-y-auto flex-1 py-3 space-y-1 scroll-smooth bg-gradient-to-b from-indigo-50/30 to-transparent dark:from-indigo-950/10"
-              style={{ maxHeight: '350px' }}
+              style={{ maxHeight: '500px' }}
             >
               <AnimatePresence mode="popLayout">
                 {messages.map((msg, i) => (
