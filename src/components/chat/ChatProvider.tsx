@@ -18,19 +18,24 @@ function getChatConfigSafe(config: { chat?: ChatConfig } | null): ChatConfig {
   return config?.chat || DEFAULT_CHAT_CONFIG;
 }
 
-const NOTIF_DISMISSED_KEY = 'ats_chat_notif_dismissed';
-const NOTIF_SHOW_DELAY = 5000;
-const NOTIF_AUTO_HIDE = 10000;
-
 function wasNotifDismissed(): boolean {
   if (typeof window === 'undefined') return false;
   try { return localStorage.getItem(NOTIF_DISMISSED_KEY) === '1'; }
   catch { return false; }
 }
 
-function markNotifDismissed() {
-  try { localStorage.setItem(NOTIF_DISMISSED_KEY, '1'); } catch { /* ignore */ }
-}
+const NOTIF_DISMISSED_KEY = 'ats_chat_notif_dismissed';
+const NOTIF_FIRST_DELAY = 5000;
+const NOTIF_DISPLAY_DURATION = 8000;
+const NOTIF_CYCLE_INTERVAL = 60000;
+
+const NOTIF_MESSAGES = [
+  { text: 'Are you finding products? Let\u2019s connect you with our best executive for your query.', action: 'Let\u2019s Talk' },
+  { text: 'We stock 5000+ certified aerospace parts \u2014 turbine blades, nozzles, bearings & more.', action: 'Browse Parts' },
+  { text: 'Need a quote fast? Our team responds within 2 hours on business days.', action: 'Get Quote' },
+  { text: 'LM2500, LM6000, GE Frame parts in stock \u2014 ready for immediate dispatch.', action: 'View Inventory' },
+  { text: 'MIL-SPEC, FAA & EASA certified components \u2014 full traceability provided.', action: 'Learn More' },
+];
 
 export default function ChatProvider() {
   const { isOpen, toggle, close } = useChat();
@@ -38,11 +43,45 @@ export default function ChatProvider() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [notifVisible, setNotifVisible] = useState(false);
+  const [notifIndex, setNotifIndex] = useState(0);
   const showTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cycleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dismissedRef = useRef(false);
-  const notifVisibleRef = useRef(false);
   const prevPathRef = useRef(pathname);
+  const pausedRef = useRef(false);
+
+  const clearAllTimers = useCallback(() => {
+    if (showTimerRef.current) clearTimeout(showTimerRef.current);
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    if (cycleTimerRef.current) clearTimeout(cycleTimerRef.current);
+  }, []);
+
+  const pauseNotifications = useCallback(() => {
+    pausedRef.current = true;
+    clearAllTimers();
+    setNotifVisible(false);
+  }, [clearAllTimers]);
+
+  const startCycle = useCallback((startIndex = 0) => {
+    clearAllTimers();
+    pausedRef.current = false;
+    let idx = startIndex;
+
+    function showNext() {
+      if (pausedRef.current || dismissedRef.current) return;
+      setNotifIndex(idx);
+      setNotifVisible(true);
+
+      hideTimerRef.current = setTimeout(() => {
+        setNotifVisible(false);
+        idx = (idx + 1) % NOTIF_MESSAGES.length;
+        cycleTimerRef.current = setTimeout(showNext, NOTIF_CYCLE_INTERVAL - NOTIF_DISPLAY_DURATION);
+      }, NOTIF_DISPLAY_DURATION);
+    }
+
+    showNext();
+  }, [clearAllTimers]);
 
   useEffect(() => {
     dismissedRef.current = wasNotifDismissed();
@@ -54,53 +93,35 @@ export default function ChatProvider() {
     if (pathname !== prevPathRef.current) {
       prevPathRef.current = pathname;
       close();
-      setNotifVisible(false);
-      if (showTimerRef.current) clearTimeout(showTimerRef.current);
-      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+      pauseNotifications();
     }
-  }, [pathname, close]);
+  }, [pathname, close, pauseNotifications]);
 
   useEffect(() => {
-    if (showTimerRef.current) clearTimeout(showTimerRef.current);
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    let cancelled = false;
+    clearAllTimers();
 
-    if (notifVisibleRef.current) {
-      notifVisibleRef.current = false;
-      const id = requestAnimationFrame(() => { if (!cancelled) setNotifVisible(false); });
-      cancelAnimationFrame(id);
+    if (isOpen || dismissedRef.current) {
+      pauseNotifications();
+      return;
     }
 
-    if (isOpen || dismissedRef.current) return;
-
     showTimerRef.current = setTimeout(() => {
-      notifVisibleRef.current = true;
-      setNotifVisible(true);
-      hideTimerRef.current = setTimeout(() => {
-        notifVisibleRef.current = false;
-        setNotifVisible(false);
-      }, NOTIF_AUTO_HIDE);
-    }, NOTIF_SHOW_DELAY);
+      startCycle(0);
+    }, NOTIF_FIRST_DELAY);
 
-    return () => {
-      cancelled = true;
-      if (showTimerRef.current) clearTimeout(showTimerRef.current);
-      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-    };
-  }, [isOpen]);
+    return () => clearAllTimers();
+  }, [isOpen, startCycle, clearAllTimers, pauseNotifications]);
 
   const dismissNotif = useCallback(() => {
-    setNotifVisible(false);
+    pauseNotifications();
     dismissedRef.current = true;
-    markNotifDismissed();
-    if (showTimerRef.current) clearTimeout(showTimerRef.current);
-    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
-  }, []);
+    try { localStorage.setItem(NOTIF_DISMISSED_KEY, '1'); } catch { /* ignore */ }
+  }, [pauseNotifications]);
 
   const handleOpenChat = useCallback(() => {
-    dismissNotif();
+    pauseNotifications();
     toggle();
-  }, [dismissNotif, toggle]);
+  }, [pauseNotifications, toggle]);
 
   const chatConfig = getChatConfigSafe(config);
   const showChat = chatConfig.chatbotEnabled !== false;
@@ -114,6 +135,7 @@ export default function ChatProvider() {
     : '#';
 
   const botName = chatConfig.botName || 'AeroBot';
+  const currentNotif = NOTIF_MESSAGES[notifIndex];
 
   return (
     <>
@@ -128,6 +150,7 @@ export default function ChatProvider() {
       <AnimatePresence>
         {notifVisible && !isOpen && (
           <motion.div
+            key={`notif-${notifIndex}`}
             initial={{ opacity: 0, scale: 0.5, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -161,7 +184,7 @@ export default function ChatProvider() {
                     <span className="text-[10px] text-green-600 font-medium ml-auto">online</span>
                   </div>
                   <p className="text-[13px] text-gray-700 leading-relaxed mb-3 font-medium">
-                    Are you finding products? Let&apos;s connect you with our best executive for your query.
+                    {currentNotif.text}
                   </p>
 
                   <div className="flex gap-2">
@@ -169,7 +192,7 @@ export default function ChatProvider() {
                       onClick={handleOpenChat}
                       className="flex-1 text-xs font-semibold px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 transition-all shadow-md shadow-indigo-500/20"
                     >
-                      Let&apos;s Talk
+                      {currentNotif.action}
                     </button>
                     {showWhatsApp && chatConfig.whatsappNumber && (
                       <a
