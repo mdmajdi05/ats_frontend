@@ -259,7 +259,7 @@
       "slug": "microcircuits-electrical-hardware",
       "icon": "cpu",
       "description": "Radiation-hardened microcircuits, semiconductors, and precision hardware for aerospace & defense electronics.",
-      "longDescription": "We provide cutting-edge microelectronics and hardware, including ASIC processors, FPGA modules, surface-mount capacitors, and precision hardware like standoffs and terminals. Our sourcing network ensures access to EOL (End-of-Life) and active components, fully compliant with DLA (Defense Logistics Agency) standards and solderability requirements for mission-critical avionics, radar, and satellite systems.",
+      "longDescription": "We supply qualified microelectronics and hardware, including ASIC processors, FPGA modules, surface-mount capacitors, and precision hardware like standoffs and terminals. Our sourcing network ensures access to EOL (End-of-Life) and active components, fully compliant with DLA (Defense Logistics Agency) standards and solderability requirements for avionics, radar, and satellite systems.",
       "partCount": 28600,
       "keyParts": [
         "Rad-Hard ICs",

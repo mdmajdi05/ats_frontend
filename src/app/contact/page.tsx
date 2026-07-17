@@ -5,13 +5,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import Link from 'next/link';
 import { request } from '@/lib/api-client';
 import {
   MapPin, Phone, Mail, Clock,
   MessageSquare, FileText, Wrench, Shield,
   CheckCircle2,
 } from 'lucide-react';
-import Head from 'next/head';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Button from '@/components/ui/Button';
@@ -106,10 +106,6 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Head>
-        <title>Contact Us | AeroTurbineSpare</title>
-        <meta name="description" content="Contact AeroTurbineSpare for aerospace parts sourcing. Call +91 9354764587, email sales@aeroturbinespare.com, or submit an RFQ. AOG emergency line available 24/7." />
-      </Head>
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
         { name: 'Contact Us', url: '/contact' },
@@ -366,12 +362,12 @@ export default function ContactPage() {
 
                         <p className="text-xs text-text-muted text-center">
                           By sending this message, you agree to our{' '}
-                          <a
+                          <Link
                             href="/privacy"
                             className="text-orange hover:underline"
                           >
                             Privacy Policy
-                          </a>
+                          </Link>
                           . We will never share your information with third
                           parties without consent.
                         </p>

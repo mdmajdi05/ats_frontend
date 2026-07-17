@@ -5,11 +5,19 @@ import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-re
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'About AeroTurbineSpare',
-  description: 'Founded in 2009, AeroTurbineSpare is an ISO 9001 & AS9120 certified aerospace parts distributor serving OEMs, MROs, and defense contractors across 150+ countries. 5 Million+ parts in catalog.',
+  title: 'About AeroTurbineSpare | ISO 9001 & AS9120 Certified Gas Turbine Parts Distributor',
+  description:
+    'AeroTurbineSpare is an ISO 9001:2015 & AS9120 Rev B certified gas turbine spare parts distributor. CAGE 8ATR9. Serving OEMs, MROs, and defense contractors in 150+ countries since 2009. 5 Million+ parts in catalog. GE, Siemens, Rolls-Royce, Solar Turbines.',
+  keywords: [
+    'about AeroTurbineSpare', 'gas turbine parts distributor',
+    'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
+    'CAGE 8ATR9', 'GE turbine parts supplier',
+    'Siemens turbine parts distributor', 'aerospace parts company',
+  ],
   openGraph: {
-    title: 'About AeroTurbineSpare | Precision Aerospace Parts Sourcing',
-    description: 'Founded in 2009. ISO 9001 & AS9120 certified. Serving 150+ countries. Your trusted partner for certified aerospace parts.',
+    title: 'About AeroTurbineSpare | Gas Turbine Parts Distributor',
+    description:
+      'ISO 9001 & AS9120 certified. CAGE 8ATR9. Serving 150+ countries since 2009. 5 Million+ turbine spare parts.',
   },
 };
 
@@ -111,8 +119,8 @@ export default function AboutPage() {
               About AeroTurbineSpare
             </h1>
             <p className="text-silver/80 text-xl max-w-2xl mx-auto leading-relaxed">
-              Your trusted partner for precision aerospace parts. Certified,
-              traceable, and delivered on time, every time.
+              Gas turbine spare parts — certified, traceable, and delivered on time.
+              ISO 9001 & AS9120 certified distributor serving 150+ countries since 2009.
             </p>
           </div>
         </section>
@@ -193,7 +201,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-silver/80 leading-relaxed">
                   To provide aerospace procurement professionals with instant access
-                  to quality-assured parts, backed by full traceability and the
+                  to quality-assured parts, with full traceability and the
                   industry certification standards, so that no aircraft
                   stays on the ground for lack of a genuine, certified component.
                 </p>

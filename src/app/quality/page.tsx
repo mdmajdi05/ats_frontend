@@ -8,11 +8,19 @@ import {
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Quality Assurance',
-  description: 'AeroTurbineSpare is ISO 9001:2015 & AS9120 Rev B certified. 100% inspection on every order. Full traceability, anti-counterfeit program, and 12-month defect warranty.',
+  title: 'Quality Assurance | ISO 9001 & AS9120 Certified Gas Turbine Parts',
+  description:
+    'AeroTurbineSpare quality assurance: ISO 9001:2015 & AS9120 Rev B certified. 100% inspection on every gas turbine part order. Full traceability, anti-counterfeit program, 12-month defect warranty. CAGE 8ATR9.',
+  keywords: [
+    'aerospace parts quality assurance', 'ISO 9001 certified parts supplier',
+    'AS9120 quality standard', 'gas turbine parts inspection',
+    'anti-counterfeit aerospace parts', 'turbine parts traceability',
+    'aerospace parts certification', 'CAGE 8ATR9 quality',
+  ],
   openGraph: {
-    title: 'Quality Assurance — AeroTurbineSpare',
-    description: 'ISO 9001 & AS9120 certified aerospace parts distributor. 100% inspection, full traceability, zero counterfeit policy.',
+    title: 'Quality Assurance | AeroTurbineSpare',
+    description:
+      'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty on turbine parts.',
   },
 };
 
@@ -351,7 +359,7 @@ export default function QualityPage() {
                   on our Approved Supplier List.
                 </p>
                 <p>
-                  Incoming parts from independent distributors undergo enhanced
+                  Incoming parts from independent distributors undergo additional
                   inspection including external visual examination per{' '}
                   <strong>IDEA-STD-1010</strong>, documentation review, and in
                   cases of doubt, X-ray, acetone testing, or third-party laboratory
