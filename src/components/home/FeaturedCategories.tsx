@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Zap, Settings, Circle, Wrench, Cpu, Activity, ArrowRight, Layers } from 'lucide-react';
 import type { Category } from '@/types';
 
@@ -64,12 +65,12 @@ export default function FeaturedCategories({ categories }: { categories: Categor
                 <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
                   <Layers className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Live Repository</span>
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Live Repository</span>
               </div>
               <div className="text-3xl font-black text-slate-900 tracking-tight">
                 {totalParts.toLocaleString()}+
               </div>
-              <p className="text-xs text-slate-400 mt-1">Verified components active across core sets</p>
+              <p className="text-xs text-slate-500 mt-1">Verified components active across core sets</p>
               
               <Link 
                 href="/catalog" 
@@ -99,10 +100,12 @@ export default function FeaturedCategories({ categories }: { categories: Categor
 
                   {/* Micro Tech Blueprint Pattern inside hover */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.03] pointer-events-none transition-opacity duration-300">
-                    <img 
+                    <Image 
                       src={cat.imageUrl || CAT_IMAGES[idx % CAT_IMAGES.length]} 
-                      alt="" 
-                      className="w-full h-full object-cover scale-110"
+                      alt={`${cat.name || 'Category'} - gas turbine parts`} 
+                      fill
+                      className="object-cover scale-110"
+                      unoptimized
                     />
                   </div>
 
@@ -118,7 +121,7 @@ export default function FeaturedCategories({ categories }: { categories: Categor
                         {cat.name}
                       </h3>
                       {/* Technical Detail Label */}
-                      <span className="inline-block text-[10px] font-extrabold text-indigo-600/80 uppercase tracking-widest bg-indigo-50/50 px-2 py-0.5 rounded">
+                      <span className="inline-block text-[10px] font-extrabold text-indigo-700 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded">
                         FSG Group: {cat.fsg || '000'}
                       </span>
                     </div>
@@ -129,7 +132,7 @@ export default function FeaturedCategories({ categories }: { categories: Categor
                     <span className="text-[13px] font-black text-slate-900 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-xl group-hover:bg-slate-950 group-hover:text-white group-hover:border-transparent transition-all duration-300">
                       {cat.partCount.toLocaleString()}
                     </span>
-                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Parts</span>
+                    <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block">Parts</span>
                   </div>
                 </Link>
               );

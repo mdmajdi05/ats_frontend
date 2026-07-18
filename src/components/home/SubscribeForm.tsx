@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Check } from 'lucide-react';
 import { request } from '@/lib/api-client';
 import toast from 'react-hot-toast';
@@ -9,6 +9,21 @@ export default function SubscribeForm() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem('subscribe_form_email');
+    if (saved) {
+      try {
+        setEmail(saved);
+      } catch {}
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email) {
+      sessionStorage.setItem('subscribe_form_email', email);
+    }
+  }, [email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +38,7 @@ export default function SubscribeForm() {
         body: JSON.stringify({ email: email.trim() }),
       });
       setSubscribed(true);
+      sessionStorage.removeItem('subscribe_form_email');
       toast.success('Subscribed! Stay tuned for updates.');
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to subscribe');
@@ -38,7 +54,7 @@ export default function SubscribeForm() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 mb-4">
             <Check className="w-6 h-6 text-green-400" />
           </div>
-          <h3 className="text-xl font-bold text-white mb-1">You&apos;re Subscribed!</h3>
+          <h2 className="text-xl font-bold text-white mb-1">You&apos;re Subscribed!</h2>
           <p className="text-white/60 text-sm">We&apos;ll send you the latest parts inventory and industry updates.</p>
         </div>
       </section>

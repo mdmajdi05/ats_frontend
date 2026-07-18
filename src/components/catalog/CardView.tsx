@@ -74,7 +74,7 @@ export default function CardView({ items, cardConfig }: CardViewProps) {
           )}
           {showImage && ((!cardImage || hasImgError) && placeholder) && (
             <div className="aspect-video bg-bg flex items-center justify-center">
-              <img src={placeholder} alt="" className="w-full h-full object-cover opacity-50" />
+              <img src={placeholder} alt="Part placeholder image" className="w-full h-full object-cover opacity-50" />
             </div>
           )}
           {showImage && (!cardImage || hasImgError) && !placeholder && (

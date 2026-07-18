@@ -2,17 +2,16 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'AeroTurbineSpare Parts',
+    name: 'AeroTurbineSpare',
     short_name: 'AeroTurbine',
-    description: 'Aircraft parts and components marketplace',
+    description: 'Global supplier of gas turbine spare parts',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0A0A0A',
-    theme_color: '#0A0A0A',
+    background_color: '#0A1628',
+    theme_color: '#4F46E5',
     icons: [
-      { src: '/favicon.ico', sizes: 'any', type: 'image/x-icon' },
-      { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { src: '/logo.png', sizes: '192x192', type: 'image/png' },
+      { src: '/logo.png', sizes: '512x512', type: 'image/png' },
     ],
   };
 }

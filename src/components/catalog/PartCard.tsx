@@ -1,7 +1,8 @@
 ﻿'use client';
 
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
+import Image from 'next/image';
 import { Bookmark, BookmarkCheck, ArrowRight } from 'lucide-react';
 import type { Product } from '@/types';
 import Badge from '@/components/ui/Badge';
@@ -13,9 +14,10 @@ interface PartCardProps {
   view?: 'grid' | 'list';
 }
 
-export default function PartCard({ product, view = 'grid' }: PartCardProps) {
+function PartCardComponent({ product, view = 'grid' }: PartCardProps) {
   const { isSaved, toggle } = useSavedParts();
   const saved = isSaved(product.id);
+  const [imgError, setImgError] = useState(false);
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -26,9 +28,16 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
   if (view === 'list') {
     return (
       <div className="bg-white border border-silver rounded-xl p-4 flex items-center gap-4 hover:border-orange/30 hover:shadow-sm transition-all">
-        {product.imageUrl && (
-          <div className="w-16 h-16 rounded-lg bg-[#F5F7FA] overflow-hidden flex-shrink-0">
-            <img src={product.imageUrl} alt={product.partNumber} className="w-full h-full object-cover" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+        {product.imageUrl && !imgError && (
+          <div className="w-16 h-16 rounded-lg bg-[#F5F7FA] overflow-hidden flex-shrink-0 relative">
+            <Image
+              src={product.imageUrl}
+              alt={`${product.partNumber} - ${product.shortDescription || 'aerospace turbine part'}`}
+              fill
+              className="object-cover"
+              unoptimized
+              onError={() => setImgError(true)}
+            />
           </div>
         )}
         <div className="flex-1 min-w-0">
@@ -55,14 +64,15 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
 
   return (
     <div className="bg-white rounded-xl border border-silver overflow-hidden flex flex-col hover:shadow-md hover:border-orange/30 transition-all duration-200">
-      {product.imageUrl && (
+      {product.imageUrl && !imgError && (
         <div className="relative h-40 bg-[#F5F7FA] overflow-hidden">
-          <img
+          <Image
             src={product.imageUrl}
-            alt={product.shortDescription || product.partNumber}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            alt={product.shortDescription || `${product.partNumber} - aerospace turbine part`}
+            fill
+            className="object-cover"
+            unoptimized
+            onError={() => setImgError(true)}
           />
         </div>
       )}
@@ -85,9 +95,9 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
         </div>
 
         <div className="flex gap-3 text-[11px] text-text-muted mb-4 bg-bg rounded-lg p-2">
-          <div><span className="text-text-muted/60">NSN</span><br /><span className="text-text font-medium">{product.nsn}</span></div>
-          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/60">CAGE</span><br /><span className="text-text font-medium">{product.cage}</span></div>
-          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/60">Qty</span><br /><span className="text-text font-medium">{product.quantityAvailable}</span></div>
+          <div><span className="text-text-muted/80">NSN</span><br /><span className="text-text font-medium">{product.nsn}</span></div>
+          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/80">CAGE</span><br /><span className="text-text font-medium">{product.cage}</span></div>
+          <div className="border-l border-silver-dark pl-3"><span className="text-text-muted/80">Qty</span><br /><span className="text-text font-medium">{product.quantityAvailable}</span></div>
         </div>
 
         <div className="flex items-center justify-between gap-2">
@@ -101,3 +111,4 @@ export default function PartCard({ product, view = 'grid' }: PartCardProps) {
   );
 }
 
+export default React.memo(PartCardComponent);

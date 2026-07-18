@@ -25,7 +25,7 @@ export default function DashboardSettingsPage() {
         <div className="flex gap-2">
           <button onClick={reload} className="p-2.5 rounded-xl border border-silver text-text-muted hover:bg-silver"><RefreshCw className="w-4 h-4" /></button>
           <button
-            onClick={async () => { const r = await save(config); if (r?.success) toast.success('Settings saved'); else toast.error('Failed to save'); }}
+            onClick={async () => { const r = await save(config); if (r) toast.success('Settings saved'); else toast.error('Failed to save'); }}
             disabled={saving}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy text-white text-sm font-semibold hover:bg-navy/90 disabled:opacity-60"
           >

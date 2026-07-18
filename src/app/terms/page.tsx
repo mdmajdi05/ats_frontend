@@ -1,5 +1,32 @@
+import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { buildHreflang } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions | AeroTurbineSpare',
+  description: 'AeroTurbineSpare terms and conditions. Review the rules governing use of our aerospace parts procurement platform, RFQ submissions, and purchase agreements.',
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/terms',
+    languages: buildHreflang('/terms'),
+  },
+  openGraph: {
+    title: 'Terms & Conditions | AeroTurbineSpare',
+    description: 'Review the terms governing use of our aerospace parts procurement platform.',
+    url: 'https://aeroturbinespare.com/terms',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms & Conditions | AeroTurbineSpare',
+    description: 'Review the terms governing use of our aerospace parts procurement platform.',
+    images: ['/images/og-cover.jpg'],
+  },
+  robots: { index: true, follow: true },
+};
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 

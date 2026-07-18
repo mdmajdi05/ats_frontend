@@ -7,7 +7,7 @@ import DataRefreshProvider from '@/providers/DataRefreshProvider';
 import ChatProvider from '@/components/chat/ChatProvider';
 import { NotificationProvider } from '@/hooks/useNotifications';
 import NotificationToastHandler from '@/components/notifications/NotificationToastHandler';
-import { OrganizationJsonLd, WebsiteJsonLd, FAQJsonLd } from '@/components/seo/JsonLd';
+import { OrganizationJsonLd, WebsiteJsonLd, FAQJsonLd, LocalBusinessJsonLd, ServiceJsonLd, SpeakableJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
 
 const inter = Inter({
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | AeroTurbineSpare',
   },
   description:
-    'Global supplier of gas turbine spare parts and services for GE, Siemens, Rolls-Royce & Solar Turbines platforms. NSN/CAGE-referenced parts, 24-hr quotes, shipping to USA, Russia & 150+ countries.',
+    'Source gas turbine spare parts for GE, Siemens, Rolls-Royce & Solar Turbines. 86,000+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hr quotes. Ships to 150+ countries.',
   keywords: [
     'gas turbine spare parts', 'turbine services', 'GE turbines', 'Siemens turbines',
     'Rolls-Royce turbines', 'Solar Turbines', 'NSN parts', 'CAGE code',
@@ -50,16 +50,15 @@ export const metadata: Metadata = {
     title: 'Global Gas Turbine Services & Spare Parts Supplier',
     description:
       'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced inventory, 24-hr quotes, worldwide shipping.',
-    url: 'https://aeroturbinespare.com/',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.svg', width: 1200, height: 630 }],
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Global Gas Turbine Services & Spare Parts Supplier',
     description:
       'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced, worldwide shipping.',
-    images: ['/images/og-cover.svg'],
+    images: ['/images/og-cover.jpg'],
   },
   icons: {
     icon: '/favicon.png',
@@ -86,10 +85,19 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} h-full`}>
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <FAQJsonLd />
+        <LocalBusinessJsonLd />
+        <ServiceJsonLd />
+        <SpeakableJsonLd />
         <QueryProvider>
           <DataRefreshProvider>
             <NotificationProvider>
@@ -124,6 +132,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-QH0HYG18PL');
           `}
         </Script>
+        <Script id="sw-register" strategy="afterInteractive">{`
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js').catch(() => {});
+            });
+          }
+        `}</Script>
       </body>
     </html>
   );

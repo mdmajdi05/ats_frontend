@@ -88,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       (tags as Array<{ slug: string }>)
         .filter((t) => t.slug)
         .forEach((t) => {
-          for (const cc of ['us', 'gb', 'de', 'fr', 'ae', 'sa']) {
+          for (const cc of COUNTRY_CODES) {
             entries.push({
               url: `${BASE}/${cc}/blog/tag/${t.slug}`,
               lastModified: new Date(),

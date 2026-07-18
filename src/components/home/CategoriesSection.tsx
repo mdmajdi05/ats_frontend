@@ -173,14 +173,14 @@ export default function CategoriesSection() {
                   <h3 className="font-bold text-sm text-[#0A1628] group-hover:text-brand transition-colors leading-snug mb-1">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-[#4A4A6A]/70 leading-relaxed line-clamp-2 mb-3">
+                  <p className="text-xs text-[#4A4A6A]/80 leading-relaxed line-clamp-2 mb-3">
                     {cat.description}
                   </p>
                   <div className="flex items-center justify-between pt-3 border-t border-silver/60">
-                    <span className="text-[11px] font-semibold text-emerald-600">
+                    <span className="text-[11px] font-semibold text-emerald-700">
                       {cat.partCount.toLocaleString()} parts
                     </span>
-                    <span className="text-brand/60 group-hover:text-brand transition-colors">
+                    <span className="text-brand/80 group-hover:text-brand transition-colors">
                       <ChevronRight className="w-4 h-4" />
                     </span>
                   </div>

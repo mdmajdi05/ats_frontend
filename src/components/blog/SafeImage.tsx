@@ -1,15 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-
-const CLOUDINARY_DOMAINS = ['res.cloudinary.com'];
-
-function isCloudinaryUrl(src: string): boolean {
-  try {
-    const url = new URL(src);
-    return CLOUDINARY_DOMAINS.some((d) => url.hostname === d || url.hostname.endsWith('.' + d));
-  } catch { return false; }
-}
+import { useState } from 'react';
 
 interface SafeImageProps {
   src: string;
@@ -21,20 +13,33 @@ interface SafeImageProps {
   height?: number;
 }
 
-export default function SafeImage({ src, alt, fill, className, unoptimized, width, height }: SafeImageProps) {
-  if (isCloudinaryUrl(src)) {
-    return <Image src={src} alt={alt} fill={fill} className={className} unoptimized={unoptimized} width={!fill ? width : undefined} height={!fill ? height : undefined} />;
+export default function SafeImage({ src, alt, fill, className, unoptimized = true, width, height }: SafeImageProps) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) return null;
+
+  if (fill) {
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className={className}
+        unoptimized={unoptimized}
+        onError={() => setHasError(true)}
+      />
+    );
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={width || 400}
+      height={height || 300}
       className={className}
-      style={fill ? { width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 } : undefined}
-      width={!fill ? width : undefined}
-      height={!fill ? height : undefined}
-      loading="lazy"
+      unoptimized={unoptimized}
+      onError={() => setHasError(true)}
     />
   );
 }

@@ -61,17 +61,20 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setIdx(i)}
                   className={cn(
-                    'w-2 h-2 rounded-full transition-all duration-200',
-                    i === idx ? 'bg-orange w-6' : 'bg-silver-dark'
+                    'min-w-[24px] min-h-[24px] rounded-full transition-all duration-200 flex items-center justify-center',
+                    i === idx ? 'bg-orange min-w-[32px]' : 'bg-silver-dark'
                   )}
                   aria-label={`Go to testimonial ${i + 1}`}
-                />
+                >
+                  <span className="sr-only">Go to testimonial {i + 1}</span>
+                  <span className={cn('w-2 h-2 rounded-full', i === idx ? 'bg-white' : 'bg-silver-dark')} />
+                </button>
               ))}
             </div>
             <button

@@ -51,7 +51,7 @@ export default function HowItWorks() {
                   <div className="w-12 h-12 rounded-xl bg-orange/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange transition-colors duration-300">
                     <Icon className="w-5.5 h-5.5 text-orange" />
                   </div>
-                  <span className="text-4xl font-black text-silver-dark/50 leading-none">{step}</span>
+                  <span className="text-4xl font-black text-silver-dark leading-none">{step}</span>
                 </div>
                 <h3 className="font-bold text-text mt-4 mb-2">{title}</h3>
                 <p className="text-sm text-text-muted leading-relaxed">{desc}</p>

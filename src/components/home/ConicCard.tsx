@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 type ConicCardProps = {
   title: string;
@@ -9,7 +9,7 @@ type ConicCardProps = {
   className?: string;
 };
 
-export default function ConicCard({ title, description, children, badge, cta, className = '' }: ConicCardProps) {
+function ConicCardComponent({ title, description, children, badge, cta, className = '' }: ConicCardProps) {
   return (
     <div className={`conic-card bg-[#0A1628] p-8 sm:p-10 text-white ${className}`}>
       {badge && (
@@ -24,3 +24,5 @@ export default function ConicCard({ title, description, children, badge, cta, cl
     </div>
   );
 }
+
+export default React.memo(ConicCardComponent);

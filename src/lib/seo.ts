@@ -3,7 +3,17 @@ import { COUNTRIES, COUNTRY_CODES, DEFAULT_COUNTRY, getCountry } from './countri
 const SITE_URL = 'https://aeroturbinespare.com';
 const SITE_NAME = 'AeroTurbineSpare';
 const DEFAULT_DESC = 'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO 9001 & AS9120 certified. 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide.';
-const DEFAULT_OG_IMAGE = '/og-image.jpg';
+const DEFAULT_OG_IMAGE = '/images/og-cover.jpg';
+
+export function buildHreflang(path: string): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const code of COUNTRY_CODES) {
+    const locale = COUNTRIES[code].locale.replace('_', '-').toLowerCase();
+    languages[locale] = code === DEFAULT_COUNTRY ? `${SITE_URL}${path}` : `${SITE_URL}/${code}${path}`;
+  }
+  languages['x-default'] = `${SITE_URL}${path}`;
+  return languages;
+}
 
 export const siteConfig = {
   url: SITE_URL,
@@ -36,18 +46,24 @@ export function buildMetadata(overrides: {
 }) {
   const country = overrides.country || DEFAULT_COUNTRY;
   const cfg = getCountry(country);
+  const isDefault = country === DEFAULT_COUNTRY;
 
   const title = overrides.title
     ? `${overrides.title} | AeroTurbineSpare`
     : 'AeroTurbineSpare — Precision Aerospace Parts Sourcing';
   const description = overrides.description || DEFAULT_DESC;
-  const url = overrides.path ? `${SITE_URL}/${country}${overrides.path}` : `${SITE_URL}/${country}`;
+  const url = isDefault
+    ? (overrides.path ? `${SITE_URL}${overrides.path}` : SITE_URL)
+    : (overrides.path ? `${SITE_URL}/${country}${overrides.path}` : `${SITE_URL}/${country}`);
   const image = overrides.ogImage || DEFAULT_OG_IMAGE;
 
   const languages: Record<string, string> = {};
   for (const code of COUNTRY_CODES) {
     const c = COUNTRIES[code];
-    languages[c.locale] = `${SITE_URL}/${code}${overrides.path || ''}`;
+    const locale = c.locale.replace('_', '-').toLowerCase();
+    languages[locale] = code === DEFAULT_COUNTRY
+      ? `${SITE_URL}${overrides.path || ''}`
+      : `${SITE_URL}/${code}${overrides.path || ''}`;
   }
   languages['x-default'] = `${SITE_URL}${overrides.path || ''}`;
 

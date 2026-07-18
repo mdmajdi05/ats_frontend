@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useEffect, useCallback, useRef } from 'react';
+import { use, useState, useEffect, useCallback, useRef, useTransition, Suspense } from 'react';
 import Link from 'next/link';
 import {
   Search, SlidersHorizontal, X, Grid2X2, Grid3X3, LayoutList,
@@ -22,6 +22,7 @@ import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { SkeletonCard } from '@/components/ui/Skeleton';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/seo/JsonLd';
 import { cn } from '@/lib/utils';
 import { request } from '@/lib/api-client';
 
@@ -95,6 +96,8 @@ export default function CatalogPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const resolvedParams = use(searchParams);
+
+  const [isPending, startTransition] = useTransition();
 
   // Initialise from URL on first render
   const [filters, setFilters] = useState<ActiveFilters>(() => ({
@@ -199,8 +202,10 @@ export default function CatalogPage({
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      setFilters((prev) => ({ ...prev, search: searchInput }));
-      setPage(1);
+      startTransition(() => {
+        setFilters((prev) => ({ ...prev, search: searchInput }));
+        setPage(1);
+      });
     }, 300);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -209,14 +214,18 @@ export default function CatalogPage({
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   const updateFilter = (key: keyof ActiveFilters, value: string) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-    setPage(1);
+    startTransition(() => {
+      setFilters((prev) => ({ ...prev, [key]: value }));
+      setPage(1);
+    });
   };
 
   const clearFilters = () => {
-    setFilters(EMPTY_FILTERS);
-    setSearchInput('');
-    setPage(1);
+    startTransition(() => {
+      setFilters(EMPTY_FILTERS);
+      setSearchInput('');
+      setPage(1);
+    });
   };
 
   const activeChips = Object.entries(filters)
@@ -337,6 +346,21 @@ export default function CatalogPage({
   return (
     <div className="flex flex-col min-h-screen">
       <SchemaInjector pageKey="catalog" staticSchemas={catalogSchemas} />
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Parts Catalog', url: '/catalog' },
+      ]} />
+      {products.length > 0 && (
+        <ItemListJsonLd
+          pageTitle="Gas Turbine Parts Catalog | AeroTurbineSpare"
+          items={products.map((p) => ({
+            name: p.partNumber || p.shortDescription || 'Aerospace Part',
+            url: `/catalog/${p.id}`,
+            description: p.description || `${p.partNumber} - ${p.category || 'Gas turbine spare part'}`,
+            image: p.imageUrl || undefined,
+          }))}
+        />
+      )}
       <Header />
 
       <main className="flex-1 bg-bg">
@@ -454,7 +478,7 @@ export default function CatalogPage({
                   <label className="text-xs text-text-muted whitespace-nowrap">Sort by</label>
                   <select
                     value={sort}
-                    onChange={(e) => { setSort(e.target.value); setPage(1); }}
+                    onChange={(e) => { const v = e.target.value; startTransition(() => { setSort(v); setPage(1) }) }}
                     className="text-sm border border-silver-dark rounded-lg px-3 py-2 bg-white text-text focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange"
                   >
                     {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -471,7 +495,7 @@ export default function CatalogPage({
                   ] as [ViewMode, React.ReactNode][]).map(([mode, icon]) => (
                     <button
                       key={mode}
-                      onClick={() => setView(mode)}
+                      onClick={() => startTransition(() => setView(mode))}
                       className={cn(
                         'p-2 sm:p-2.5 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center',
                         view === mode ? 'bg-navy text-white' : 'text-text-muted hover:bg-silver'
@@ -512,6 +536,13 @@ export default function CatalogPage({
               )}
 
               {/* Products grid/list */}
+              <Suspense fallback={
+                <div className={cn('grid gap-5', gridClass[view])}>
+                  {Array.from({ length: LIMITS_PER_VIEW[view] }).map((_, i) => (
+                    <SkeletonCard key={i} />
+                  ))}
+                </div>
+              }>
               {loading ? (
                 <div className={cn('grid gap-5', gridClass[view])}>
                   {Array.from({ length: LIMITS_PER_VIEW[view] }).map((_, i) => (
@@ -572,6 +603,8 @@ export default function CatalogPage({
                   ))}
                 </div>
               )}
+
+              </Suspense>
 
               {/* Pagination */}
               {!loading && totalPages > 1 && (

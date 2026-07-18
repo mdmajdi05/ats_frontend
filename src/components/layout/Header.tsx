@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import {
@@ -67,7 +67,7 @@ const SIMPLE_NAV = [
 
 // ─────────────────────────────────────────────────────────────
 
-export default function Header() {
+export default React.memo(function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -285,14 +285,14 @@ export default function Header() {
           <div className="flex items-center gap-2 xl:gap-4">
             <CountrySwitcher />
             <a
-              href="tel:+91 9354764587"
+              href="tel:+919354764587"
               className="flex items-center gap-1.5 hover:text-[#4F46E5] transition-colors whitespace-nowrap"
             >
               <Phone className="w-3 h-3" />
               +91 9354764587
             </a>
             <span className="hidden xl:inline">
-              CAGE Code: <strong className="text-[#4F46E5] font-mono tracking-widest">8ATR9</strong>
+              CAGE Code: <strong className="text-[#A5B4FC] font-mono tracking-widest">8ATR9</strong>
             </span>
             <span className="hidden xl:flex items-center gap-1.5">
               <Clock className="w-3 h-3" />
@@ -754,7 +754,7 @@ export default function Header() {
       </header>
     </>
   );
-}
+});
 
 // ── Utility sub-component ─────────────────────────────────────
 function UserMenuItem({

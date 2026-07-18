@@ -17,6 +17,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import PartCard from '@/components/catalog/PartCard';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { Skeleton, SkeletonCard } from '@/components/ui/Skeleton';
 import { cn, formatPrice, formatDate } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -210,6 +211,11 @@ export default function PartDetailPage({
   return (
     <div className="flex flex-col min-h-screen">
       <SchemaInjector pageKey={`product-${id}`} staticSchemas={productSchemas} />
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Parts Catalog', url: '/catalog' },
+        { name: product.partNumber, url: `/catalog/${product.id}` },
+      ]} />
       <Header />
 
       <main className="flex-1 bg-bg">
@@ -245,7 +251,7 @@ export default function PartDetailPage({
               {product.imageUrl ? (
                 <img
                   src={product.imageUrl}
-                  alt={product.partNumber}
+                  alt={`${product.partNumber} - ${product.shortDescription || product.description || 'gas turbine spare part'}`}
                   className="w-full h-72 object-contain rounded-xl border border-silver bg-white p-4"
                 />
               ) : (
@@ -325,7 +331,7 @@ export default function PartDetailPage({
                       <div className="text-lg font-bold text-text">Call for Pricing</div>
                       <div className="text-xs text-text-muted mt-0.5">Contact our team for a customized quote</div>
                     </div>
-                    <a href="tel:+17138425500" className="text-orange font-semibold text-sm hover:underline">
+                    <a href="tel:+919354764587" className="text-orange font-semibold text-sm hover:underline">
                       +91 9354764587
                     </a>
                   </div>

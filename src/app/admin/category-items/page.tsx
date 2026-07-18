@@ -12,7 +12,8 @@ import { cn } from '@/lib/utils';
 import type { NavCategory, NavCategoryTree, CategoryItem } from '@/types';
 import toast from 'react-hot-toast';
 import useSpreadsheetEditor from '@/hooks/useSpreadsheetEditor';
-import SpreadsheetGrid from '@/components/admin/SpreadsheetGrid';
+import dynamic from 'next/dynamic';
+const SpreadsheetGrid = dynamic(() => import('@/components/admin/SpreadsheetGrid'), { ssr: false, loading: () => <div className="h-64 bg-slate-100 animate-pulse" /> });
 
 // ── Helpers ─────────────────────────────────────────────
 function toSlug(str: string): string {
@@ -858,7 +859,7 @@ export default function AdminCategoryItemsPage() {
                         <td className="px-4 py-3 text-xs text-[#4A4A6A]">/{item.slug}</td>
                         <td className="px-4 py-3">
                           {item.image ? (
-                            <img src={item.image} alt="" className="w-8 h-8 rounded-lg object-cover border border-[#E8EDF2]" />
+                            <img src={item.image} alt={item.title || 'Category item'} className="w-8 h-8 rounded-lg object-cover border border-[#E8EDF2]" />
                           ) : (
                             <span className="text-xs text-[#C0C9D5]">—</span>
                           )}

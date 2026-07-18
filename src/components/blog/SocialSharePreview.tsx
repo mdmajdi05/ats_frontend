@@ -1,5 +1,8 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
+
 interface Props {
   title: string;
   description: string;
@@ -9,6 +12,7 @@ interface Props {
 
 export default function SocialSharePreview({ title, description, url, image }: Props) {
   const truncate = (s: string, max: number) => s.length > max ? s.slice(0, max) + '…' : s;
+  const [errors, setErrors] = useState({ facebook: false, twitter: false });
 
   return (
     <div className="space-y-4">
@@ -17,7 +21,17 @@ export default function SocialSharePreview({ title, description, url, image }: P
       {/* Facebook */}
       <div className="bg-white rounded-xl border border-[#E8EDF2] overflow-hidden">
         <div className="bg-[#F0F2F5] h-32 flex items-center justify-center text-[#C0C9D5] text-sm">
-          {image ? <img src={image} alt="" className="w-full h-full object-cover" /> : 'og:image preview'}
+          {image && !errors.facebook ? (
+            <Image
+              src={image}
+              alt={title || 'Facebook share preview'}
+              width={600}
+              height={315}
+              className="w-full h-full object-cover"
+              unoptimized
+              onError={() => setErrors((prev) => ({ ...prev, facebook: true }))}
+            />
+          ) : 'og:image preview'}
         </div>
         <div className="p-3 space-y-1">
           <p className="text-[10px] uppercase text-[#606770] tracking-wider">{new URL(url).hostname}</p>
@@ -29,7 +43,17 @@ export default function SocialSharePreview({ title, description, url, image }: P
       {/* Twitter */}
       <div className="bg-white rounded-xl border border-[#E8EDF2] overflow-hidden">
         <div className="bg-[#CFD9DE] h-28 flex items-center justify-center text-[#536471] text-sm">
-          {image ? <img src={image} alt="" className="w-full h-full object-cover" /> : 'twitter:image preview'}
+          {image && !errors.twitter ? (
+            <Image
+              src={image}
+              alt={title || 'Twitter card preview'}
+              width={600}
+              height={315}
+              className="w-full h-full object-cover"
+              unoptimized
+              onError={() => setErrors((prev) => ({ ...prev, twitter: true }))}
+            />
+          ) : 'twitter:image preview'}
         </div>
         <div className="p-3 space-y-0.5 bg-[#F7F9FA]">
           <p className="text-xs text-[#536471]">{truncate(url, 50)}</p>

@@ -208,7 +208,7 @@ export default function ProductCategoryPage() {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNCI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
           {(pageCfg.heroImage as string) && (
             <div className="absolute inset-0">
-              <img src={pageCfg.heroImage as string} alt="" className="w-full h-full object-cover opacity-20" />
+              <img src={pageCfg.heroImage as string} alt="Category hero background" className="w-full h-full object-cover opacity-20" />
               <div className="absolute inset-0 bg-gradient-to-br from-navy/80 via-[#1A1A3E]/80 to-[#0F0F2E]/80" />
             </div>
           )}

@@ -1,24 +1,32 @@
 import type { Metadata } from 'next';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Industries We Serve | Gas Turbine Parts for Aviation, Military, Marine',
-  description:
-    'AeroTurbineSpare supplies gas turbine spare parts to commercial aviation, military defense, marine propulsion, power generation, oil & gas, and industrial sectors. GE, Siemens, Rolls-Royce, Solar Turbines parts. ISO 9001 & AS9120 certified. 150+ countries.',
-  keywords: [
-    'gas turbine parts supplier', 'aerospace parts by industry',
-    'aviation turbine components', 'military defense turbine parts',
-    'marine gas turbine spares', 'power generation turbine parts',
-    'oil gas turbine components', 'industrial turbine spare parts',
-    'GE turbine parts', 'Siemens turbine components',
-    'Rolls-Royce spare parts', 'Solar Turbines parts',
-  ],
+  title: 'Industries We Serve | AeroTurbineSpare',
+  description: 'AeroTurbineSpare serves aviation, defense, oil & gas, power generation, marine, and medical industries with certified turbine spare parts and MRO components.',
+  keywords: 'aerospace industry parts, aviation parts supplier, defense parts distributor, oil gas turbine parts, power generation components, marine turbine parts, military aircraft parts',
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/industries',
+    languages: buildHreflang('/industries'),
+  },
   openGraph: {
     title: 'Industries We Serve | AeroTurbineSpare',
-    description:
-      'Gas turbine spare parts for aviation, military, marine, power generation, oil & gas. ISO 9001 & AS9120 certified. 5 Million+ parts. 150+ countries.',
+    description: 'Serving aviation, defense, oil & gas, power generation, marine, and medical industries with certified parts.',
+    url: 'https://aeroturbinespare.com/industries',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Industries We Serve | AeroTurbineSpare',
+    description: 'Serving aviation, defense, oil & gas, power generation, marine, and medical industries with certified parts.',
+    images: ['/images/og-cover.jpg'],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function IndustriesLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <>{children}</>;
 }

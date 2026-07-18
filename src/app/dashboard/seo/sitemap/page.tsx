@@ -233,7 +233,7 @@ export default function SitemapPage() {
                 {imageData.images.slice(0, 50).map((img: any, i: number) => (
                   <tr key={i} className="border-t border-silver hover:bg-silver/30">
                     <td className="px-4 py-3 font-mono text-xs">{img.loc}</td>
-                    <td className="px-4 py-3"><img src={img.image} alt="" className="w-12 h-12 object-cover rounded" /></td>
+                    <td className="px-4 py-3"><img src={img.image} alt={img.caption || 'Sitemap image'} className="w-12 h-12 object-cover rounded" /></td>
                     <td className="px-4 py-3 text-text-muted">{img.caption}</td>
                   </tr>
                 ))}

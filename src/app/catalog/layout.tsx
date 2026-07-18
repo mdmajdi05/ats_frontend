@@ -1,23 +1,32 @@
 import type { Metadata } from 'next';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Browse Gas Turbine Spare Parts Catalog | GE, Siemens, Rolls-Royce Parts',
-  description:
-    'Browse 5 Million+ gas turbine spare parts. GE LM2500, LM6000, Frame parts. Siemens turbines. Rolls-Royce components. Solar Turbines parts. NSN/CAGE-referenced. ISO 9001 & AS9120 certified. Worldwide shipping.',
-  keywords: [
-    'gas turbine parts catalog', 'GE turbine parts inventory',
-    'Siemens turbine spare parts', 'Rolls-Royce turbine components',
-    'Solar Turbines parts catalog', 'LM2500 parts',
-    'LM6000 turbine blades', 'GE Frame turbine parts',
-    'NSN turbine parts', 'CAGE code parts',
-  ],
-  openGraph: {
-    title: 'Gas Turbine Parts Catalog | AeroTurbineSpare',
-    description:
-      '5 Million+ certified gas turbine parts. GE, Siemens, Rolls-Royce, Solar Turbines. NSN/CAGE-referenced. 24-hour quotes.',
+  title: 'Parts Catalog | AeroTurbineSpare',
+  description: 'Browse 86,000+ certified aerospace parts. Search by NSN, CAGE code, or part number. GE, Siemens, Rolls-Royce & Solar Turbines parts in stock. Get a quote.',
+  keywords: 'aerospace parts catalog, NSN parts search, CAGE code lookup, turbine parts catalog, GE parts, Siemens parts, gas turbine spare parts, MRO parts catalog, aviation parts distributor',
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/catalog',
+    languages: buildHreflang('/catalog'),
   },
+  openGraph: {
+    title: 'Parts Catalog | AeroTurbineSpare',
+    description: 'Browse 86,000+ certified aerospace parts. Search by NSN, CAGE code, part number, or manufacturer.',
+    url: 'https://aeroturbinespare.com/catalog',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Parts Catalog | AeroTurbineSpare',
+    description: 'Browse 86,000+ certified aerospace parts. Search by NSN, CAGE code, part number, or manufacturer.',
+    images: ['/images/og-cover.jpg'],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function CatalogLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <>{children}</>;
 }

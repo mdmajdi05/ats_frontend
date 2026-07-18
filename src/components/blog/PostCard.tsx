@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import SafeImage from './SafeImage';
 import type { BlogPost } from '@/types/blog';
@@ -8,7 +9,7 @@ interface Props {
   post: Pick<BlogPost, 'title' | 'slug' | 'excerpt' | 'coverImage' | 'coverAlt' | 'publishedAt' | 'author' | 'categories' | 'tags' | 'viewCount' | '_count'>;
 }
 
-export default function PostCard({ post }: Props) {
+function PostCardComponent({ post }: Props) {
   const date = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
     : null;
@@ -95,3 +96,5 @@ export default function PostCard({ post }: Props) {
     </article>
   );
 }
+
+export default React.memo(PostCardComponent);

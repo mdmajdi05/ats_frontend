@@ -2,16 +2,38 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-react';
-import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { BreadcrumbJsonLd, AboutPageJsonLd } from '@/components/seo/JsonLd';
 import CountriesWeServe from '@/components/country/CountriesWeServe';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'About AeroTurbineSpare',
   description: 'Founded in 2009, AeroTurbineSpare is an ISO 9001 & AS9120 certified aerospace parts distributor serving OEMs, MROs, and defense contractors across 150+ countries. 5 Million+ parts in catalog.',
+  keywords: [
+    'about AeroTurbineSpare', 'gas turbine parts distributor',
+    'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
+    'CAGE 8ATR9', 'GE turbine parts supplier',
+  ],
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/about',
+    languages: buildHreflang('/about'),
+  },
   openGraph: {
     title: 'About AeroTurbineSpare — Precision Aerospace Parts Sourcing',
     description: 'Founded in 2009. ISO 9001 & AS9120 certified. Serving 150+ countries. Your trusted partner for certified aerospace parts.',
+    url: 'https://aeroturbinespare.com/about',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About AeroTurbineSpare',
+    description: 'ISO 9001 & AS9120 certified. 5M+ parts. 150+ countries. Trusted by OEMs & MROs since 2009.',
+    images: ['/images/og-cover.jpg'],
+  },
+  robots: { index: true, follow: true },
 };
 
 const CORE_VALUES = [
@@ -340,7 +362,7 @@ export default async function AboutPage({ params }: { params: Promise<{ country:
                     <li className="flex items-center gap-3 text-sm">
                       <Phone className="w-5 h-5 text-orange flex-shrink-0" />
                       <a
-                        href="tel:+17138425500"
+                        href="tel:+919354764587"
                         className="text-text hover:text-orange transition-colors font-medium"
                       >
                         +91 9354764587

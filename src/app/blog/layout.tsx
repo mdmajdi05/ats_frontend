@@ -1,19 +1,37 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Aerospace Parts Blog & Industry Insights',
-  description: 'Expert aerospace procurement guides, MRO best practices, NSN decoding tutorials, AS9120 quality insights, and aviation industry news from AeroTurbineSpare.',
+  title: 'Aerospace Parts Blog | Gas Turbine Industry Insights & MRO News',
+  description:
+    'Expert articles on gas turbine parts, MRO best practices & supply chain intelligence. ISO 9001 & AS9120 certified insights from AeroTurbineSpare. Read now.',
+  keywords: [
+    'gas turbine blog', 'aerospace parts news', 'MRO best practices',
+    'turbine spare parts insights', 'aviation supply chain', 'GE turbine maintenance',
+    'Siemens turbine news', 'turbine industry updates', 'aerospace procurement tips',
+    'gas turbine parts sourcing', 'turbine MRO blog', 'aerospace parts blog',
+  ],
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/blog',
+    languages: buildHreflang('/blog'),
+  },
   openGraph: {
-    title: 'Aerospace Parts Blog & Industry Insights | AeroTurbineSpare',
-    description: 'Expert aerospace procurement guides, MRO best practices, NSN decoding tutorials, and AS9120 quality insights from AeroTurbineSpare.',
-    type: 'website',
+    title: 'Aerospace Parts Blog | AeroTurbineSpare',
+    description:
+      'Expert articles on gas turbine spare parts, MRO best practices, and supply chain intelligence.',
     url: 'https://aeroturbinespare.com/blog',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Aerospace Parts Blog & Industry Insights | AeroTurbineSpare',
-    description: 'Expert aerospace procurement guides, MRO best practices, and NSN decoding tutorials from AeroTurbineSpare.',
+    title: 'Aerospace Parts Blog | AeroTurbineSpare',
+    description: 'Expert articles on gas turbine spare parts, MRO, and supply chain intelligence.',
+    images: ['/images/og-cover.jpg'],
   },
+  robots: { index: true, follow: true },
 };
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {

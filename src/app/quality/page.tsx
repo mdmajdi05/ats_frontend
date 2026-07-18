@@ -5,23 +5,40 @@ import {
   CheckCircle2, Search, FlaskConical, FileText,
   Package, AlertTriangle, Award, Shield,
 } from 'lucide-react';
-import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { BreadcrumbJsonLd, QualityPageJsonLd } from '@/components/seo/JsonLd';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Quality Assurance | ISO 9001 & AS9120 Certified Gas Turbine Parts',
   description:
-    'AeroTurbineSpare quality assurance: ISO 9001:2015 & AS9120 Rev B certified. 100% inspection on every gas turbine part order. Full traceability, anti-counterfeit program, 12-month defect warranty. CAGE 8ATR9.',
+    'ISO 9001 & AS9120 certified. 100% inspection on every gas turbine part. Full traceability, anti-counterfeit program, 12-month warranty. CAGE 8ATR9. Learn more.',
   keywords: [
     'aerospace parts quality assurance', 'ISO 9001 certified parts supplier',
     'AS9120 quality standard', 'gas turbine parts inspection',
     'anti-counterfeit aerospace parts', 'turbine parts traceability',
     'aerospace parts certification', 'CAGE 8ATR9 quality',
   ],
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/quality',
+    languages: buildHreflang('/quality'),
+  },
   openGraph: {
     title: 'Quality Assurance | AeroTurbineSpare',
     description:
       'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty on turbine parts.',
+    url: 'https://aeroturbinespare.com/quality',
+    siteName: 'AeroTurbineSpare',
+    type: 'website',
+    locale: 'en_US',
+    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Quality Assurance | AeroTurbineSpare',
+    description: 'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty.',
+    images: ['/images/og-cover.jpg'],
+  },
+  robots: { index: true, follow: true },
 };
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -137,6 +154,7 @@ export default function QualityPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <QualityPageJsonLd />
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
         { name: 'Quality Assurance', url: '/quality' },

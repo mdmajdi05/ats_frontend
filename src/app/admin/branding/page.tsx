@@ -96,7 +96,7 @@ export default function BrandingPage() {
   async function handleSave() {
     try {
       const res = await save(draft);
-      if (res?.success) toast.success('Branding saved successfully');
+      if (res) toast.success('Branding saved successfully');
       else toast.error('Failed to save');
     } catch (err: unknown) {
       toast.error((err as Error).message || 'Error saving');

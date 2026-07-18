@@ -2,18 +2,23 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-react';
-import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { BreadcrumbJsonLd, AboutPageJsonLd } from '@/components/seo/JsonLd';
+import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'About AeroTurbineSpare | ISO 9001 & AS9120 Certified Gas Turbine Parts Distributor',
   description:
-    'AeroTurbineSpare is an ISO 9001:2015 & AS9120 Rev B certified gas turbine spare parts distributor. CAGE 8ATR9. Serving OEMs, MROs, and defense contractors in 150+ countries since 2009. 5 Million+ parts in catalog. GE, Siemens, Rolls-Royce, Solar Turbines.',
+    'ISO 9001 & AS9120 certified gas turbine parts distributor. CAGE 8ATR9. 5M+ parts, 150+ countries, 24-hr quotes. Trusted by OEMs & MROs since 2009. Browse now.',
   keywords: [
     'about AeroTurbineSpare', 'gas turbine parts distributor',
     'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
     'CAGE 8ATR9', 'GE turbine parts supplier',
     'Siemens turbine parts distributor', 'aerospace parts company',
   ],
+  alternates: {
+    canonical: 'https://aeroturbinespare.com/about',
+    languages: buildHreflang('/about'),
+  },
   openGraph: {
     title: 'About AeroTurbineSpare | Gas Turbine Parts Distributor',
     description:
@@ -101,6 +106,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <AboutPageJsonLd />
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
         { name: 'About', url: '/about' },
@@ -354,7 +360,7 @@ export default function AboutPage() {
                     <li className="flex items-center gap-3 text-sm">
                       <Phone className="w-5 h-5 text-orange flex-shrink-0" />
                       <a
-                        href="tel:+17138425500"
+                        href="tel:+919354764587"
                         className="text-text hover:text-orange transition-colors font-medium"
                       >
                         +91 9354764587

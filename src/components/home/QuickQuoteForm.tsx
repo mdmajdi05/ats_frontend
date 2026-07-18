@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Send, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -10,6 +10,24 @@ export default function QuickQuoteForm() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem('quick_quote_form');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        setPartNumber(data.partNumber || '');
+        setQuantity(data.quantity || '');
+        setEmail(data.email || '');
+      } catch {}
+    }
+  }, []);
+
+  useEffect(() => {
+    if (partNumber || quantity || email) {
+      sessionStorage.setItem('quick_quote_form', JSON.stringify({ partNumber, quantity, email }));
+    }
+  }, [partNumber, quantity, email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,6 +39,7 @@ export default function QuickQuoteForm() {
     await new Promise((r) => setTimeout(r, 1200));
     setSending(false);
     setSubmitted(true);
+    sessionStorage.removeItem('quick_quote_form');
     toast.success('Quote request submitted! Our team will respond within 24 hours.');
   };
 
@@ -39,7 +58,7 @@ export default function QuickQuoteForm() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-6">
             <Check className="w-8 h-8 text-green-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">Quote Request Received!</h3>
+          <h2 className="text-2xl font-bold text-white mb-2">Quote Request Received!</h2>
           <p className="text-white/70 max-w-md mx-auto">
             We&apos;ll come back with pricing and availability, usually the same day.
           </p>

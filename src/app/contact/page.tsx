@@ -17,7 +17,7 @@ import Footer from '@/components/layout/Footer';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
-import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { BreadcrumbJsonLd, ContactPageJsonLd } from '@/components/seo/JsonLd';
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
@@ -106,6 +106,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <ContactPageJsonLd />
       <BreadcrumbJsonLd items={[
         { name: 'Home', url: '/' },
         { name: 'Contact Us', url: '/contact' },
@@ -188,7 +189,7 @@ export default function ContactPage() {
                     <div className="flex items-center gap-3 text-sm">
                       <Phone className="w-5 h-5 text-orange flex-shrink-0" />
                       <a
-                        href="tel:+17138425500"
+                        href="tel:+919354764587"
                         className="text-text hover:text-orange transition-colors font-medium"
                       >
                         +91 9354764587
@@ -244,7 +245,7 @@ export default function ContactPage() {
                     of the day or night.
                   </p>
                   <a
-                    href="tel:+17138425500"
+                    href="tel:+919354764587"
                     className="inline-flex items-center gap-2 bg-white text-orange font-bold px-4 py-2 rounded-lg text-sm hover:bg-white/90 transition-colors"
                   >
                     <Phone className="w-4 h-4" />

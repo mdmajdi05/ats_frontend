@@ -1,5 +1,8 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
+
 const BRAND_LOGOS = [
   { name: 'General Electric', file: 'ge.png' },
   { name: 'Pratt & Whitney', file: 'pratt-whitney.png' },
@@ -12,6 +15,8 @@ const BRAND_LOGOS = [
 ];
 
 export default function BrandLogos() {
+  const [hidden, setHidden] = useState<Record<string, boolean>>({});
+
   return (
     <section className="py-12 bg-white border-y border-silver">
       <div className="max-w-7xl mx-auto px-4">
@@ -31,15 +36,17 @@ export default function BrandLogos() {
               className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-silver hover:shadow-sm hover:border-orange/20 transition-all duration-200"
             >
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden">
-                <img
-                  src={`/images/brands/${brand.file}`}
-                  alt={brand.name}
-                  className="w-8 h-8 object-contain"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
+                {!hidden[brand.name] && (
+                  <Image
+                    src={`/images/brands/${brand.file}`}
+                    alt={`${brand.name} logo`}
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 object-contain"
+                    loading="lazy"
+                    onError={() => setHidden((prev) => ({ ...prev, [brand.name]: true }))}
+                  />
+                )}
               </div>
               <span className="text-sm font-semibold text-text whitespace-nowrap">
                 {brand.name}

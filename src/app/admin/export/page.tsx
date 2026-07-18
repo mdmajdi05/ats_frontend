@@ -8,7 +8,8 @@ import {
 import 'react-data-grid/lib/styles.css';
 import { request } from '@/lib/api-client';
 import useSpreadsheetEditor from '@/hooks/useSpreadsheetEditor';
-import SpreadsheetGrid from '@/components/admin/SpreadsheetGrid';
+import dynamic from 'next/dynamic';
+const SpreadsheetGrid = dynamic(() => import('@/components/admin/SpreadsheetGrid'), { ssr: false, loading: () => <div className="h-64 bg-slate-100 animate-pulse" /> });
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import { NavCategory, NavCategoryTree } from '@/types';

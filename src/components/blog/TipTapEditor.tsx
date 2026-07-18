@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef, useState, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useEditor, EditorContent } from '@tiptap/react';
@@ -973,7 +974,7 @@ export default function TipTapEditor({ content, onChange, placeholder = "Start w
                         <span className="text-xs text-[#4A4A6A]">Uploading…</span>
                       </div>
                     ) : imagePreviewUrl ? (
-                      <img src={imagePreviewUrl} alt="Preview" className="max-h-40 mx-auto rounded-lg object-contain" />
+                      <Image src={imagePreviewUrl} alt="Image preview" width={400} height={200} className="max-h-40 mx-auto rounded-lg object-contain" unoptimized />
                     ) : (
                       <div className="flex flex-col items-center gap-2">
                         <span className="text-[#C0C9D5]">{I.image}</span>
@@ -989,7 +990,7 @@ export default function TipTapEditor({ content, onChange, placeholder = "Start w
                     className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
                     autoFocus />
                   {imagePreviewUrl && (
-                    <img src={imagePreviewUrl} alt="Preview" className="max-h-40 mx-auto rounded-lg object-contain bg-[#F8FAFC]" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                    <Image src={imagePreviewUrl} alt="URL image preview" width={400} height={200} className="max-h-40 mx-auto rounded-lg object-contain bg-[#F8FAFC]" unoptimized onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                   )}
                 </div>
               ) : (
@@ -1005,7 +1006,7 @@ export default function TipTapEditor({ content, onChange, placeholder = "Start w
                       {mediaList.map((m) => (
                         <div key={m.id} onClick={() => { setImagePreviewUrl(m.url); setImageAlt(m.alt || ''); }}
                           className={`cursor-pointer border-2 rounded-lg overflow-hidden hover:border-[#4F46E5] transition-colors ${imagePreviewUrl === m.url ? 'border-[#4F46E5]' : 'border-transparent'}`}>
-                          <img src={m.url} alt={m.alt || ''} className="w-full h-16 object-cover" />
+                          <Image src={m.url} alt={m.alt || m.filename || 'Media'} width={200} height={64} className="w-full h-16 object-cover" unoptimized />
                         </div>
                       ))}
                     </div>
