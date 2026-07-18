@@ -36,7 +36,26 @@ export default function QuickQuoteForm() {
       return;
     }
     setSending(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    try {
+      const res = await fetch('/api/lead/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'quick-quote',
+          email,
+          partNumber,
+          quantity,
+          source: 'homepage-quick-quote',
+        }),
+      });
+      if (!res.ok) throw new Error('Failed');
+    } catch {
+      try {
+        const leads = JSON.parse(localStorage.getItem('pending_leads') || '[]');
+        leads.push({ type: 'quick-quote', email, partNumber, quantity, timestamp: new Date().toISOString() });
+        localStorage.setItem('pending_leads', JSON.stringify(leads));
+      } catch {}
+    }
     setSending(false);
     setSubmitted(true);
     sessionStorage.removeItem('quick_quote_form');
@@ -136,6 +155,17 @@ export default function QuickQuoteForm() {
                   <>Request Quote <Send className="w-4 h-4" /></>
                 )}
               </button>
+              <div className="flex items-center justify-center gap-4 pt-1">
+                <span className="text-white/40 text-xs flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  ISO 9001
+                </span>
+                <span className="text-white/40 text-xs flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  AS9120
+                </span>
+                <span className="text-white/40 text-xs">CAGE 8ATR9</span>
+              </div>
             </form>
           </div>
         </div>

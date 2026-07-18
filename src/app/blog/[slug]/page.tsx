@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import PostContentClient from './PostContent.client';
+import localPosts from '@/data/blog-posts.json';
 import type { BlogPost, SchemaOverrides } from '@/types/blog';
 
 export const revalidate = 600;
@@ -10,12 +11,14 @@ const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:4000/api/v1')
 async function getPost(slug: string): Promise<BlogPost | null> {
   try {
     const res = await fetch(`${API}/blog/posts/${slug}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    const json = await res.json();
-    return json.data ?? null;
-  } catch {
-    return null;
-  }
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data) return json.data as BlogPost;
+    }
+  } catch {}
+  const local = localPosts.find((p) => p.slug === slug);
+  if (local) return local as unknown as BlogPost;
+  return null;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

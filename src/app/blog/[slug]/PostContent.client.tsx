@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CommentSection from '@/components/blog/CommentSection';
+import ShareButtons from '@/components/blog/ShareButtons';
 import SafeImage from '@/components/blog/SafeImage';
 import type { BlogPost, SchemaOverrides } from '@/types/blog';
 
@@ -147,6 +148,13 @@ export default function PostContentClient({ post }: Props) {
               ))}
             </div>
           )}
+
+          {/* Share */}
+          <ShareButtons
+            url={`https://aeroturbinespare.com/blog/${post.slug}`}
+            title={post.title}
+            description={post.excerpt || post.metaDesc || ''}
+          />
 
           {/* Back link */}
           <div className="mt-8">

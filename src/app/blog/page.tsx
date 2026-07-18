@@ -1,11 +1,12 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PostCard from '@/components/blog/PostCard';
 import { useBlogPosts, useCategories, useTags } from '@/hooks/useBlogPosts';
+import localPosts from '@/data/blog-posts.json';
 import type { BlogPost } from '@/types/blog';
 
 export default function BlogPage() {
@@ -30,14 +31,38 @@ function BlogPageContent() {
   if (tag)      params.tag      = tag;
   if (search)   params.search   = search;
 
-  const { data: postsRes, isLoading } = useBlogPosts(params);
+  const { data: postsRes, isLoading, isError } = useBlogPosts(params);
   const { data: catsRes } = useCategories();
   const { data: tagsRes } = useTags();
 
-  const posts = postsRes?.data ?? [];
+  const localFiltered = useMemo(() => {
+    let filtered = [...localPosts] as unknown as BlogPost[];
+    if (category) filtered = filtered.filter((p) => p.categories?.some((c) => c.slug === category || c.name.toLowerCase() === category.toLowerCase()));
+    if (tag) filtered = filtered.filter((p) => p.tags?.some((t) => t.slug === tag || t.name.toLowerCase() === tag.toLowerCase()));
+    if (search) {
+      const q = search.toLowerCase();
+      filtered = filtered.filter((p) => p.title.toLowerCase().includes(q) || p.excerpt?.toLowerCase().includes(q));
+    }
+    const totalPages = Math.ceil(filtered.length / 9);
+    const pageNum = Math.max(1, Math.min(parseInt(page) || 1, totalPages || 1));
+    const start = (pageNum - 1) * 9;
+    return {
+      posts: filtered.slice(start, start + 9),
+      total: filtered.length,
+      page: pageNum,
+      totalPages: totalPages || 1,
+    };
+  }, [category, tag, search, page]);
+
+  const fallbackActive = isError || (!isLoading && !postsRes);
+  const posts = postsRes?.data ?? (fallbackActive ? localFiltered.posts : []);
   const categories = catsRes?.data ?? [];
   const tags = tagsRes?.data ?? [];
-  const pagination = postsRes?.pagination ?? { total: 0, page: 1, totalPages: 1 };
+  const pagination = postsRes?.pagination ?? (fallbackActive ? {
+    total: localFiltered.total,
+    page: localFiltered.page,
+    totalPages: localFiltered.totalPages,
+  } : { total: 0, page: 1, totalPages: 1 });
 
   const [mobileSidebar, setMobileSidebar] = useState(false);
 
