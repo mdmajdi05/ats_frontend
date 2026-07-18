@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 let nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   experimental: {
     // Heavy libs ke imports ko per-module resolve karta hai — module-graph aur build memory dono kam
     optimizePackageImports: ['lucide-react', 'framer-motion'],
@@ -32,6 +33,7 @@ let nextConfig: NextConfig = {
           { key: 'Strict-Transport-Security',  value: 'max-age=63072000; includeSubDomains; preload' },
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'X-XSS-Protection',           value: '1; mode=block' },
+          { key: 'Content-Security-Policy',    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://img.youtube.com https://i.ytimg.com; font-src 'self' data:; connect-src 'self' https://api.aeroturbinespare.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self' https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';" },
           // CDN ko HTML cache karne se roke — har request fresh build se serve ho
           { key: 'Cache-Control',              value: 'private, no-cache, no-store, must-revalidate, max-age=0' },
           { key: 'Pragma',                     value: 'no-cache' },

@@ -149,17 +149,18 @@
   box-shadow: 0 0 30px rgba(100, 255, 218, 0.4), 0 0 60px rgba(100, 255, 218, 0.15);
   animation: glow-pulse 2s ease-in-out infinite;
   transform: translateZ(10px);
-  transition: box-shadow 0.3s ease;
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 
 @keyframes glow-pulse {
   0%, 100% {
     transform: translateZ(10px) scale(1);
-    box-shadow: 0 0 30px rgba(100, 255, 218, 0.4);
+    opacity: 0.6;
   }
   50% {
     transform: translateZ(10px) scale(1.2);
-    box-shadow: 0 0 50px rgba(100, 255, 218, 0.7), 0 0 80px rgba(100, 255, 218, 0.2);
+    opacity: 1;
   }
 }
 
@@ -262,6 +263,7 @@
   animation: scan 2.8s ease-in-out infinite;
   z-index: 4;
   transition: box-shadow 0.3s ease, background 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .scanLine::after {
@@ -277,10 +279,10 @@
 }
 
 @keyframes scan {
-  0% { top: 6px; opacity: 0.1; }
+  0% { transform: translateY(0); opacity: 0.1; }
   12% { opacity: 1; }
   88% { opacity: 1; }
-  100% { top: calc(100% - 10px); opacity: 0.1; }
+  100% { transform: translateY(32px); opacity: 0.1; }
 }
 
 /* ─── MOUTH ─── */
@@ -296,7 +298,8 @@
   background: #8892b0;
   border-radius: 50%;
   animation: mouth-dot 2.2s ease-in-out infinite;
-  transition: background 0.3s ease;
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
 }
 .mouth span:nth-child(1) { animation-delay: 0s; }
 .mouth span:nth-child(2) { animation-delay: 0.25s; }
@@ -305,8 +308,8 @@
 .mouth span:nth-child(5) { animation-delay: 1s; }
 
 @keyframes mouth-dot {
-  0%, 100% { background: #8892b0; transform: scale(1); }
-  50% { background: #64ffda; transform: scale(1.5); box-shadow: 0 0 12px rgba(100, 255, 218, 0.4); }
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 1; }
 }
 
 /* ─── BODY ─── */
@@ -334,12 +337,13 @@
   box-shadow: 0 0 16px rgba(100, 255, 218, 0.2);
   animation: chest-pulse 1.8s ease-in-out infinite;
   transform: translateZ(16px);
+  will-change: transform, opacity;
 }
 .chestLight:nth-child(2) { animation-delay: 0.6s; }
 
 @keyframes chest-pulse {
-  0%, 100% { transform: translateZ(16px) scale(0.8); opacity: 0.5; box-shadow: 0 0 16px rgba(100, 255, 218, 0.1); }
-  50% { transform: translateZ(16px) scale(1.3); opacity: 1; box-shadow: 0 0 30px rgba(100, 255, 218, 0.4); }
+  0%, 100% { transform: translateZ(16px) scale(0.8); opacity: 0.5; }
+  50% { transform: translateZ(16px) scale(1.3); opacity: 1; }
 }
 
 /* ─── ARMS ─── */
