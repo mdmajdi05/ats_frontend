@@ -640,7 +640,7 @@ export default React.memo(function Header() {
                 placeholder="Search parts..."
                 className="w-full pl-4 pr-12 py-3 rounded-xl border border-silver-dark text-sm text-text focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
               />
-              <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-[#4F46E5] text-white rounded-r-xl">
+              <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-[#4F46E5] text-white rounded-r-xl" aria-label="Search parts">
                 <Search className="w-4 h-4" />
               </button>
             </form>

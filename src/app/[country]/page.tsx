@@ -262,6 +262,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
                 <button
                   type="button"
                   onClick={() => setShowFilters((v) => !v)}
+                  aria-label="Toggle search filters"
                   className={`flex items-center gap-1.5 px-3 sm:px-4 text-sm font-medium border-l border-[#E8EDF2] transition-colors flex-shrink-0 ${
                     showFilters || hasFilters
                       ? 'bg-[#EEF2FF] text-[#4F46E5]'

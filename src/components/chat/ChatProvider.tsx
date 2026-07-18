@@ -161,6 +161,7 @@ export default function ChatProvider() {
               <button
                 onClick={dismissNotif}
                 className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-white border border-silver shadow-md flex items-center justify-center hover:bg-silver/60 transition-colors z-10"
+                aria-label="Dismiss notification"
               >
                 <X className="w-3 h-3 text-text-muted" />
               </button>

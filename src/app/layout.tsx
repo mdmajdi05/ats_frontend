@@ -88,8 +88,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://api.aeroturbinespare.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://api.aeroturbinespare.com" />
+        <link rel="preload" as="image" href="/images/hero-bg.jpg" fetchPriority="high" />
       </head>
       <body className="min-h-full flex flex-col antialiased">
         <OrganizationJsonLd />

@@ -47,7 +47,7 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials: T
               <div>
                 <div className="font-semibold text-text">{t.name}</div>
                 <div className="text-sm text-text-muted">{t.title} | {t.company}</div>
-                <div className="text-xs text-text-muted/70 mt-0.5">{t.country}</div>
+                <div className="text-xs text-text-muted mt-0.5">{t.country}</div>
               </div>
             </div>
           </div>
