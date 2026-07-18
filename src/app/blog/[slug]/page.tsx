@@ -5,7 +5,7 @@ import type { BlogPost, SchemaOverrides } from '@/types/blog';
 
 export const revalidate = 600;
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1').replace(/\/$/, '');
+const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:4000/api/v1').replace(/\/$/, '');
 
 async function getPost(slug: string): Promise<BlogPost | null> {
   try {
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!post) {
     return {
-      title: 'Post Not Found | Aero Turbine Spare',
+      title: 'Post Not Found',
       robots: { index: false, follow: false },
     };
   }
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const robotsFollow = post.robotsFollow !== false;
 
   return {
-    title: `${title} | Aero Turbine Spare`,
+    title,
     description,
     metadataBase: new URL('https://aeroturbinespare.com'),
     alternates: { canonical },

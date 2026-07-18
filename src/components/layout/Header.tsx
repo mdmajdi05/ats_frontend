@@ -352,6 +352,7 @@ export default React.memo(function Header() {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by Part Number, NSN, CAGE Code, or Description..."
                   className="w-full pl-5 pr-14 py-3 rounded-xl border border-silver-dark bg-bg text-sm text-text focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all placeholder:text-text-muted/60"
+                  aria-label="Search parts"
                 />
                 <button
                   type="submit"
@@ -368,7 +369,7 @@ export default React.memo(function Header() {
               <ThemeToggle />
               {user ? (
                 <>
-                <Link href="/notifications" className="relative p-2 rounded-xl hover:bg-[#E8EDF2] transition-colors">
+                <Link href="/notifications" className="relative p-2 rounded-xl hover:bg-[#E8EDF2] transition-colors" aria-label="Notifications">
                   <Bell className="w-5 h-5 text-[#4A4A6A]" />
                   <NotificationBadge className="absolute -top-0.5 -right-0.5" />
                 </Link>
@@ -376,6 +377,7 @@ export default React.memo(function Header() {
                   <button
                     onClick={() => setUserMenuOpen((p) => !p)}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#E8EDF2] transition-colors text-sm font-medium text-[#1A1A2E]"
+                    aria-expanded={userMenuOpen}
                   >
                     <div className={cn(
                       'w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs text-white',
@@ -455,7 +457,8 @@ export default React.memo(function Header() {
             <button
           className="lg:hidden p-3 rounded-xl text-text-muted hover:bg-silver transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={() => setMobileOpen((p) => !p)}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -480,6 +483,7 @@ export default React.memo(function Header() {
                       ? 'text-[#4F46E5] bg-[#FFF5EE]'
                       : 'text-text-muted hover:text-navy hover:bg-silver/60'
                   )}
+                  aria-expanded={openMenu === menu.label}
                 >
                   {menu.label}
                   <ChevronDown className={cn('w-3.5 h-3.5 transition-transform duration-200', openMenu === menu.label && 'rotate-180')} />
@@ -639,6 +643,7 @@ export default React.memo(function Header() {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search parts..."
                 className="w-full pl-4 pr-12 py-3 rounded-xl border border-silver-dark text-sm text-text focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
+                aria-label="Search parts"
               />
               <button type="submit" className="absolute right-0 top-0 h-full px-4 bg-[#4F46E5] text-white rounded-r-xl" aria-label="Search parts">
                 <Search className="w-4 h-4" />

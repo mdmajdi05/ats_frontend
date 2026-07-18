@@ -114,7 +114,7 @@ export default function CategoriesPage() {
     <div className="flex flex-col min-h-screen bg-[#F8F9FC]">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* ── Hero ── */}
         <section className="relative bg-[#0A1628] overflow-hidden">
           <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
@@ -184,9 +184,10 @@ export default function CategoriesPage() {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by category, platform, or component type..."
                   className="w-full pl-11 pr-10 py-3.5 rounded-xl bg-white/[0.07] border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange/40 focus:bg-white/[0.1] transition-all"
+                  aria-label="Search categories"
                 />
                 {search && (
-                  <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
+                  <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors" aria-label="Clear search">
                     <X className="w-4 h-4" />
                   </button>
                 )}

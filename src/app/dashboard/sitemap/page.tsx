@@ -54,6 +54,7 @@ export default function SitemapPage() {
             <a
               href="/sitemap.xml"
               target="_blank"
+              rel="noopener noreferrer"
               className="border border-[#E8EDF2] text-[#4A4A6A] hover:border-[#4F46E5] hover:text-[#4F46E5] font-medium text-sm px-4 py-2 rounded-lg transition-colors"
             >
               View Sitemap
@@ -123,7 +124,7 @@ export default function SitemapPage() {
                       {data.posts.map((p) => (
                         <tr key={p.slug} className="hover:bg-[#F8FAFC]">
                           <td className="px-5 py-2">
-                            <a href={`/blog/${p.slug}`} target="_blank" className="text-[#4F46E5] hover:underline text-xs font-mono">
+                            <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="text-[#4F46E5] hover:underline text-xs font-mono">
                               /blog/{p.slug}
                             </a>
                           </td>
@@ -149,7 +150,7 @@ export default function SitemapPage() {
                 {data && data.categories.length > 0 ? (
                   <div className="p-4 space-y-1 max-h-48 overflow-y-auto">
                     {data.categories.map((c) => (
-                      <a key={c.slug} href={`/blog/category/${c.slug}`} target="_blank"
+                      <a key={c.slug} href={`/blog/category/${c.slug}`} target="_blank" rel="noopener noreferrer"
                         className="flex items-center justify-between px-3 py-1.5 rounded-lg hover:bg-[#F8FAFC] text-sm text-[#4A4A6A] hover:text-[#4F46E5] transition-colors">
                         <span>{c.name}</span>
                         <span className="text-xs text-[#C0C9D5] font-mono">/{c.slug}</span>
@@ -167,7 +168,7 @@ export default function SitemapPage() {
                 {data && data.tags.length > 0 ? (
                   <div className="p-4 flex flex-wrap gap-2 max-h-48 overflow-y-auto">
                     {data.tags.map((t) => (
-                      <a key={t.slug} href={`/blog/tag/${t.slug}`} target="_blank"
+                      <a key={t.slug} href={`/blog/tag/${t.slug}`} target="_blank" rel="noopener noreferrer"
                         className="text-xs px-2.5 py-1 rounded-full bg-[#F0F4F8] text-[#4A4A6A] hover:bg-[#4F46E5] hover:text-white transition-colors">
                         #{t.name}
                       </a>

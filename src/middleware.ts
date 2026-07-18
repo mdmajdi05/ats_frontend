@@ -9,11 +9,19 @@ const SEO_ROUTES    = ['/dashboard/seo'];
 const TRADER_ROUTES = ['/inventory'];
 const CONTENT_MANAGER_BLOCKED = ['/dashboard/settings', '/dashboard/users'];
 
-const STATIC_PREFIXES = ['/_next', '/api', '/favicon', '/images', '/og-image', '/logo', '/assets', '/data', '/sw.js', '/manifest.webmanifest'];
+const STATIC_PREFIXES = ['/_next', '/api', '/favicon', '/images', '/og-image', '/logo', '/assets', '/data', '/sw.js', '/manifest.webmanifest', '/robots', '/sitemap', '/llms'];
 const NO_COUNTRY_PAGES = ['/login', '/register', '/unauthorized', '/categories'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // www → non-www redirect (canonicalization)
+  const host = request.headers.get('host') || '';
+  if (host.startsWith('www.')) {
+    const url = request.nextUrl.clone();
+    url.host = host.replace(/^www\./, '');
+    return NextResponse.redirect(url, 301);
+  }
 
   // Skip static / API routes
   if (STATIC_PREFIXES.some((p) => pathname.startsWith(p))) {

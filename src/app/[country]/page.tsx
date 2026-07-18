@@ -16,6 +16,7 @@ import {
   Zap,
 } from 'lucide-react'
 import type { Product, Category, Testimonial } from '@/types'
+import HomeSeoContent from '@/components/seo/HomeSeoContent'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import TrustBar from '@/components/home/TrustBar'
@@ -138,6 +139,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
+      <HomeSeoContent />
       <SchemaInjector pageKey="homepage" staticSchemas={homepageSchemas} />
       {testimonials.length > 0 && (
         <ReviewJsonLd
@@ -155,7 +157,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
       )}
       <Header />
 
-      <main>
+      <main id="main-content">
 
       {/* ── HERO ── Blue/Indigo theme, dynamic from SiteConfig ── */}
       <section
@@ -176,8 +178,10 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
             src="/images/hero-bg.jpg"
             alt="Industrial gas turbine engine components and parts"
             fill
+            sizes="100vw"
             className="object-cover opacity-20"
-            priority
+            preload
+            fetchPriority="high"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         </div>
@@ -205,6 +209,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
             src="/images/hero-turbine.jpg"
             alt="Gas turbine engine rotor and blade assembly"
             fill
+            sizes="50vw"
             className="object-contain object-right-bottom"
             loading="lazy"
             unoptimized
@@ -256,6 +261,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
                   placeholder={`Search by ${searchType}...`}
                   className="flex-1 text-sm text-[#0A1628] px-5 py-4 focus:outline-none placeholder:text-[#4A4A6A]/50 min-w-0"
                   autoComplete="off"
+                  aria-label={`Search by ${searchType}`}
                 />
 
                 {/* Filter toggle */}
@@ -263,6 +269,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
                   type="button"
                   onClick={() => setShowFilters((v) => !v)}
                   aria-label="Toggle search filters"
+                  aria-expanded={showFilters}
                   className={`flex items-center gap-1.5 px-3 sm:px-4 text-sm font-medium border-l border-[#E8EDF2] transition-colors flex-shrink-0 ${
                     showFilters || hasFilters
                       ? 'bg-[#EEF2FF] text-[#4F46E5]'

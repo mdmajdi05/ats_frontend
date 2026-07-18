@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | AeroTurbineSpare',
+  title: 'Contact Us',
   description: 'Contact AeroTurbineSpare for parts inquiries, RFQs & AOG emergencies. Phone, email, or form. Our procurement specialists respond within 24 hours. Call now.',
   keywords: 'contact aerospace parts supplier, AOG emergency parts, turbine parts inquiry, RFQ submission, aerospace procurement contact, AeroTurbineSpare phone number',
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/contact'),
   },
   openGraph: {
-    title: 'Contact Us | AeroTurbineSpare',
+    title: 'Contact Us',
     description: 'Reach our aerospace procurement specialists for parts inquiries, RFQ submissions, and AOG emergency assistance.',
     url: 'https://aeroturbinespare.com/contact',
     siteName: 'AeroTurbineSpare',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact Us | AeroTurbineSpare',
+    title: 'Contact Us',
     description: 'Reach our aerospace procurement specialists for parts inquiries, RFQ submissions, and AOG emergency assistance.',
     images: ['/images/og-cover.jpg'],
   },

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions | AeroTurbineSpare',
+  title: 'Terms & Conditions',
   description:
-    'AeroTurbineSpare terms and conditions for gas turbine spare parts procurement, RFQ submissions, and platform use. Texas law governs. Export control compliance.',
+    'AeroTurbineSpare terms and conditions for gas turbine spare parts procurement and platform use.',
   openGraph: {
-    title: 'Terms & Conditions | AeroTurbineSpare',
+    title: 'Terms & Conditions',
     description:
-      'AeroTurbineSpare terms and conditions for gas turbine parts procurement platform.',
+      'AeroTurbineSpare terms and conditions for gas turbine parts procurement.',
   },
 };
 

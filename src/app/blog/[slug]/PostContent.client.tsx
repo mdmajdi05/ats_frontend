@@ -77,7 +77,11 @@ function collectSchemas(post: BlogPost): string[] {
       const bread = generateBreadcrumbSchema(post);
       results.push(toSafeJson(bread));
     }
-  } catch (e) { console.error('[Schema] generation failed:', e); }
+  } catch (e) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('[Schema] generation failed:', e);
+    }
+  }
 
   return results;
 }

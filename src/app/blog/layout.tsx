@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Aerospace Parts Blog | Gas Turbine Industry Insights & MRO News',
+  title: 'Gas Turbine Parts Blog',
   description:
     'Expert articles on gas turbine parts, MRO best practices & supply chain intelligence. ISO 9001 & AS9120 certified insights from AeroTurbineSpare. Read now.',
   keywords: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/blog'),
   },
   openGraph: {
-    title: 'Aerospace Parts Blog | AeroTurbineSpare',
+    title: 'Gas Turbine Parts Blog',
     description:
       'Expert articles on gas turbine spare parts, MRO best practices, and supply chain intelligence.',
     url: 'https://aeroturbinespare.com/blog',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Aerospace Parts Blog | AeroTurbineSpare',
+    title: 'Gas Turbine Parts Blog',
     description: 'Expert articles on gas turbine spare parts, MRO, and supply chain intelligence.',
     images: ['/images/og-cover.jpg'],
   },

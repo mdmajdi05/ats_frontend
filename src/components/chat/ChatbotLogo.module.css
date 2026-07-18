@@ -60,9 +60,19 @@
   height: 140px;
   background: radial-gradient(circle at 30% 30%, rgba(100, 200, 255, 0.12), transparent 70%);
   border-radius: 50%;
-  filter: blur(20px);
   animation: pulse-platform 3s ease-in-out infinite;
   z-index: 1;
+  will-change: transform, opacity;
+}
+.platformWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  filter: blur(20px);
+  pointer-events: none;
 }
 
 @keyframes pulse-platform {
@@ -149,7 +159,6 @@
   box-shadow: 0 0 30px rgba(100, 255, 218, 0.4), 0 0 60px rgba(100, 255, 218, 0.15);
   animation: glow-pulse 2s ease-in-out infinite;
   transform: translateZ(10px);
-  transition: opacity 0.3s ease;
   will-change: transform, opacity;
 }
 
@@ -181,7 +190,7 @@
   align-items: center;
   justify-content: center;
   animation: head-turn 5s ease-in-out infinite;
-  transition: transform 0.15s ease;
+  will-change: transform;
 }
 
 @keyframes head-turn {
@@ -262,7 +271,6 @@
   box-shadow: 0 0 20px rgba(100, 255, 218, 0.5), 0 0 50px rgba(100, 255, 218, 0.12);
   animation: scan 2.8s ease-in-out infinite;
   z-index: 4;
-  transition: box-shadow 0.3s ease, background 0.3s ease;
   will-change: transform, opacity;
 }
 
@@ -298,7 +306,6 @@
   background: #8892b0;
   border-radius: 50%;
   animation: mouth-dot 2.2s ease-in-out infinite;
-  transition: opacity 0.3s ease;
   will-change: transform, opacity;
 }
 .mouth span:nth-child(1) { animation-delay: 0s; }
@@ -360,6 +367,7 @@
   transform-origin: top center;
   animation: arm-swing 3.2s ease-in-out infinite;
   z-index: 2;
+  will-change: transform;
 }
 
 .armLeft {
@@ -416,6 +424,7 @@
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
   animation: bubble-float 5s ease-in-out infinite;
   transform: translateZ(48px);
+  will-change: transform;
 }
 
 .floatBubble span {
@@ -437,6 +446,7 @@
   background: #64ffda;
   border-radius: 50%;
   animation: dot-typing 1.6s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 .floatBubble .loader i:nth-child(2) { animation-delay: 0.3s; }
 .floatBubble .loader i:nth-child(3) { animation-delay: 0.6s; }

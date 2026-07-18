@@ -23,6 +23,7 @@ export default function ZigZagGallery({ images }: ZigZagGalleryProps) {
           alt={images[0].alt}
           width={800}
           height={600}
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-auto"
           loading="lazy"
           unoptimized
@@ -35,6 +36,7 @@ export default function ZigZagGallery({ images }: ZigZagGalleryProps) {
           alt={images[1].alt}
           width={800}
           height={600}
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="w-full h-auto"
           loading="lazy"
           unoptimized

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | AeroTurbineSpare',
+  title: 'Privacy Policy',
   description:
-    'AeroTurbineSpare privacy policy. How we collect, use, and protect your personal data for gas turbine parts procurement. GDPR compliant. Data controller: AeroTurbineSpare, Inc., Doral, FL.',
+    'Learn how AeroTurbineSpare collects, uses, and protects your personal data. GDPR compliant.',
   openGraph: {
-    title: 'Privacy Policy | AeroTurbineSpare',
+    title: 'Privacy Policy',
     description:
-      'AeroTurbineSpare privacy policy for gas turbine parts procurement platform.',
+      'Learn how AeroTurbineSpare collects, uses, and protects your personal data.',
   },
 };
 

@@ -81,6 +81,7 @@ export default function CommentSection({ postId, comments }: Props) {
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2.5 text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
+                aria-label="Your name"
               />
               <input
                 type="email"
@@ -88,6 +89,7 @@ export default function CommentSection({ postId, comments }: Props) {
                 value={guestEmail}
                 onChange={(e) => setGuestEmail(e.target.value)}
                 className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2.5 text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
+                aria-label="Your email"
               />
             </div>
             <textarea
@@ -97,6 +99,7 @@ export default function CommentSection({ postId, comments }: Props) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2.5 text-sm text-[#0A1628] resize-none focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30"
+              aria-label="Write your comment"
             />
             <button
               type="submit"

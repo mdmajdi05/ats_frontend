@@ -103,7 +103,7 @@ function BlogPageContent() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         {/* Hero */}
         <section className="bg-gradient-to-br from-[#0A1628] to-[#1A1A2E] py-16 px-4">
           <div className="max-w-7xl mx-auto text-center">
@@ -123,6 +123,7 @@ function BlogPageContent() {
                 defaultValue={search}
                 placeholder="Search articles…"
                 className="flex-1 rounded-l-lg px-4 py-3 text-sm text-[#0A1628] focus:outline-none"
+                aria-label="Search articles"
               />
               <button type="submit" className="bg-[#E8751A] hover:bg-[#d4691a] text-white px-5 py-3 rounded-r-lg font-semibold text-sm">
                 Search
@@ -158,7 +159,7 @@ function BlogPageContent() {
                 <div className="absolute left-0 top-0 h-full w-80 max-w-full bg-white shadow-2xl flex flex-col">
                   <div className="flex items-center justify-between p-4 border-b border-[#E8EDF2]">
                     <h2 className="font-semibold text-[#1A1A2E]">Filters</h2>
-                    <button onClick={() => setMobileSidebar(false)} className="p-2 rounded-lg hover:bg-[#F5F7FA]">
+                    <button onClick={() => setMobileSidebar(false)} className="p-2 rounded-lg hover:bg-[#F5F7FA]" aria-label="Close sidebar">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Sell Your Excess Inventory | AeroTurbineSpare',
+  title: 'Sell Your Excess Inventory',
   description: 'Sell surplus aerospace parts to AeroTurbineSpare. Fair market-rate offers within 2 business days. We buy turbine blades, avionics, landing gear & more.',
   keywords: 'sell excess aerospace parts, surplus turbine inventory, sell aircraft parts, aerospace inventory buyer, excess MRO parts, sell surplus aviation components',
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/inventory'),
   },
   openGraph: {
-    title: 'Sell Your Excess Inventory | AeroTurbineSpare',
+    title: 'Sell Your Excess Inventory',
     description: 'Sell surplus aerospace parts and excess inventory. Get fair market-rate offers within 2 business days.',
     url: 'https://aeroturbinespare.com/inventory',
     siteName: 'AeroTurbineSpare',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sell Your Excess Inventory | AeroTurbineSpare',
+    title: 'Sell Your Excess Inventory',
     description: 'Sell surplus aerospace parts and excess inventory. Get fair market-rate offers within 2 business days.',
     images: ['/images/og-cover.jpg'],
   },

@@ -42,6 +42,7 @@ export default function CollapsibleSection({ id, title, children, defaultOpen = 
         type="button"
         onClick={toggle}
         className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#F8FAFC] transition-colors"
+        aria-expanded={open}
       >
         <div className="flex items-center gap-2 min-w-0">
           <span className="text-xs font-semibold text-[#0A1628] uppercase tracking-wider truncate">{title}</span>

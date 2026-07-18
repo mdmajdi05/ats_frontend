@@ -11,9 +11,10 @@ interface SafeImageProps {
   unoptimized?: boolean;
   width?: number;
   height?: number;
+  sizes?: string;
 }
 
-export default function SafeImage({ src, alt, fill, className, unoptimized = true, width, height }: SafeImageProps) {
+export default function SafeImage({ src, alt, fill, className, unoptimized = true, width, height, sizes }: SafeImageProps) {
   const [hasError, setHasError] = useState(false);
 
   if (hasError) return null;
@@ -24,6 +25,7 @@ export default function SafeImage({ src, alt, fill, className, unoptimized = tru
         src={src}
         alt={alt}
         fill
+        sizes={sizes || "(max-width: 768px) 100vw, 50vw"}
         className={className}
         unoptimized={unoptimized}
         onError={() => setHasError(true)}
@@ -37,6 +39,7 @@ export default function SafeImage({ src, alt, fill, className, unoptimized = tru
       alt={alt}
       width={width || 400}
       height={height || 300}
+      sizes={sizes}
       className={className}
       unoptimized={unoptimized}
       onError={() => setHasError(true)}

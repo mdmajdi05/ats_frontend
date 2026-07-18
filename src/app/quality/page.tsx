@@ -9,9 +9,9 @@ import { BreadcrumbJsonLd, QualityPageJsonLd } from '@/components/seo/JsonLd';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Quality Assurance | ISO 9001 & AS9120 Certified Gas Turbine Parts',
+  title: 'Quality Assurance',
   description:
-    'ISO 9001 & AS9120 certified. 100% inspection on every gas turbine part. Full traceability, anti-counterfeit program, 12-month warranty. CAGE 8ATR9. Learn more.',
+    'ISO 9001 & AS9120 certified. 100% inspection on every gas turbine part. Full traceability, anti-counterfeit program, 12-month warranty. CAGE 8ATR9.',
   keywords: [
     'aerospace parts quality assurance', 'ISO 9001 certified parts supplier',
     'AS9120 quality standard', 'gas turbine parts inspection',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/quality'),
   },
   openGraph: {
-    title: 'Quality Assurance | AeroTurbineSpare',
+    title: 'Quality Assurance',
     description:
       'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty on turbine parts.',
     url: 'https://aeroturbinespare.com/quality',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Quality Assurance | AeroTurbineSpare',
+    title: 'Quality Assurance',
     description: 'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty.',
     images: ['/images/og-cover.jpg'],
   },

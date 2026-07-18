@@ -54,7 +54,7 @@ export default function SubscribeForm() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 mb-4">
             <Check className="w-6 h-6 text-green-400" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-1">You&apos;re Subscribed!</h2>
+          <p className="text-xl font-bold text-white mb-1">You&apos;re Subscribed!</p>
           <p className="text-white/60 text-sm">We&apos;ll send you the latest parts inventory and industry updates.</p>
         </div>
       </section>
@@ -68,7 +68,7 @@ export default function SubscribeForm() {
           <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
             <span className="w-6 h-px bg-[#818CF8]" /> Newsletter <span className="w-6 h-px bg-[#818CF8]" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Stay Updated on New Inventory</h2>
+          <p className="text-2xl sm:text-3xl font-bold text-white mb-2">Stay Updated on New Inventory</p>
           <p className="text-white/60 text-sm mb-8 max-w-md mx-auto">
             Get notified when new turbine parts and platforms hit our inventory. No generic updates, just what matters for your fleet.
           </p>
@@ -81,6 +81,7 @@ export default function SubscribeForm() {
               className="flex-1 px-5 py-3.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/50 focus:border-[#4F46E5] transition-all"
               required
               suppressHydrationWarning
+              aria-label="Email address for newsletter"
             />
             <button
               type="submit"

@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       languages: buildHreflang(`/blog/tag/${slug}`),
     },
     openGraph: {
-      title: `${name} | AeroTurbineSpare Blog`,
+      title: `${name} | Gas Turbine Parts Blog`,
       description: `Browse articles tagged "${name}". Gas turbine parts insights from ISO 9001 & AS9120 certified experts.`,
       url: `https://aeroturbinespare.com/blog/tag/${slug}`,
       siteName: 'AeroTurbineSpare',
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${name} | AeroTurbineSpare Blog`,
+      title: `${name} | Gas Turbine Parts Blog`,
       description: `Browse articles tagged "${name}". Gas turbine parts insights.`,
       images: ['/images/og-cover.jpg'],
     },

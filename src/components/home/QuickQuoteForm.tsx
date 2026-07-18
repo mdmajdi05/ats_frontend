@@ -58,7 +58,7 @@ export default function QuickQuoteForm() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-6">
             <Check className="w-8 h-8 text-green-400" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Quote Request Received!</h2>
+          <p className="text-2xl font-bold text-white mb-2">Quote Request Received!</p>
           <p className="text-white/70 max-w-md mx-auto">
             We&apos;ll come back with pricing and availability, usually the same day.
           </p>
@@ -86,10 +86,10 @@ export default function QuickQuoteForm() {
             <div className="inline-flex items-center gap-2 text-[#818CF8] text-sm font-semibold uppercase tracking-wider mb-3">
               <span className="w-6 h-px bg-[#818CF8]" /> Quick Quote <span className="w-6 h-px bg-[#818CF8]" />
             </div>
-            <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-4">
+            <p className="text-3xl lg:text-4xl font-black text-white leading-tight mb-4">
               Get an Instant<br />
               <span className="gradient-text">Parts Quote</span>
-            </h2>
+            </p>
             <p className="text-white/70 text-base leading-relaxed max-w-md">
               Drop your part number and quantity. We will get back with pricing and availability, usually the same day.
             </p>

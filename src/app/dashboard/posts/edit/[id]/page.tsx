@@ -237,7 +237,7 @@ export default function EditPostPage() {
           {savingState === 'saved' && <span className="text-xs text-green-600">✓ Saved</span>}
           {savingState === 'error' && <span className="text-xs text-red-500">✕ Save failed</span>}
           <span className="text-[10px] text-[#C0C9D5]">Draft auto-saved</span>
-          <Link href={`/blog/${post.slug}`} target="_blank"
+          <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer"
             className="border border-[#E8EDF2] text-[#4A4A6A] hover:border-[#4F46E5] hover:text-[#4F46E5] font-medium text-sm px-4 py-2 rounded-lg transition-colors">
             View Live
           </Link>

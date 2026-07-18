@@ -22,29 +22,29 @@ export async function generateMetadata({ params }: { params: Promise<{ country: 
 
   return {
     title: {
-      default: 'Global Gas Turbine Services & Spare Parts Supplier | AeroTurbineSpare',
+      default: 'Gas Turbine Spare Parts Supplier | GE, Siemens & Rolls-Royce',
       template: '%s | AeroTurbineSpare',
     },
     description:
-      'Source gas turbine spare parts for GE, Siemens, Rolls-Royce & Solar Turbines. 86,000+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hr quotes. Ships to 150+ countries.',
+      'Source gas turbine spare parts for GE, Siemens & Rolls-Royce. New, refurbished & serviceable blades, nozzles & combustion parts. Get a quote today.',
     alternates: {
       canonical: isDefault ? BASE_URL : `${BASE_URL}/${country}`,
       languages,
     },
     openGraph: {
-      title: 'Global Gas Turbine Services & Spare Parts Supplier',
+      title: 'Gas Turbine Spare Parts Supplier',
       description:
-        'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines. 86,000+ parts. 24-hr quotes. Worldwide shipping.',
+        'Source gas turbine parts for GE, Siemens & Rolls-Royce. 24-hr quotes, worldwide shipping.',
       url: isDefault ? BASE_URL : `${BASE_URL}/${country}`,
-      siteName: 'AeroTurbineSpare',
+      siteName: 'Aero Turbine Spares',
       type: 'website',
       locale: cfg.locale,
       images: [{ url: `${BASE_URL}/images/og-cover.jpg`, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Global Gas Turbine Services & Spare Parts Supplier',
-      description: '86,000+ NSN/CAGE parts. 24-hr quotes. Ships to 150+ countries.',
+      title: 'Gas Turbine Spare Parts Supplier',
+      description: 'GE, Siemens & Rolls-Royce parts. 24-hr quotes. Worldwide shipping.',
       images: [`${BASE_URL}/images/og-cover.jpg`],
     },
     robots: { index: true, follow: true },

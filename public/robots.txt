@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /superadmin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /login?
+Disallow: /unauthorized
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://aeroturbinespare.com/sitemap.xml

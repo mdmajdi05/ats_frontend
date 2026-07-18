@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api').replace(/\/$/, '');
+const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
 const SITE_URL = 'https://aeroturbinespare.com';
 
 interface Product {
@@ -44,12 +44,12 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: 'Part Not Found | AeroTurbineSpare',
+      title: 'Part Not Found',
       robots: { index: false, follow: true },
     };
   }
 
-  const title = `${product.partNumber} — ${product.shortDescription || product.description?.slice(0, 80)} | AeroTurbineSpare`;
+  const title = `${product.partNumber} — ${product.shortDescription || product.description?.slice(0, 80)}`;
   const description = product.description
     ? product.description.slice(0, 160)
     : `Buy ${product.partNumber} (${product.manufacturer}) — NSN ${product.nsn}, CAGE ${product.cage}. ${product.stockStatus}. ISO 9001 & AS9120 certified.`;

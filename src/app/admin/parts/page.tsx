@@ -263,7 +263,7 @@ export default function AdminPartsPage() {
           <p className="text-[#4A4A6A] text-sm mt-0.5">{total} parts in inventory</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/catalog" target="_blank"
+          <Link href="/catalog" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 border border-[#C0C9D5] text-[#4A4A6A] rounded-xl text-sm font-medium hover:bg-[#F5F7FA] transition-colors">
             <ExternalLink className="w-4 h-4" /> Storefront
           </Link>
@@ -341,7 +341,7 @@ export default function AdminPartsPage() {
                     </td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Link href={`/catalog/${p.id}`} target="_blank"
+                        <Link href={`/catalog/${p.id}`} target="_blank" rel="noopener noreferrer"
                           className="p-1.5 rounded-lg hover:bg-[#EEF2FF] text-[#4A4A6A] hover:text-[#4F46E5] transition-colors" title="View">
                           <ExternalLink className="w-3.5 h-3.5" />
                         </Link>

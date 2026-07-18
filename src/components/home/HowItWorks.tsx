@@ -35,7 +35,7 @@ export default function HowItWorks() {
           <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
             <span className="w-6 h-px bg-brand" /> Simple Process <span className="w-6 h-px bg-brand" />
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-text">How It Works</h2>
+          <p className="text-3xl lg:text-4xl font-bold text-text">How It Works</p>
           <p className="text-text-muted mt-3 max-w-2xl mx-auto">
             No account managers who don't know turbines, no back-and-forth over what platform you're running. Here's how sourcing works with us.
           </p>

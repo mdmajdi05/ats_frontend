@@ -99,6 +99,8 @@ export default function IndustriesGrid() {
                   <img
                     src={bgImage}
                     alt={ind.name}
+                    width={640}
+                    height={400}
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                     loading="lazy"
                   />

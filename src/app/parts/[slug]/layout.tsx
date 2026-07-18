@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api').replace(/\/$/, '');
+const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
 const SITE_URL = 'https://aeroturbinespare.com';
 
 interface NavCategory {
@@ -42,12 +42,12 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: 'Category Not Found | AeroTurbineSpare',
+      title: 'Category Not Found',
       robots: { index: false, follow: true },
     };
   }
 
-  const title = `${category.name} | AeroTurbineSpare Parts Catalog`;
+  const title = category.name;
   const description = category.description
     ? category.description.slice(0, 160)
     : `Browse ${category.name} parts and components${category.manufacturer ? ` by ${category.manufacturer}` : ''}. ${category.partCount ?? ''} items available. ISO 9001 & AS9120 certified.`;

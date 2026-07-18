@@ -6,9 +6,9 @@ import { BreadcrumbJsonLd, AboutPageJsonLd } from '@/components/seo/JsonLd';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'About AeroTurbineSpare | ISO 9001 & AS9120 Certified Gas Turbine Parts Distributor',
+  title: 'About Aero Turbine Spares',
   description:
-    'ISO 9001 & AS9120 certified gas turbine parts distributor. CAGE 8ATR9. 5M+ parts, 150+ countries, 24-hr quotes. Trusted by OEMs & MROs since 2009. Browse now.',
+    'ISO 9001 & AS9120 certified gas turbine parts distributor. CAGE 8ATR9. 5M+ parts, 150+ countries, 24-hr quotes. Trusted by OEMs & MROs since 2009.',
   keywords: [
     'about AeroTurbineSpare', 'gas turbine parts distributor',
     'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/about'),
   },
   openGraph: {
-    title: 'About AeroTurbineSpare | Gas Turbine Parts Distributor',
+    title: 'About Aero Turbine Spares',
     description:
       'ISO 9001 & AS9120 certified. CAGE 8ATR9. Serving 150+ countries since 2009. 5 Million+ turbine spare parts.',
   },

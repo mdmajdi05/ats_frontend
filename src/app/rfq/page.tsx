@@ -443,7 +443,7 @@ export default function RFQPage({
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 flex items-center justify-center py-20 px-4 bg-bg">
+        <main id="main-content" className="flex-1 flex items-center justify-center py-20 px-4 bg-bg">
           <div className="max-w-xl w-full text-center">
             <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
@@ -1005,11 +1005,11 @@ export default function RFQPage({
           />
           <span className="text-sm text-text">
             I confirm that the information provided is accurate and I agree to the{' '}
-            <Link href="/terms" target="_blank" className="text-orange hover:underline font-medium">
+            <Link href="/terms" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline font-medium">
               Terms & Conditions
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" target="_blank" className="text-orange hover:underline font-medium">
+            <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline font-medium">
               Privacy Policy
             </Link>. I understand that submitting this RFQ does not create a binding purchase order.
           </span>
@@ -1125,7 +1125,7 @@ export default function RFQPage({
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1 bg-bg py-8 px-4">
+      <main id="main-content" className="flex-1 bg-bg py-8 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
           <Breadcrumb

@@ -250,7 +250,7 @@ export default function PostsListPage() {
                             </>
                           ) : (
                             <>
-                              <Link href={`/blog/${post.slug}`} target="_blank" className="text-xs text-[#4A4A6A] hover:text-[#4F46E5]">View</Link>
+                              <Link href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer" className="text-xs text-[#4A4A6A] hover:text-[#4F46E5]">View</Link>
                               <Link href={`/dashboard/posts/edit/${post.id}`} className="text-xs text-[#4F46E5] hover:underline font-medium">Edit</Link>
                               <button onClick={() => handleTrash(post.id)} className="text-xs text-red-400 hover:underline font-medium">Trash</button>
                             </>

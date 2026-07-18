@@ -100,7 +100,9 @@ export default function ChatBotLogo({
   }, [animated, onClick]);
 
   return (
-    <div
+    <button
+      type="button"
+      aria-label="Open chat"
       className={styles.wrapper}
       style={{ width: visualW, height: visualH }}
     >
@@ -145,7 +147,9 @@ export default function ChatBotLogo({
       >
         <div className={styles.scene}>
           <div className={styles.cubeContainer} ref={containerRef}>
-            <div className={styles.platform} />
+            <div className={styles.platformWrapper}>
+              <div className={styles.platform} />
+            </div>
 
             <div className={styles.robotWrapper}>
               <div className={styles.robotGroup} ref={groupRef}>
@@ -184,6 +188,6 @@ export default function ChatBotLogo({
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }

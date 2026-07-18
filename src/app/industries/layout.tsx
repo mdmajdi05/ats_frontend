@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Industries We Serve | AeroTurbineSpare',
+  title: 'Industries We Serve',
   description: 'AeroTurbineSpare serves aviation, defense, oil & gas, power generation, marine, and medical industries with certified turbine spare parts and MRO components.',
   keywords: 'aerospace industry parts, aviation parts supplier, defense parts distributor, oil gas turbine parts, power generation components, marine turbine parts, military aircraft parts',
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/industries'),
   },
   openGraph: {
-    title: 'Industries We Serve | AeroTurbineSpare',
+    title: 'Industries We Serve',
     description: 'Serving aviation, defense, oil & gas, power generation, marine, and medical industries with certified parts.',
     url: 'https://aeroturbinespare.com/industries',
     siteName: 'AeroTurbineSpare',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Industries We Serve | AeroTurbineSpare',
+    title: 'Industries We Serve',
     description: 'Serving aviation, defense, oil & gas, power generation, marine, and medical industries with certified parts.',
     images: ['/images/og-cover.jpg'],
   },

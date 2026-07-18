@@ -1,3 +1,5 @@
-﻿export default function RootPage() {
-  return null
+﻿import { redirect } from 'next/navigation';
+
+export default function RootPage() {
+  redirect('/us');
 }

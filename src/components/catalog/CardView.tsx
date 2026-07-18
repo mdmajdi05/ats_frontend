@@ -67,6 +67,9 @@ export default function CardView({ items, cardConfig }: CardViewProps) {
               <img
                 src={cardImage}
                 alt={cardTitle}
+                width={640}
+                height={360}
+                loading="lazy"
                 className="w-full h-full object-cover"
                 onError={() => setImgErrors((prev) => new Set(prev).add(item.id))}
               />
@@ -74,7 +77,7 @@ export default function CardView({ items, cardConfig }: CardViewProps) {
           )}
           {showImage && ((!cardImage || hasImgError) && placeholder) && (
             <div className="aspect-video bg-bg flex items-center justify-center">
-              <img src={placeholder} alt="Part placeholder image" className="w-full h-full object-cover opacity-50" />
+              <img src={placeholder} alt="Part placeholder image" width={640} height={360} loading="lazy" className="w-full h-full object-cover opacity-50" />
             </div>
           )}
           {showImage && (!cardImage || hasImgError) && !placeholder && (

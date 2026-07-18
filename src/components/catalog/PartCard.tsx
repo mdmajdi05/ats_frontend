@@ -34,6 +34,7 @@ function PartCardComponent({ product, view = 'grid' }: PartCardProps) {
               src={product.imageUrl}
               alt={`${product.partNumber} - ${product.shortDescription || 'aerospace turbine part'}`}
               fill
+              sizes="64px"
               className="object-cover"
               unoptimized
               onError={() => setImgError(true)}
@@ -70,6 +71,7 @@ function PartCardComponent({ product, view = 'grid' }: PartCardProps) {
             src={product.imageUrl}
             alt={product.shortDescription || `${product.partNumber} - aerospace turbine part`}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover"
             unoptimized
             onError={() => setImgError(true)}

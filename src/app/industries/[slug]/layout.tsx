@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api').replace(/\/$/, '');
+const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
 const SITE_URL = 'https://aeroturbinespare.com';
 
 interface Industry {
@@ -47,12 +47,12 @@ export async function generateMetadata({
 
   if (!industry) {
     return {
-      title: 'Industry Not Found | AeroTurbineSpare',
+      title: 'Industry Not Found',
       robots: { index: false, follow: true },
     };
   }
 
-  const title = `${industry.name} Parts & Components | AeroTurbineSpare`;
+  const title = `${industry.name} Parts & Components`;
   const description = industry.description
     ? industry.description.slice(0, 160)
     : `Source certified ${industry.name} spare parts and components. NSN/CAGE-referenced, ISO 9001 & AS9120 certified. 24-hour quote response.`;

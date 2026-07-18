@@ -24,7 +24,7 @@ export default function BrandLogos() {
           <div className="inline-flex items-center gap-2 text-brand text-sm font-semibold uppercase tracking-wider mb-3">
             <span className="w-6 h-px bg-brand" /> Our Partners <span className="w-6 h-px bg-brand" />
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-text">Trusted by Global Manufacturers</h2>
+          <p className="text-3xl lg:text-4xl font-bold text-text">Trusted by Global Manufacturers</p>
           <p className="text-text-muted mt-3 max-w-3xl mx-auto text-sm">
             We supply parts for every major turbine OEM in service today. General Electric, Siemens, Rolls-Royce, Solar Turbines, Alstom, Ansaldo Energia, and Pratt &amp; Whitney aeroderivative units. If it spins, we probably have parts for it.
           </p>
@@ -42,6 +42,7 @@ export default function BrandLogos() {
                     alt={`${brand.name} logo`}
                     width={32}
                     height={32}
+                    sizes="32px"
                     className="w-8 h-8 object-contain"
                     loading="lazy"
                     onError={() => setHidden((prev) => ({ ...prev, [brand.name]: true }))}

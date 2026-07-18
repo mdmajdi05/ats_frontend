@@ -86,7 +86,9 @@ export default function SchemaOverridePanel({ seo, coverImage, title, excerpt, p
       const parsed = JSON.parse(overrides.customJsonLd);
       schemas.push(parsed);
     } catch {
-      console.error('[SchemaOverridePanel] Invalid customJsonLd — falling back to auto');
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('[SchemaOverridePanel] Invalid customJsonLd — falling back to auto');
+      }
     }
   }
 

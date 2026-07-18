@@ -363,7 +363,7 @@ export default function CatalogPage({
       )}
       <Header />
 
-      <main className="flex-1 bg-bg">
+      <main id="main-content" className="flex-1 bg-bg">
         {/* Page header */}
         <div className="bg-gradient-to-br from-navy via-[#0B1A33] to-[#0D2247] py-12">
           <div className="max-w-7xl mx-auto px-4">
@@ -434,7 +434,7 @@ export default function CatalogPage({
                 <div className="absolute left-0 top-0 h-full w-80 max-w-full bg-white shadow-2xl flex flex-col">
                   <div className="flex items-center justify-between p-4 border-b border-silver">
                     <h2 className="font-semibold text-text">Filters</h2>
-                    <button onClick={() => setSidebarOpen(false)} className="p-1.5 rounded-lg hover:bg-silver">
+                    <button onClick={() => setSidebarOpen(false)} className="p-1.5 rounded-lg hover:bg-silver" aria-label="Close filters">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
@@ -480,6 +480,7 @@ export default function CatalogPage({
                     value={sort}
                     onChange={(e) => { const v = e.target.value; startTransition(() => { setSort(v); setPage(1) }) }}
                     className="text-sm border border-silver-dark rounded-lg px-3 py-2 bg-white text-text focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange"
+                    aria-label="Sort products"
                   >
                     {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>

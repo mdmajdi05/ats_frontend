@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/rfq'),
   },
   openGraph: {
-    title: 'Request for Quote | AeroTurbineSpare',
+    title: 'Request for Quote',
     description:
       'Get a quote for gas turbine spare parts within 24 hours. ISO 9001 & AS9120 certified. AOG emergency sourcing.',
     url: 'https://aeroturbinespare.com/rfq',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Request for Quote | AeroTurbineSpare',
+    title: 'Request for Quote',
     description: 'Get a quote for gas turbine spare parts within 24 hours. ISO 9001 & AS9120 certified.',
     images: ['/images/og-cover.jpg'],
   },

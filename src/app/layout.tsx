@@ -13,23 +13,25 @@ import './globals.css';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap',
+  display: 'optional',
+  adjustFontFallback: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains',
-  display: 'swap',
+  display: 'optional',
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://aeroturbinespare.com'),
   title: {
-    default: 'Global Gas Turbine Services & Spare Parts Supplier | AeroTurbineSpare',
+    default: 'Gas Turbine Spare Parts Supplier | GE, Siemens & Rolls-Royce',
     template: '%s | AeroTurbineSpare',
   },
   description:
-    'Source gas turbine spare parts for GE, Siemens, Rolls-Royce & Solar Turbines. 86,000+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hr quotes. Ships to 150+ countries.',
+    'Source gas turbine spare parts for GE, Siemens & Rolls-Royce. New, refurbished & serviceable blades, nozzles & combustion parts. Get a quote today.',
   keywords: [
     'gas turbine spare parts', 'turbine services', 'GE turbines', 'Siemens turbines',
     'Rolls-Royce turbines', 'Solar Turbines', 'NSN parts', 'CAGE code',
@@ -46,24 +48,28 @@ export const metadata: Metadata = {
   category: 'aerospace',
   openGraph: {
     type: 'website',
-    siteName: 'AeroTurbineSpare',
-    title: 'Global Gas Turbine Services & Spare Parts Supplier',
+    siteName: 'Aero Turbine Spares',
+    title: 'Gas Turbine Spare Parts Supplier | GE, Siemens & Rolls-Royce',
     description:
-      'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced inventory, 24-hr quotes, worldwide shipping.',
+      'Source gas turbine parts for GE, Siemens & Rolls-Royce. 24-hr quotes, worldwide shipping.',
     locale: 'en_US',
     images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Global Gas Turbine Services & Spare Parts Supplier',
+    title: 'Gas Turbine Spare Parts Supplier',
     description:
-      'Sourcing gas turbine spare parts and field services for GE, Siemens, Rolls-Royce, Solar Turbines & more. NSN/CAGE-referenced, worldwide shipping.',
+      'GE, Siemens & Rolls-Royce parts. 24-hr quotes. Worldwide shipping.',
     images: ['/images/og-cover.jpg'],
   },
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    shortcut: '/favicon-32x32.png',
+    apple: '/apple-touch-icon.png',
   },
   robots: { index: true, follow: true },
   verification: {
@@ -92,9 +98,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://api.aeroturbinespare.com" />
-        <link rel="preload" as="image" href="/images/hero-bg.jpg" fetchPriority="high" />
       </head>
       <body className="min-h-full flex flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[#4F46E5] focus:text-white focus:rounded-lg focus:text-sm focus:font-semibold"
+        >
+          Skip to main content
+        </a>
         <OrganizationJsonLd />
         <WebsiteJsonLd />
         <FAQJsonLd />

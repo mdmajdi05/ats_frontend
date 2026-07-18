@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { buildHreflang } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Parts Categories | AeroTurbineSpare',
+  title: 'Parts Categories',
   description: 'Explore aerospace parts by category. Aero-derivative gas turbines, heavy-duty turbines, hot gas path components, control systems, rotating parts, and more.',
   keywords: 'turbine parts categories, gas turbine components, aero-derivative parts, heavy-duty turbine parts, hot gas path components, turbine control systems, aerospace part categories',
   alternates: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     languages: buildHreflang('/categories'),
   },
   openGraph: {
-    title: 'Parts Categories | AeroTurbineSpare',
+    title: 'Parts Categories',
     description: 'Explore aerospace parts by category. Aero-derivative, heavy-duty, hot gas path, controls, and more.',
     url: 'https://aeroturbinespare.com/categories',
     siteName: 'AeroTurbineSpare',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Parts Categories | AeroTurbineSpare',
+    title: 'Parts Categories',
     description: 'Explore aerospace parts by category. Aero-derivative, heavy-duty, hot gas path, controls, and more.',
     images: ['/images/og-cover.jpg'],
   },

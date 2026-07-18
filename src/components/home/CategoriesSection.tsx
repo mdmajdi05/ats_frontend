@@ -118,6 +118,8 @@ export default function CategoriesSection() {
             <img
               src={`/images/categories/banner-${groupSlug(activeGroup)}.jpg`}
               alt={activeGroup}
+              width={640}
+              height={360}
               className="w-full h-full object-cover"
               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
             />
@@ -157,6 +159,8 @@ export default function CategoriesSection() {
                   <img
                     src={cat.image || `/images/categories/banner-${groupSlug(cat.group)}.jpg`}
                     alt={cat.name}
+                    width={640}
+                    height={360}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
