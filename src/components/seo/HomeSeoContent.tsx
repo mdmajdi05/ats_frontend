@@ -3,7 +3,7 @@ export default function HomeSeoContent() {
     <div className="sr-only" aria-hidden="false">
       <h1>Gas Turbine Spare Parts Supplier – GE, Siemens &amp; Rolls-Royce</h1>
       <p>
-        Aero Turbine Spares is a leading global supplier of gas turbine spare parts for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo platforms. We stock new, refurbished, and serviceable turbine blades, nozzles, combustion liners, transition pieces, fuel nozzles, compressor components, and aftermarket parts for heavy-duty and aeroderivative gas turbines.
+        Aero Turbine Spares is a leading global supplier of gas turbine spare parts for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo platforms. With over 5 million NSN/CAGE-referenced parts in inventory, we stock new, refurbished, and serviceable turbine blades, nozzles, combustion liners, transition pieces, fuel nozzles, compressor components, and aftermarket parts for heavy-duty and aeroderivative gas turbines.
       </p>
       <p><strong>OEM-Quality Gas Turbine Replacement Parts</strong></p>
       <p>
@@ -32,6 +32,13 @@ export default function HomeSeoContent() {
       </p>
       <nav aria-label="Quick links">
         <a href="/us/catalog">Browse Parts Catalog</a>
+        <a href="/us/ge-gas-turbine-parts">GE Gas Turbine Parts</a>
+        <a href="/us/siemens-gas-turbine-parts">Siemens Gas Turbine Parts</a>
+        <a href="/us/rolls-royce-turbine-parts">Rolls-Royce Turbine Parts</a>
+        <a href="/us/solar-turbines-parts">Solar Turbines Parts</a>
+        <a href="/us/ge-frame-7fa-parts">GE Frame 7FA Parts</a>
+        <a href="/us/ge-frame-6b-parts">GE Frame 6B Parts</a>
+        <a href="/us/ge-lm2500-parts">GE LM2500 Parts</a>
         <a href="/us/about">About Us</a>
         <a href="/us/quality">Quality Assurance</a>
         <a href="/us/rfq">Request a Quote</a>
