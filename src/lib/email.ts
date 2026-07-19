@@ -55,15 +55,11 @@ function formatEmailHtml(lead: LeadData): string {
 </body></html>`;
 }
 
-export async function sendLeadNotification(lead: LeadData): Promise<boolean> {
-  const webhookUrl = process.env.LEAD_WEBHOOK_URL;
-  if (!webhookUrl) {
-    console.log('[Lead] No LEAD_WEBHOOK_URL set. Lead saved locally only.');
-    return false;
-  }
+const FORMSUBMIT_EMAIL = process.env.FORMSUBMIT_EMAIL || process.env.NEXT_PUBLIC_EMAIL_SALES || 'sales@aeroturbinespare.com';
+const FORMSUBMIT_URL = `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`;
 
+export async function sendLeadNotification(lead: LeadData): Promise<boolean> {
   try {
-    const html = formatEmailHtml(lead);
     const typeLabels: Record<string, string> = {
       'quick-quote': 'Quick Quote Request',
       'rfq': 'RFQ Submission',
@@ -71,26 +67,40 @@ export async function sendLeadNotification(lead: LeadData): Promise<boolean> {
       'catalog-download': 'Catalog Download',
     };
 
-    const res = await fetch(webhookUrl, {
+    const subject = `${typeLabels[lead.type] || 'New Lead'} from ${lead.name || lead.email}`;
+    const message = [
+      `Name: ${lead.name || 'N/A'}`,
+      `Email: ${lead.email}`,
+      lead.phone ? `Phone: ${lead.phone}` : '',
+      lead.company ? `Company: ${lead.company}` : '',
+      lead.partNumber ? `Part Number: ${lead.partNumber}` : '',
+      lead.quantity ? `Quantity: ${lead.quantity}` : '',
+      lead.source ? `Source: ${lead.source}` : '',
+      lead.message ? `\nMessage:\n${lead.message}` : '',
+    ].filter(Boolean).join('\n');
+
+    const res = await fetch(FORMSUBMIT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        subject: `[Lead] ${typeLabels[lead.type] || 'New Lead'} from ${lead.name || lead.email}`,
-        html,
-        lead,
-        to: process.env.EMAIL_TO || process.env.NEXT_PUBLIC_EMAIL_SALES || 'sales@aeroturbinespare.com',
+        name: lead.name || 'Website Lead',
+        email: lead.email,
+        phone: lead.phone || '',
+        message: `[${subject}]\n\n${message}`,
+        _subject: subject,
+        _template: 'table',
       }),
     });
 
     if (res.ok) {
-      console.log('[Lead] Webhook notification sent');
+      console.log('[Lead] Email sent via FormSubmit');
       return true;
     }
 
-    console.warn('[Lead] Webhook returned', res.status);
+    console.warn('[Lead] FormSubmit returned', res.status);
     return false;
   } catch (err) {
-    console.error('[Lead] Webhook send failed:', err);
+    console.error('[Lead] FormSubmit send failed:', err);
     return false;
   }
 }
