@@ -40,6 +40,7 @@ import ConicCard from '@/components/home/ConicCard'
 import BlobButton from '@/components/home/BlobButton'
 import QuickQuoteForm from '@/components/home/QuickQuoteForm'
 import SubscribeForm from '@/components/home/SubscribeForm'
+import HeroContactForm from '@/components/home/HeroContactForm'
 
 const TestimonialsCarousel = dynamic(() => import('@/components/home/TestimonialsCarousel'), { ssr: false, loading: () => <div className="h-64 bg-slate-100 animate-pulse" /> })
 const ZigZagGallery = dynamic(() => import('@/components/home/ZigZagGallery'), { ssr: false, loading: () => <div className="h-64 bg-slate-100 animate-pulse" /> })
@@ -384,7 +385,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
             </div>
           </div>
 
-          {/* Trust chips — inline on mobile/tablet, right panel on xl+ */}
+          {/* Trust chips — inline on mobile/tablet */}
           <div className="xl:hidden grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10 max-w-3xl">
             {[
               { icon: ShieldCheck, label: 'AS9100 & AS9120 Certified', sub: 'Quality Management' },
@@ -405,25 +406,14 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
             ))}
           </div>
 
-          {/* Trust chips — desktop right panel */}
-          <div className="hidden xl:flex flex-col gap-3 absolute right-8 top-1/2 -translate-y-1/2 w-64">
-            {[
-              { icon: ShieldCheck, label: 'AS9100 & AS9120 Certified', sub: 'Quality Management' },
-              { icon: Clock,       label: '24-Hour Quote Response', sub: 'Most Quotes Same Day' },
-              { icon: Award,       label: 'Zero Counterfeit Policy', sub: 'Verified Every Part' },
-              { icon: Truck,       label: '150+ Countries Served', sub: 'Global Logistics Network' },
-              { icon: Zap,         label: 'Turbine Outage Support', sub: 'Priority Response' },
-            ].map(({ icon: Icon, label, sub }) => (
-              <div key={label} className="flex items-center gap-3 bg-white/8 border border-white/12 rounded-xl px-4 py-3 backdrop-blur-sm">
-                <div className="w-9 h-9 rounded-lg bg-[#4F46E5]/30 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-4.5 h-4.5 text-[#818CF8]" />
-                </div>
-                <div>
-                  <div className="text-white text-xs font-semibold leading-tight">{label}</div>
-                  <div className="text-white/50 text-[10px] mt-0.5">{sub}</div>
-                </div>
-              </div>
-            ))}
+          {/* Contact form — mobile/tablet */}
+          <div className="xl:hidden mt-4 max-w-md">
+            <HeroContactForm />
+          </div>
+
+          {/* Contact form — desktop right panel */}
+          <div className="hidden xl:block absolute right-8 top-1/2 -translate-y-1/2 w-72">
+            <HeroContactForm />
           </div>
         </div>
       </section>

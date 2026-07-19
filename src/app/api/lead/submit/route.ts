@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
+import { sendLeadNotification } from '@/lib/email';
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,6 +32,10 @@ export async function POST(req: NextRequest) {
     await writeFile(filePath, JSON.stringify(lead, null, 2));
 
     console.log('NEW LEAD:', JSON.stringify(lead, null, 2));
+
+    sendLeadNotification(lead).catch((err) => {
+      console.error('[Email] Async send failed:', err);
+    });
 
     return NextResponse.json({ success: true, id: lead.id, message: 'Lead captured successfully' });
   } catch (err) {
