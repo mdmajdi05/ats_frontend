@@ -46,7 +46,7 @@ export default function QuickContactDrawer() {
           email: form.email,
           phone: form.phone,
           message: form.message || 'Quick contact inquiry',
-          source: 'quick-contact-drawer',
+          source: 'quick-contact-popup',
         }),
       });
     } catch {}
@@ -72,12 +72,13 @@ export default function QuickContactDrawer() {
         <ChevronLeft className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
       </button>
 
-      {/* Drawer overlay */}
+      {/* Popup modal */}
       {open && (
-        <div className="fixed inset-0 z-[9999] flex justify-end">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={handleClose} />
-
-          <div className="relative w-full max-w-sm bg-gradient-to-br from-[#0A1628] via-[#1E1B4B] to-[#312E81] shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-300" onClick={resetInactivity}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={handleClose}>
+          <div
+            className="relative w-full max-w-md bg-gradient-to-br from-[#0A1628] via-[#1E1B4B] to-[#312E81] rounded-2xl shadow-2xl border border-white/10 animate-in fade-in zoom-in duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
               <div className="flex items-center gap-2.5">
@@ -90,10 +91,10 @@ export default function QuickContactDrawer() {
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto px-5 py-6">
+            <div className="px-5 py-6">
               {submitted ? (
-                <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-400" />
                   </div>
                   <p className="text-lg font-bold text-white mb-1">Thank You!</p>
@@ -104,9 +105,6 @@ export default function QuickContactDrawer() {
                 </div>
               ) : (
                 <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-white/70 text-xs font-semibold uppercase tracking-wider">Quick Contact</span>
-                  </div>
                   <p className="text-white/50 text-[11px] mb-5 leading-relaxed">
                     Need a part urgently? Drop your details and we&apos;ll call you back.
                   </p>
