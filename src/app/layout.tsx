@@ -8,7 +8,6 @@ import ChatProvider from '@/components/chat/ChatProvider';
 import { NotificationProvider } from '@/hooks/useNotifications';
 import NotificationToastHandler from '@/components/notifications/NotificationToastHandler';
 import LeadMagnetPopup from '@/components/ui/LeadMagnetPopup';
-import FloatingContactButton from '@/components/ui/FloatingContactButton';
 import QuickContactDrawer from '@/components/ui/QuickContactDrawer';
 import { OrganizationJsonLd, WebsiteJsonLd, FAQJsonLd, LocalBusinessJsonLd, ServiceJsonLd, SpeakableJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
@@ -121,7 +120,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
               <NotificationToastHandler />
               <ChatProvider />
-              <FloatingContactButton />
               <QuickContactDrawer />
               <LeadMagnetPopup />
             </NotificationProvider>

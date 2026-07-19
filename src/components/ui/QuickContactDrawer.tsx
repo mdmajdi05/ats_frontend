@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { X, Send, Check, ChevronLeft, MessageCircle, Phone } from 'lucide-react';
+import { X, Send, Check, ChevronLeft, MessageCircle, Phone, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function QuickContactDrawer() {
@@ -9,8 +9,6 @@ export default function QuickContactDrawer() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-  const inactivityRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastActionRef = useRef(Date.now());
 
   useEffect(() => {
@@ -24,9 +22,7 @@ export default function QuickContactDrawer() {
     return () => clearInterval(interval);
   }, [open]);
 
-  const resetInactivity = () => {
-    lastActionRef.current = Date.now();
-  };
+  const resetInactivity = () => { lastActionRef.current = Date.now(); };
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     resetInactivity();
@@ -40,7 +36,6 @@ export default function QuickContactDrawer() {
       return;
     }
     setSending(true);
-    resetInactivity();
     try {
       await fetch('/api/lead/submit', {
         method: 'POST',
@@ -58,96 +53,92 @@ export default function QuickContactDrawer() {
     setSending(false);
     setSubmitted(true);
     toast.success('Message sent! We will respond within 24 hours.');
-    setTimeout(() => { setOpen(false); setSubmitted(false); setForm({ name: '', email: '', phone: '', message: '' }); }, 4000);
+    setTimeout(() => { setOpen(false); setSubmitted(false); setForm({ name: '', email: '', phone: '', message: '' }); }, 3000);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setDismissed(true);
-    setTimeout(() => setDismissed(false), 60000);
-  };
-
-  if (dismissed) return null;
+  const handleClose = () => { setOpen(false); };
 
   return (
     <>
-      {/* Tab trigger */}
-      {!open && (
-        <button
-          onClick={() => { setOpen(true); resetInactivity(); }}
-          className="fixed right-0 top-1/2 -translate-y-1/2 z-[9997] flex items-center gap-2 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-sm font-semibold px-3 py-4 rounded-l-xl shadow-xl transition-all hover:pr-4 group"
-          aria-label="Quick Contact"
-        >
-          <span className="writing-mode-vertical text-[10px] uppercase tracking-widest [writing-mode:vertical-rl]">
-            Quick Contact
-          </span>
-          <ChevronLeft className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-        </button>
-      )}
+      {/* Tab trigger — always visible */}
+      <button
+        onClick={() => { setOpen(true); resetInactivity(); setSubmitted(false); }}
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-[9997] flex items-center gap-2 bg-[#4F46E5] hover:bg-[#4338CA] text-white text-sm font-semibold px-3 py-4 rounded-l-xl shadow-xl transition-all hover:pr-4 group"
+        aria-label="Quick Contact"
+      >
+        <span className="text-[10px] uppercase tracking-widest [writing-mode:vertical-rl]">
+          Quick Contact
+        </span>
+        <ChevronLeft className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+      </button>
 
       {/* Drawer overlay */}
       {open && (
         <div className="fixed inset-0 z-[9999] flex justify-end">
-          {/* Backdrop */}
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={handleClose} />
 
-          {/* Drawer panel */}
-          <div className="relative w-full max-w-sm bg-white shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-300" onClick={resetInactivity}>
+          <div className="relative w-full max-w-sm bg-gradient-to-br from-[#0A1628] via-[#1E1B4B] to-[#312E81] shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-300" onClick={resetInactivity}>
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-semibold text-gray-900 text-sm">Quick Contact</span>
+                <span className="font-semibold text-white text-sm">Quick Contact</span>
               </div>
-              <button onClick={handleClose} className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors" aria-label="Close">
-                <X className="w-4 h-4 text-gray-500" />
+              <button onClick={handleClose} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" aria-label="Close">
+                <X className="w-4 h-4 text-white/60" />
               </button>
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto px-5 py-5">
+            <div className="flex-1 overflow-y-auto px-5 py-6">
               {submitted ? (
                 <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
-                    <Check className="w-8 h-8 text-green-600" />
+                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                    <Check className="w-8 h-8 text-green-400" />
                   </div>
-                  <p className="text-lg font-bold text-gray-900 mb-1">Thank You!</p>
-                  <p className="text-sm text-gray-500 mb-6">We have received your message and will get back to you within 24 hours.</p>
-                  <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span className="animate-pulse">Closing automatically...</span>
-                  </div>
+                  <p className="text-lg font-bold text-white mb-1">Thank You!</p>
+                  <p className="text-sm text-white/60 mb-6">We have received your message and will respond within 24 hours.</p>
+                  <p className="text-xs text-white/40">
+                    Meanwhile, call us at <a href="tel:+919354764587" className="text-[#818CF8] hover:underline">+91 9354764587</a>
+                  </p>
                 </div>
               ) : (
-                <div className="space-y-5">
-                  <div>
-                    <p className="text-sm text-gray-600">Need a quote or have a question? Fill in the form and we&apos;ll get back to you within 24 hours.</p>
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-white/70 text-xs font-semibold uppercase tracking-wider">Quick Contact</span>
                   </div>
+                  <p className="text-white/50 text-[11px] mb-5 leading-relaxed">
+                    Need a part urgently? Drop your details and we&apos;ll call you back.
+                  </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-3.5">
-                    <input type="text" value={form.name} onChange={handleChange('name')} placeholder="Your Name *" required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all" />
+                  <form onSubmit={handleSubmit} className="space-y-2.5">
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <input type="text" value={form.name} onChange={handleChange('name')} placeholder="Your Name *" required
+                        className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/50 focus:border-[#4F46E5] transition-all" />
+                      <input type="tel" value={form.phone} onChange={handleChange('phone')} placeholder="Phone"
+                        className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/50 focus:border-[#4F46E5] transition-all" />
+                    </div>
                     <input type="email" value={form.email} onChange={handleChange('email')} placeholder="Email Address *" required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all" />
-                    <input type="tel" value={form.phone} onChange={handleChange('phone')} placeholder="Phone Number"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all" />
-                    <textarea value={form.message} onChange={handleChange('message')} placeholder="Part number, quantity, or any details..."
+                      className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/50 focus:border-[#4F46E5] transition-all" />
+                    <textarea value={form.message} onChange={handleChange('message')} placeholder="Part number or details..."
                       rows={3}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 focus:border-[#4F46E5] transition-all resize-none" />
+                      className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/30 text-xs focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/50 focus:border-[#4F46E5] transition-all resize-none" />
                     <button type="submit" disabled={sending}
-                      className="w-full flex items-center justify-center gap-2 bg-[#4F46E5] hover:bg-[#4338CA] text-white font-semibold py-3.5 rounded-xl transition-all disabled:opacity-60 shadow-lg shadow-[#4F46E5]/20">
+                      className="w-full flex items-center justify-center gap-2 bg-[#4F46E5] hover:bg-[#4338CA] text-white font-semibold text-xs py-3 rounded-xl transition-all disabled:opacity-60">
                       {sending ? 'Sending...' : 'Send Message'}
-                      {!sending && <Send className="w-4 h-4" />}
+                      {!sending && <Send className="w-3 h-3" />}
                     </button>
                   </form>
 
-                  <div className="border-t border-gray-100 pt-4 space-y-2">
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Or reach us directly</p>
-                    <a href="tel:+919354764587" className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-[#4F46E5] transition-colors">
-                      <Phone className="w-4 h-4 text-green-500" /> +91 9354764587
+                  <div className="flex items-center justify-center gap-4 mt-4 text-[10px] text-white/40">
+                    <a href="tel:+919354764587" className="flex items-center gap-1 hover:text-white/60 transition-colors">
+                      <Phone className="w-3 h-3" /> Call
                     </a>
-                    <a href="https://wa.me/919354764587?text=Hi%20AeroTurbineSpare!%20I%20need%20a%20quote%20for%20gas%20turbine%20parts." target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-[#25D366] transition-colors">
-                      <MessageCircle className="w-4 h-4 text-[#25D366]" /> Chat on WhatsApp
+                    <a href="mailto:sales@aeroturbinespare.com" className="flex items-center gap-1 hover:text-white/60 transition-colors">
+                      <Mail className="w-3 h-3" /> Email
+                    </a>
+                    <a href="https://wa.me/919354764587?text=Hi%20AeroTurbineSpare!%20I%20need%20a%20quote%20for%20gas%20turbine%20parts." target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-white/60 transition-colors">
+                      <MessageCircle className="w-3 h-3 text-[#25D366]" /> WhatsApp
                     </a>
                   </div>
                 </div>
