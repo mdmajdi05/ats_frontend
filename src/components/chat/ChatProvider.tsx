@@ -9,8 +9,8 @@ import { useChat } from '@/hooks/useChat';
 import { useSiteConfig, DEFAULT_CHAT_CONFIG } from '@/hooks/useSiteConfig';
 import type { ChatConfig } from '@/types/chat';
 import ChatButton from './ChatButton';
-import WhatsAppButton from './WhatsAppButton';
 import ChatBotLogo from './ChatBotLogo';
+import FloatingContactButton from '@/components/ui/FloatingContactButton';
 
 const ChatWidget = dynamic(() => import('./ChatWidget'), { ssr: false });
 
@@ -220,14 +220,7 @@ export default function ChatProvider() {
         {showChat && (
           <ChatButton isOpen={isOpen} onClick={toggle} />
         )}
-        {showWhatsApp && (
-          <WhatsAppButton
-            number={chatConfig.whatsappNumber}
-            mode={chatConfig.whatsappMode}
-            businessPhoneId={chatConfig.whatsappBusinessPhoneId}
-            businessToken={chatConfig.whatsappBusinessToken}
-          />
-        )}
+        <FloatingContactButton />
       </div>
     </>
   );

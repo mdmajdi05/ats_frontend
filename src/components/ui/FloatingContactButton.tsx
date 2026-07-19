@@ -15,7 +15,7 @@ export default function FloatingContactButton() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9998] flex flex-col items-end gap-3">
+    <div className="flex flex-col items-end gap-3">
       {showMenu && (
         <div className="flex flex-col gap-2 animate-in slide-in-from-bottom-4 duration-200">
           <a
