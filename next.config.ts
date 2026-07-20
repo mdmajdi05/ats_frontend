@@ -2,10 +2,6 @@ import type { NextConfig } from 'next';
 
 let nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
-  skipTrailingSlashRedirect: true,
-  experimental: {
-    turbopackFileSystemCacheForDev: false,
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -33,19 +29,7 @@ let nextConfig: NextConfig = {
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'X-XSS-Protection',           value: '1; mode=block' },
           { key: 'Content-Security-Policy',    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://img.youtube.com https://i.ytimg.com; font-src 'self' data:; connect-src 'self' https://api.aeroturbinespare.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self' https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';" },
-          // CDN ko HTML cache karne se roke — har request fresh build se serve ho
-          { key: 'Cache-Control',              value: 'private, no-cache, no-store, must-revalidate, max-age=0' },
-          { key: 'Pragma',                     value: 'no-cache' },
-          { key: 'Expires',                    value: '0' },
-          // Auth cookie ke hisaab se different cache (logged in vs anonymous)
           { key: 'Vary',                       value: 'Cookie, Accept-Encoding' },
-        ],
-      },
-      // ── Static assets (hashed filenames → safe to cache long) ──
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
     ];
