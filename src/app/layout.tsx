@@ -149,10 +149,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-QH0HYG18PL');
           `}
         </Script>
-        <Script id="sw-register" strategy="afterInteractive">{`
+        <Script id="sw-unregister" strategy="afterInteractive">{`
           if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/sw.js').catch(() => {});
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              regs.forEach(function(reg) { reg.unregister(); });
             });
           }
         `}</Script>
