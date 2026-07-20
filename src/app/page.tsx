@@ -1,1 +1,3 @@
-﻿export default function RootPage() {}
+﻿export default function RootPage() {
+  return null;
+}
