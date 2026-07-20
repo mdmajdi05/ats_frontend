@@ -1,10 +1,9 @@
 import type { NextConfig } from 'next';
 
 let nextConfig: NextConfig = {
-  output: 'standalone',
   productionBrowserSourceMaps: true,
   experimental: {
-    turbopackFileSystemCacheForDev: false,
+    turbopackFileSystemCacheForDev: true,
   },
   images: {
     formats: ['image/avif', 'image/webp'],
