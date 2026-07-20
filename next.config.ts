@@ -12,6 +12,7 @@ let nextConfig: NextConfig = {
       { protocol: 'https', hostname: '**.cloudinary.com' },
       { protocol: 'https', hostname: 'img.youtube.com' },
       { protocol: 'https', hostname: 'i.ytimg.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
   generateBuildId: () => {
@@ -31,7 +32,7 @@ let nextConfig: NextConfig = {
           { key: 'Strict-Transport-Security',  value: 'max-age=63072000; includeSubDomains; preload' },
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'X-XSS-Protection',           value: '1; mode=block' },
-          { key: 'Content-Security-Policy',    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://img.youtube.com https://i.ytimg.com; font-src 'self' data:; connect-src 'self' https://api.aeroturbinespare.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self' https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';" },
+          { key: 'Content-Security-Policy',    value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://img.youtube.com https://i.ytimg.com https://images.unsplash.com; font-src 'self' data:; connect-src 'self' https://api.aeroturbinespare.com https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'self' https://www.youtube.com; object-src 'none'; base-uri 'self'; form-action 'self';" },
           { key: 'Vary',                       value: 'Cookie, Accept-Encoding' },
         ],
       },

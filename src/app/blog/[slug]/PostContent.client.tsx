@@ -111,7 +111,7 @@ export default function PostContentClient({ post }: Props) {
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-wrap gap-2 mb-4">
               {post.categories.map((c) => (
-                <Link key={c.slug} href={`/blog?category=${c.slug}`}
+                <Link key={c.slug || c.name} href={`/blog?category=${c.slug || c.name}`}
                   className="bg-[#E8751A] text-white text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
                   {c.name}
                 </Link>
@@ -141,7 +141,7 @@ export default function PostContentClient({ post }: Props) {
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-10 pt-6 border-t border-[#E8EDF2]">
               {post.tags.map((t) => (
-                <Link key={t.slug} href={`/blog?tag=${t.slug}`}
+                <Link key={t.slug || t.name} href={`/blog?tag=${t.slug || t.name}`}
                   className="text-xs border border-[#E8EDF2] text-[#4A4A6A] px-3 py-1 rounded-full hover:border-[#4F46E5] hover:text-[#4F46E5] transition-colors">
                   #{t.name}
                 </Link>
