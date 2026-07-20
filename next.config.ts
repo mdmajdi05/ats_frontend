@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 let nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   skipTrailingSlashRedirect: true,
+  experimental: {
+    turbopackFileSystemCacheForDev: false,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
