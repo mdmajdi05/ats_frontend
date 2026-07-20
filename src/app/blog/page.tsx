@@ -147,7 +147,7 @@ function BlogPageContent() {
                 name="q"
                 defaultValue={search}
                 placeholder="Search articles…"
-                className="flex-1 rounded-l-lg px-4 py-3 text-sm text-[#0A1628] focus:outline-none"
+                className="flex-1 rounded-l-lg px-4 py-3 text-sm text-[#0A1628] bg-white focus:outline-none"
                 aria-label="Search articles"
               />
               <button type="submit" className="bg-[#E8751A] hover:bg-[#d4691a] text-white px-5 py-3 rounded-r-lg font-semibold text-sm">
