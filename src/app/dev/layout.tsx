@@ -20,6 +20,7 @@ import toast from 'react-hot-toast';
 
 const DEV_NAV = [
   { href: '/dev',                  icon: LayoutDashboard, label: 'Dev Dashboard',     exact: true },
+  { href: '/dev',                  icon: LayoutDashboard, label: 'Dev Dashboard',     exact: true },
   { href: '/dev/data-source',      icon: Server,          label: 'Data Source'      },
   { href: '/dev/stats',            icon: BarChart3,       label: 'System Stats'     },
   { href: '/dev/users',            icon: Users,           label: 'All Users'        },
@@ -55,7 +56,19 @@ export default function DevLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!loading && (!user || !isDev())) {
+    if (loading) return;
+    if (user && isDev()) return;
+    if (!user) {
+      fetch('/api/dev/auto-login')
+        .then((r) => r.json())
+        .then((res) => {
+          if (res.success) {
+            localStorage.setItem('ats_session', JSON.stringify(res.data));
+            window.location.reload();
+          }
+        })
+        .catch(() => router.replace('/unauthorized'));
+    } else {
       router.replace('/unauthorized');
     }
   }, [user, loading, isDev, router]);

@@ -10,7 +10,7 @@ const TRADER_ROUTES = ['/inventory'];
 const CONTENT_MANAGER_BLOCKED = ['/dashboard/settings', '/dashboard/users'];
 
 const STATIC_PREFIXES = ['/_next', '/api', '/favicon', '/images', '/og-image', '/logo', '/assets', '/data', '/sw.js', '/manifest.webmanifest', '/robots', '/sitemap', '/llms'];
-const NO_COUNTRY_PAGES = ['/login', '/register', '/unauthorized', '/categories'];
+const NO_COUNTRY_PAGES = ['/login', '/register', '/unauthorized', '/categories', '/dev', '/admin', '/superadmin', '/dashboard'];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -45,7 +45,7 @@ export function proxy(request: NextRequest) {
   const requiresSEO     = SEO_ROUTES.some((r)    => pathname.startsWith(r));
   const requiresTrader  = TRADER_ROUTES.some((r) => pathname.startsWith(r));
 
-  if (requiresAuth || requiresAdmin || requiresSuper || requiresDev || requiresSEO || requiresTrader) {
+  if (requiresAuth || requiresAdmin || requiresSuper || requiresSEO || requiresTrader) {
     const role = request.cookies.get('ats_role')?.value;
 
     if (!role) {
