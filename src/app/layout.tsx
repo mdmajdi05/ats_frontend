@@ -65,13 +65,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon-16x16.png?v=3', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png?v=3', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-48x48.png?v=3', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon/favicon.ico', sizes: '48x48' },
     ],
-    shortcut: '/favicon-32x32.png?v=3',
-    apple: '/apple-touch-icon.png?v=3',
+    shortcut: '/favicon/favicon.ico',
+    apple: '/favicon/apple-touch-icon.png',
   },
+  manifest: '/favicon/site.webmanifest',
   robots: { index: true, follow: true },
   verification: {
     google: 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
