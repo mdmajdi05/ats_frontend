@@ -281,7 +281,7 @@ export async function fallbackRouter<T>(endpoint: string, options?: RequestInit)
         description: c.description, icon: c.icon, partCount: c.partCount,
       })),
       productCategories: cats.map((c) => ({
-        id: c.id, name: c.name, slug: c.name.toLowerCase().replace(/\s+/g, '-'),
+        id: c.id, name: c.name, slug: c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
         type: 'product', items: storedItems.filter((i) => i.categoryId === c.id),
       })),
       partCategories: [],
@@ -845,7 +845,7 @@ export async function fallbackRouter<T>(endpoint: string, options?: RequestInit)
       id: generateId('ci'),
       categoryId: body.categoryId || '',
       title: body.title || '',
-      slug: body.slug || '',
+      slug: (body.slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       description: body.description || '',
       image: body.image || '',
       link: body.link || '',

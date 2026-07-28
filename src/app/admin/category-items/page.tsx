@@ -118,7 +118,7 @@ function AddEditItemModal({ mode, item, categoryId, onClose, onSave }: {
 
       const body: Record<string, unknown> = {
         title: title.trim(),
-        slug: slug.trim() || toSlug(title),
+        slug: slug.trim() ? toSlug(slug) : toSlug(title),
         description: description.trim(),
         image: image.trim(),
         link: link.trim(),

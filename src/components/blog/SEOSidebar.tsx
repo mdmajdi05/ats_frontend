@@ -193,7 +193,7 @@ export default function SEOSidebar({ seo: seoProp, content = '', coverImage = ''
           <div>
             <label htmlFor="seo-slug" className="block text-xs font-semibold text-[#0A1628] mb-1 uppercase tracking-wider">Slug</label>
             <input id="seo-slug" type="text" value={seoValues.slug}
-              onChange={(e) => set('slug', e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}
+              onChange={(e) => set('slug', e.target.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').replace(/^-|-$/g, ''))}
               placeholder="post-url-slug"
               className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-sm text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30 font-mono" />
           </div>

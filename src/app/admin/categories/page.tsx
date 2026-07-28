@@ -213,7 +213,7 @@ function AddEditModal({ mode, type, data, industries, categories, onClose, onSav
     setSaving(true);
     try {
       const body: Record<string, unknown> = {
-        name, slug: slug || toSlug(name), description: desc,
+        name, slug: slug ? toSlug(slug) : toSlug(name), description: desc,
       };
       if (isIndustry) {
         body.icon = icon;

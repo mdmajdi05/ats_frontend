@@ -127,12 +127,12 @@ export default function RedirectsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="text-xs font-medium text-[#4A4A6A] block mb-1">From Slug</label>
-                <input value={form.fromSlug} onChange={(e) => setForm({ ...form, fromSlug: e.target.value })}
+                <input value={form.fromSlug} onChange={(e) => setForm({ ...form, fromSlug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/^-|-$/g, '') })}
                   className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30" placeholder="old-slug" />
               </div>
               <div>
                 <label className="text-xs font-medium text-[#4A4A6A] block mb-1">To Slug</label>
-                <input value={form.toSlug} onChange={(e) => setForm({ ...form, toSlug: e.target.value })}
+                <input value={form.toSlug} onChange={(e) => setForm({ ...form, toSlug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/^-|-$/g, '') })}
                   className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30" placeholder="new-slug" />
               </div>
               <div>

@@ -46,7 +46,7 @@ function getGroupColor(group: string) {
 }
 
 function groupSlug(name: string) {
-  return name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+  return name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
 }
 
 export default function CategoriesSection() {

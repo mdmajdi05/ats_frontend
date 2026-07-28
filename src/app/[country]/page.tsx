@@ -203,20 +203,6 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
         <div className="absolute bottom-1/4 left-[10%] w-[14rem] sm:w-[20rem] h-[14rem] sm:h-[20rem] bg-[#1D4ED8]/20 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute top-0 left-1/2 w-[12rem] sm:w-[18rem] h-[12rem] sm:h-[18rem] bg-[#818CF8]/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Decorative image - right side on large screens */}
-        <div className="hidden xl:block absolute right-0 bottom-0 w-[50%] h-full pointer-events-none opacity-30">
-          <Image
-            src="/images/hero-turbine.jpg"
-            alt="Gas turbine engine rotor and blade assembly"
-            fill
-            sizes="50vw"
-            className="object-contain object-right-bottom"
-            loading="lazy"
-            unoptimized
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-          />
-        </div>
-
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
           <div className="max-w-3xl">
             {/* Badge */}
@@ -475,7 +461,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
                   key={cat}
                   onClick={() => {
                     if (cat === 'All') router.push(c('/catalog'));
-                    else router.push(`${c('/catalog')}?category=${cat.toLowerCase().replace(/\s+/g, '-')}`);
+                    else router.push(`${c('/catalog')}?category=${cat.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`);
                   }}
                   className="px-4 py-2 text-xs font-semibold rounded-full border border-silver bg-white text-[#4A4A6A] hover:border-[#4F46E5] hover:text-[#4F46E5] transition-all"
                 >

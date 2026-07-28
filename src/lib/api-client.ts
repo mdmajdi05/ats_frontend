@@ -1316,7 +1316,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
       id: 'ci-' + Date.now(),
       categoryId: body.categoryId || '',
       title: body.title || '',
-      slug: body.slug || '',
+      slug: (body.slug || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
       description: body.description || '',
       image: body.image || '',
       link: body.link || '',

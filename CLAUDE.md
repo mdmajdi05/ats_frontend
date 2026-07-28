@@ -7,6 +7,7 @@
 
 ## Rules
 1. Frontend-first with mock data — backend not required for dev
+1a. **Slug Safety** — Har jagah slug generate karte waqt ye pattern use karo: `.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')`. Sirf `replace(/\s+/g, '-')` kafi nahi — special chars + leading/trailing dashes bhi handle karo. Backend controllers mein `req.body` se aane wala slug bhi sanitize karo, store karne se pehle.
 2. All dynamic/pages use `'use client'` (browser state relies on localStorage)
 3. No `/src/app/api/` routes — all data flows through `src/lib/api-client.ts`
 4. Call `request()` from api-client — it auto-routes mock vs real

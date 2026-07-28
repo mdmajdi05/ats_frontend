@@ -8,6 +8,7 @@ import ChatProvider from '@/components/chat/ChatProvider';
 import { NotificationProvider } from '@/hooks/useNotifications';
 import NotificationToastHandler from '@/components/notifications/NotificationToastHandler';
 import QuickContactDrawer from '@/components/ui/QuickContactDrawer';
+import GAClient from '@/components/analytics/GAClient';
 import { OrganizationJsonLd, WebsiteJsonLd, FAQJsonLd, LocalBusinessJsonLd, ServiceJsonLd, SpeakableJsonLd } from '@/components/seo/JsonLd';
 import './globals.css';
 
@@ -140,15 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-QH0HYG18PL" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-QH0HYG18PL');
-          `}
-        </Script>
+        <GAClient />
         <Script id="sw-unregister" strategy="afterInteractive">{`
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(regs) {

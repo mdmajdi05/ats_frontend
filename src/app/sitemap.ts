@@ -4,6 +4,8 @@ import { COUNTRY_CODES } from '@/lib/countries';
 const BASE = 'https://aeroturbinespare.com';
 const API  = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:5000/api').replace(/\/$/, '');
 
+const isValidSlug = (s: string) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s);
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
@@ -37,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
       const { default: catsData } = await import('@/data/categories.json');
       ((catsData as { industries: Array<{ slug: string }> }).industries || []).forEach((ind) => {
-        if (ind.slug) {
+        if (ind.slug && isValidSlug(ind.slug)) {
           entries.push({
             url: `${BASE}${prefix}/industries/${ind.slug}`,
             lastModified: new Date(),
@@ -60,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const { posts, categories, tags } = json.data;
 
       (posts as Array<{ slug: string; updatedAt: string; publishedAt: string }>)
-        .filter((p) => p.slug)
+        .filter((p) => p.slug && isValidSlug(p.slug))
         .forEach((p) => {
           for (const cc of COUNTRY_CODES) {
             entries.push({
@@ -73,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
 
       (categories as Array<{ slug: string }>)
-        .filter((c) => c.slug)
+        .filter((c) => c.slug && isValidSlug(c.slug))
         .forEach((c) => {
           for (const cc of COUNTRY_CODES) {
             entries.push({
@@ -86,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
 
       (tags as Array<{ slug: string }>)
-        .filter((t) => t.slug)
+        .filter((t) => t.slug && isValidSlug(t.slug))
         .forEach((t) => {
           for (const cc of COUNTRY_CODES) {
             entries.push({

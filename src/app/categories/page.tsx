@@ -73,7 +73,7 @@ function getGroupMeta(group: string) {
 }
 
 function groupSlug(name: string) {
-  return name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+  return name.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/^-|-$/g, '');
 }
 
 export default function CategoriesPage() {
