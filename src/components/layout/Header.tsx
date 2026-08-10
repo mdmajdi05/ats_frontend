@@ -284,13 +284,6 @@ export default React.memo(function Header() {
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-8">
           <div className="flex items-center gap-2 xl:gap-4">
             <CountrySwitcher />
-            <a
-              href="tel:+31611879800"
-              className="flex items-center gap-1.5 hover:text-[#4F46E5] transition-colors whitespace-nowrap"
-            >
-              <Phone className="w-3 h-3" />
-              +31611879800
-            </a>
             <span className="hidden xl:inline">
               CAGE Code: <strong className="text-[#A5B4FC] font-mono tracking-widest">8ATR9</strong>
             </span>

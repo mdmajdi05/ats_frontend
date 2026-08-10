@@ -79,9 +79,6 @@ export default React.memo(function Footer() {
             </div>
             {/* Contact */}
             <div className="space-y-2 pt-2">
-              <a href="tel:+31611879800" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
-                <Phone className="w-4 h-4 text-orange flex-shrink-0" /> +31611879800
-              </a>
               <a href="mailto:sales@aeroturbinespare.com" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
                 <Mail className="w-4 h-4 text-orange flex-shrink-0" /> sales@aeroturbinespare.com
               </a>
