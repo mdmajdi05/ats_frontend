@@ -409,7 +409,7 @@ const DEFAULT_CHAT_CONFIG: ChatConfig = {
   greetingMessage: 'Hello! Welcome to AeroTurbineSpare. How can I help you today?',
   whatsappEnabled: true,
   whatsappMode: 'normal',
-  whatsappNumber: '+31611879800',
+  whatsappNumber: '',
   whatsappBusinessPhoneId: '',
   whatsappBusinessAccountId: '',
   whatsappBusinessToken: '',

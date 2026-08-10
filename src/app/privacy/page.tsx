@@ -354,15 +354,6 @@ export default function PrivacyPage() {
 contact@aeroturbinespare.com
                       </a>
                     </p>
-                    <p>
-                      Phone:{' '}
-                      <a
-                        href="tel:+31611879800"
-                        className="text-orange hover:underline"
-                      >
-                        +31611879800
-                      </a>
-                    </p>
                   </div>
                   <p>
                     If you are located in the European Economic Area or United

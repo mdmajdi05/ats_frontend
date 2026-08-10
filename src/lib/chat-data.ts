@@ -2,7 +2,7 @@ export const COMPANY_INFO = {
   name: 'AeroTurbineSpare',
   tagline: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global',
   cageCode: '8ATR9',
-  phone: '+31611879800',
+  phone: '',
   emails: {
     sales: 'sales@aeroturbinespare.com',
     contact: 'contact@aeroturbinespare.com',

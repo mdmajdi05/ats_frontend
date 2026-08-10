@@ -14,7 +14,7 @@ export const DEFAULT_CHAT_CONFIG = {
   greetingMessage: 'Hello! Welcome to AeroTurbineSpare. How can I help you today?',
   whatsappEnabled: true,
   whatsappMode: 'normal' as const,
-  whatsappNumber: '+31611879800',
+  whatsappNumber: '',
   whatsappBusinessPhoneId: '',
   whatsappBusinessAccountId: '',
   whatsappBusinessToken: '',

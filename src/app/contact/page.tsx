@@ -188,12 +188,7 @@ export default function ContactPage() {
                     </div>
                     <div className="flex items-center gap-3 text-sm">
                       <Phone className="w-5 h-5 text-orange flex-shrink-0" />
-                      <a
-                        href="tel:+31611879800"
-                        className="text-text hover:text-orange transition-colors font-medium"
-                      >
-                        +31611879800
-                      </a>
+                      <span className="text-text hover:text-orange transition-colors font-medium"></span>
                     </div>
                     <div className="flex items-center gap-3 text-sm">
                       <Mail className="w-5 h-5 text-orange flex-shrink-0" />
@@ -244,13 +239,6 @@ export default function ContactPage() {
                     Call our AOG emergency line for immediate response, any hour
                     of the day or night.
                   </p>
-                  <a
-                    href="tel:+31611879800"
-                    className="inline-flex items-center gap-2 bg-white text-orange font-bold px-4 py-2 rounded-lg text-sm hover:bg-white/90 transition-colors"
-                  >
-                    <Phone className="w-4 h-4" />
-                    +31611879800
-                  </a>
                 </div>
               </div>
 

@@ -485,7 +485,6 @@ export default function RFQPage({
                   <div className="font-semibold text-text mb-0.5">Our team will respond within 24 hours</div>
                   <p className="text-sm text-text-muted">
                     A dedicated trader will review your requirements and contact you at <strong>{watch('email')}</strong>.
-                    For urgent needs, call us directly at <a href="tel:+31611879800" className="text-orange hover:underline">+31611879800</a>.
                   </p>
                 </div>
               </div>

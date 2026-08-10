@@ -331,8 +331,8 @@ export default function PartDetailPage({
                       <div className="text-lg font-bold text-text">Call for Pricing</div>
                       <div className="text-xs text-text-muted mt-0.5">Contact our team for a customized quote</div>
                     </div>
-                    <a href="tel:+31611879800" className="text-orange font-semibold text-sm hover:underline">
-                      +31611879800
+                    <a href="/contact" className="text-orange font-semibold text-sm hover:underline">
+                      Contact Us
                     </a>
                   </div>
                 )}
