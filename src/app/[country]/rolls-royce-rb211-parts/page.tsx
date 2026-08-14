@@ -4,11 +4,13 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, CheckCircle, Cpu, Thermometer, Wind, Cog, Gauge, Package, Wrench, Fuel } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Rolls-Royce RB211 Parts — Gas Generator, Power Turbine & Hot Section Components',
-  description: 'Source Rolls-Royce RB211 gas turbine spare parts for industrial, pipeline & power generation applications. Gas generator modules, power turbine blades & fuel system parts. 5M+ NSN/CAGE. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'Rolls-Royce RB211 Parts — Hot Section',
+  description: 'Source Rolls-Royce RB211 gas turbine spare parts: gas generator, power turbine & hot section components. ISO 9001 & AS9120 certified. 24-hour quotes.',
   keywords: [
     'Rolls-Royce RB211 parts', 'RB211 gas turbine',
     'RB211 gas generator', 'RB211 power turbine',
@@ -18,23 +20,23 @@ export const metadata: Metadata = {
     'RB211 lube oil system', 'RB211 spare parts',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/rolls-royce-rb211-parts',
+    canonical: `${SITE_URL}/rolls-royce-rb211-parts`,
     languages: buildHreflang('/rolls-royce-rb211-parts'),
   },
   openGraph: {
-    title: 'Rolls-Royce RB211 Parts — Gas Generator, Power Turbine & Hot Section Components',
-    description: 'Source Rolls-Royce RB211 gas turbine spare parts for industrial, pipeline & power generation applications. Gas generator modules, power turbine blades & fuel system parts. 5M+ NSN/CAGE. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/rolls-royce-rb211-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'Rolls-Royce RB211 Parts — Hot Section, Turbine & Combustion',
+    description: 'Source Rolls-Royce RB211 gas turbine spare parts: gas generator, power turbine & hot section components. ISO 9001 & AS9120 certified. 24-hour quotes.',
+    url: `${SITE_URL}/rolls-royce-rb211-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rolls-Royce RB211 Parts — Gas Generator, Power Turbine & Hot Section Components',
+    title: 'Rolls-Royce RB211 Parts — Hot Section & Turbine',
     description: 'Source Rolls-Royce RB211 gas turbine spare parts. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -159,7 +161,7 @@ export default async function RollsRoyceRb211PartsPage({ params }: { params: Pro
       offeredBy: {
         '@type': 'Organization',
         name: 'AeroTurbineSpare',
-        url: 'https://aeroturbinespare.com',
+        url: SITE_URL,
       },
     },
     manufacturer: { '@type': 'Organization', name: 'Rolls-Royce' },
@@ -343,6 +345,20 @@ export default async function RollsRoyceRb211PartsPage({ params }: { params: Pro
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/rolls-royce-turbine-parts', label: 'Rolls-Royce Turbine Parts', description: 'Aero-derived and industrial Rolls-Royce gas turbine spare components.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
 

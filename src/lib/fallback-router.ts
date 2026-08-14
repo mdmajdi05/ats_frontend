@@ -1,4 +1,5 @@
 import db from './fallback-db';
+import { SITE_PHONE_PRIMARY, SITE_PHONE_SECONDARY, SITE_PHONE_WHATSAPP } from './constants';
 import {
   FALLBACK_PRODUCTS, FALLBACK_CATEGORIES, FALLBACK_INDUSTRIES,
   FALLBACK_USERS, FALLBACK_TESTIMONIALS,
@@ -11,19 +12,25 @@ import type {
 } from '@/types';
 import type { ChatConfig } from '@/types/chat';
 import { generateRFQId } from '@/lib/utils';
+import { SITE_URL } from '@/lib/constants';
 
 let _seeded = false;
 
 async function ensureSeeded(): Promise<void> {
   if (_seeded) return;
-  const count = await db.products.count();
-  if (count > 0) { _seeded = true; return; }
+  _seeded = true;
 
-  await db.products.bulkAdd(FALLBACK_PRODUCTS.map((p, i) => ({ ...p, id: p.id || `fb-prod-${i}` })));
-  await db.categories.bulkAdd(FALLBACK_CATEGORIES);
-  await db.industries.bulkAdd(FALLBACK_INDUSTRIES);
-  await db.users.bulkAdd(FALLBACK_USERS);
-  await db.testimonials.bulkAdd(FALLBACK_TESTIMONIALS);
+  // Seed each static reference store independently. Gating everything on
+  // products.count() meant browsers seeded by an older build (e.g. before an
+  // industry was added) kept a stale/empty `industries` store forever, which
+  // made /industries/:slug lookups fail even though the data ships in the bundle.
+  if ((await db.products.count()) === 0) {
+    await db.products.bulkAdd(FALLBACK_PRODUCTS.map((p, i) => ({ ...p, id: p.id || `fb-prod-${i}` })));
+  }
+  if ((await db.categories.count()) === 0) await db.categories.bulkAdd(FALLBACK_CATEGORIES);
+  if ((await db.industries.count()) === 0) await db.industries.bulkAdd(FALLBACK_INDUSTRIES);
+  if ((await db.users.count()) === 0) await db.users.bulkAdd(FALLBACK_USERS);
+  if ((await db.testimonials.count()) === 0) await db.testimonials.bulkAdd(FALLBACK_TESTIMONIALS);
 
   const existingSettings = await db.systemSettings.get('default');
   if (!existingSettings) {
@@ -34,8 +41,6 @@ async function ensureSeeded(): Promise<void> {
   if (!existingSiteConfig) {
     await db.siteConfig.add(getDefaultSiteConfig(), 'default');
   }
-
-  _seeded = true;
 }
 
 function delay(ms: number) {
@@ -994,7 +999,7 @@ export async function fallbackRouter<T>(endpoint: string, options?: RequestInit)
 function getDefaultSettings(): SystemSettings {
   return {
     siteName: 'AeroTurbineSpare',
-    siteUrl: 'https://aeroturbinespare.com',
+    siteUrl: SITE_URL,
     maintenanceMode: false,
     allowRegistration: true,
     rfqEmailRecipient: 'sales@aeroturbinespare.com',
@@ -1021,7 +1026,7 @@ function getDefaultSiteConfig(): SiteConfig {
     greetingMessage: 'Hello! Welcome to AeroTurbineSpare. How can I help you today?',
     whatsappEnabled: true,
     whatsappMode: 'normal',
-    whatsappNumber: '',
+    whatsappNumber: SITE_PHONE_WHATSAPP,
     whatsappBusinessPhoneId: '',
     whatsappBusinessAccountId: '',
     whatsappBusinessToken: '',
@@ -1047,6 +1052,8 @@ function getDefaultSiteConfig(): SiteConfig {
     heroBgType: 'gradient', heroBgValue: '#0A1628',
     heroCta1Label: 'Search Inventory', heroCta1Href: '/catalog',
     heroCta2Label: 'Request a Quote', heroCta2Href: '/rfq',
+    contactPhonePrimary: SITE_PHONE_PRIMARY,
+    contactPhoneSecondary: SITE_PHONE_SECONDARY,
     chat: DEFAULT_CHAT_CONFIG,
     updatedAt: new Date().toISOString(),
     updatedBy: 'system',

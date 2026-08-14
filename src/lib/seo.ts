@@ -1,9 +1,49 @@
+import type { Metadata } from 'next'
 import { COUNTRIES, COUNTRY_CODES, DEFAULT_COUNTRY, getCountry } from './countries'
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESC,
+  OG_IMAGE,
+  SITE,
+  SEO_TITLE_MAX,
+  SEO_DESC_MAX,
+} from './constants'
 
-const SITE_URL = 'https://aeroturbinespare.com';
-const SITE_NAME = 'AeroTurbineSpare';
-const DEFAULT_DESC = 'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies. ISO 9001 & AS9120 certified. 100% inspection, 24-hour quotes. Trusted by OEMs & MRO facilities worldwide.';
-const DEFAULT_OG_IMAGE = '/images/og-cover.jpg';
+const DEFAULT_DESC = SITE_DESC;
+const DEFAULT_OG_IMAGE = OG_IMAGE;
+
+/**
+ * Truncate a string to `maxLen`, preferring a word boundary, appending "…".
+ * Saray SEO titles/descriptions yahi se clamp hote hain — limits har jagah
+ * ek jaisi rahengi.
+ */
+export function truncateSeo(text: string, maxLen: number): string {
+  const t = text.trim();
+  if (t.length <= maxLen) return t;
+  let cut = t.slice(0, maxLen - 1);
+  const lastSpace = cut.lastIndexOf(' ');
+  if (lastSpace > maxLen * 0.7) cut = cut.slice(0, lastSpace);
+  return `${cut.trimEnd()}…`;
+}
+
+/** Remove any trailing "| AeroTurbineSpare" / "— AeroTurbineSpare" so the layout template doesn't double-append the brand. */
+export function stripBrandSuffix(title: string): string {
+  return title
+    .replace(/\s*\|\s*AeroTurbineSpare\s*$/i, '')
+    .replace(/\s*[—–-]\s*AeroTurbineSpare\s*$/i, '')
+    .trim();
+}
+
+/** Clamp a meta title to SEO_TITLE_MAX (60). */
+export function clampTitle(title: string): string {
+  return truncateSeo(stripBrandSuffix(title), SEO_TITLE_MAX);
+}
+
+/** Clamp a meta description to SEO_DESC_MAX (160). */
+export function clampDescription(desc: string): string {
+  return truncateSeo(desc, SEO_DESC_MAX);
+}
 
 export function buildHreflang(path: string): Record<string, string> {
   const languages: Record<string, string> = {};
@@ -15,25 +55,109 @@ export function buildHreflang(path: string): Record<string, string> {
   return languages;
 }
 
-export const siteConfig = {
-  url: SITE_URL,
-  name: SITE_NAME,
-  description: DEFAULT_DESC,
-  ogImage: DEFAULT_OG_IMAGE,
-  twitterHandle: '@AeroTurbineSpare',
-  locale: 'en_US',
-  address: {
-    street: '1360-1362 NW 78th Ave',
-    city: 'Doral',
-    state: 'FL',
-    zip: '33126',
-    country: 'US',
-  },
-  phone: '',
-  email: 'sales@aeroturbinespare.com',
-  cageCode: '8ATR9',
-  certifications: ['ISO 9001:2015', 'AS9120 Rev B'],
-};
+export interface SeoMetaInput {
+  /** Page title (no site suffix — layout template adds it) */
+  title: string;
+  /** Meta description (~155 chars) */
+  description: string;
+  /** URL path, e.g. "/catalog" or "/parts/gear-boxes" */
+  path: string;
+  /** Keywords array or comma-separated string */
+  keywords?: string[] | string;
+  /** Custom OpenGraph title (defaults to `title`) */
+  ogTitle?: string;
+  /** Custom OpenGraph description (defaults to `description`) */
+  ogDescription?: string;
+  /** Custom Twitter title (defaults to `ogTitle`) */
+  twitterTitle?: string;
+  /** Custom Twitter description (defaults to `ogDescription`) */
+  twitterDescription?: string;
+  /** OpenGraph/Twitter image (defaults to site OG image) */
+  ogImage?: string;
+  /** Set true to noindex the page */
+  noIndex?: boolean;
+  /** Set true to nofollow the page */
+  noFollow?: boolean;
+  /** Override canonical URL (absolute). When set, hreflang uses `path` as usual. */
+  canonical?: string;
+  /** Optional country code to build a localized canonical */
+  country?: string;
+  /** Deep-merge extra OpenGraph fields (article tags, publishedTime, authors...) */
+  openGraph?: Metadata['openGraph'];
+  /** Deep-merge extra Twitter fields */
+  twitter?: Metadata['twitter'];
+}
+
+/**
+ * Central metadata builder — one place for the boilerplate that every page repeats:
+ * canonical, hreflang, OpenGraph, Twitter, and robots. Pages supply content
+ * (title/description/keywords/path); this handles the structure.
+ *
+ * Usage:
+ *   export const metadata = seoMeta({ title, description, path, keywords })
+ *
+ * Dynamic pages (data from API) can call it inside generateMetadata().
+ */
+export function seoMeta(input: SeoMetaInput): Metadata {
+  const country = input.country || DEFAULT_COUNTRY;
+  const cfg = getCountry(country);
+  const isDefault = country === DEFAULT_COUNTRY;
+
+  const url = isDefault
+    ? `${SITE_URL}${input.path}`
+    : `${SITE_URL}/${country}${input.path}`;
+
+  const image = input.ogImage || DEFAULT_OG_IMAGE;
+  const title = clampTitle(input.title);
+  const description = clampDescription(input.description);
+  const ogTitle = clampTitle(input.ogTitle || title);
+  const ogDescription = clampDescription(input.ogDescription || description);
+  const twitterTitle = clampTitle(input.twitterTitle || ogTitle);
+  const twitterDescription = clampDescription(input.twitterDescription || ogDescription);
+
+  const canonical = input.canonical || url;
+
+  const merge = <T extends object>(obj?: T | null): Partial<T> =>
+    obj ? (Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as Partial<T>) : {};
+
+  const metadata: Metadata = {
+    title,
+    description,
+    keywords: Array.isArray(input.keywords)
+      ? input.keywords.join(', ')
+      : input.keywords,
+    alternates: {
+      canonical,
+      languages: buildHreflang(input.path),
+    },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      url: canonical,
+      siteName: SITE_NAME,
+      type: 'website',
+      locale: cfg.locale,
+      images: [{ url: image, width: 1200, height: 630 }],
+      ...merge(input.openGraph),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: twitterTitle,
+      description: twitterDescription,
+      images: [image],
+      ...merge(input.twitter),
+    },
+    robots: {
+      index: input.noIndex ? false : true,
+      follow: input.noFollow ? false : true,
+    },
+  };
+
+  return metadata;
+}
+
+/** @deprecated — use `SITE` from '@/lib/constants' instead */
+export const siteConfig = SITE;
 
 export function buildMetadata(overrides: {
   title?: string;
@@ -112,14 +236,14 @@ export function jsonLdOrganization() {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: siteConfig.phone,
+        ...(siteConfig.phone ? { telephone: siteConfig.phone } : {}),
         contactType: 'sales',
         email: siteConfig.email,
         hoursAvailable: 'Mo-Fr 07:00-19:00',
       },
       {
         '@type': 'ContactPoint',
-        telephone: siteConfig.phone,
+        ...(siteConfig.phone ? { telephone: siteConfig.phone } : {}),
         contactType: 'emergency',
         description: 'AOG Emergency Line (24/7)',
       },

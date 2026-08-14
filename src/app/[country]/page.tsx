@@ -27,10 +27,12 @@ import { ReviewJsonLd } from '@/components/seo/JsonLd'
 import PartCard from '@/components/catalog/PartCard'
 import Button from '@/components/ui/Button'
 import { request } from '@/lib/api-client'
+import { SITE_URL } from '@/lib/constants'
 import { useSiteConfig } from '@/hooks/useSiteConfig'
 import BrandLogos from '@/components/home/BrandLogos'
 import IndustriesGrid from '@/components/home/IndustriesGrid'
 import CategoriesSection from '@/components/home/CategoriesSection'
+import TurbinePlatforms from '@/components/home/TurbinePlatforms'
 import FeaturedCategories from '@/components/home/FeaturedCategories'
 import HowItWorks from '@/components/home/HowItWorks'
 import StatsCounter from '@/components/home/StatsCounter'
@@ -73,18 +75,18 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
     const [prods, cats, tests] = await Promise.all([
       request<{ success: boolean; data: Product[]; pagination: unknown }>('/products?limit=8')
         .catch(async () => {
-          const mod = await import('@/data/products.json');
+          const mod = await import('@/data/products/products.json');
           return { success: false, data: (mod.default as unknown as Product[]).slice(0, 8), pagination: null };
         }),
       request<{ success: boolean; data: Category[] }>('/categories')
         .catch(async () => {
-          const mod = await import('@/data/categories.json');
+          const mod = await import('@/data/categories/categories.json');
           const raw = mod.default as unknown as { fsgCategories: Category[] };
           return { success: false, data: raw.fsgCategories?.slice(0, 6) ?? (raw as unknown as Category[]).slice(0, 6) };
         }),
       request<{ success: boolean; data: Testimonial[] }>('/testimonials')
         .catch(async () => {
-          const mod = await import('@/data/testimonials.json');
+          const mod = await import('@/data/testimonials/testimonials.json');
           return { success: false, data: mod.default as unknown as Testimonial[], pagination: null };
         }),
     ])
@@ -127,11 +129,11 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
       name: 'Global Gas Turbine Services & Spare Parts Supplier | AeroTurbineSpare',
       description:
         'Global supplier of gas turbine spare parts and services for GE, Siemens, Rolls-Royce & Solar Turbines platforms. NSN/CAGE-referenced parts, 24-hr quotes, worldwide shipping.',
-      url: 'https://aeroturbinespare.com',
+      url: SITE_URL,
       breadcrumb: {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aeroturbinespare.com' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
         ],
       },
     },
@@ -418,6 +420,7 @@ export default function HomePage({ params }: { params: Promise<{ country?: strin
       <BrandLogos />
       <IndustriesGrid />
       <CategoriesSection />
+      <TurbinePlatforms />
       {/* <ZigZagDivider text="   " /> */}
       <FeaturedCategories categories={categories} />
       <HowItWorks />

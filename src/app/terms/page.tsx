@@ -1,5 +1,15 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { seoMeta } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+
+export const metadata = seoMeta({
+  title: 'Terms & Conditions — AeroTurbineSpare',
+  description: 'Review the AeroTurbineSpare terms & conditions: sales, returns, warranties, EAR & ITAR export compliance, and turbine parts procurement.',
+  path: '/terms',
+  keywords: 'aerospace parts supplier terms, turbine parts purchase terms, AS9120 distributor terms, export control parts supplier conditions',
+});
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
@@ -8,12 +18,23 @@ export default function TermsPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Terms & Conditions', url: '/terms' },
+      ]} />
       <Header />
 
       <main className="flex-1 bg-bg">
         {/* ── Hero ──────────────────────────────────────────────────────── */}
         <section className="bg-navy text-white py-14 px-4">
           <div className="max-w-3xl mx-auto text-center">
+            <Breadcrumb
+              className="justify-center mb-4 [&_a]:text-white/50 [&_a:hover]:text-orange [&_span]:text-silver/70"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Terms & Conditions' },
+              ]}
+            />
             <h1 className="text-4xl font-black mb-3">Terms &amp; Conditions</h1>
             <p className="text-silver/70 text-sm">
               Last updated: {lastUpdated}

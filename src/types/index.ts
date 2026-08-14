@@ -344,6 +344,10 @@ export interface SiteConfig {
   heroCta2Label:  string;
   heroCta2Href:   string;
 
+  /* Contact (phone numbers — data driven, single source) */
+  contactPhonePrimary:   string;   // primary contact number (display, e.g. "+1 305 555 0123")
+  contactPhoneSecondary: string;   // secondary contact number (optional)
+
   /* Chat & WhatsApp */
   chat: ChatConfig;
 

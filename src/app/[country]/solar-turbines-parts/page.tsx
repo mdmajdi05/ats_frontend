@@ -4,12 +4,14 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Clock, Award, Globe, PackageSearch, FileCheck, ChevronRight, ArrowRight, Search, CheckCircle, Cog, Gauge, Fuel, Wind, Flame, Filter, Boxes, Droplet, Thermometer, Wrench } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 import Button from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Solar Turbines Parts — Saturn, Centaur, Mercury, Taurus, Mars & Titan',
-  description: 'Source Solar Turbines spare parts for Saturn, Centaur, Mercury, Taurus 60/70, Mars 90/100 & Titan 130. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes. CAGE 8ATR9.',
+  title: 'Solar Turbines Parts — Saturn to Titan',
+  description: 'Source Solar Turbines spare parts for Saturn, Centaur, Taurus 60/70, Mars 90/100 & Titan 130. 5M+ NSN/CAGE. ISO 9001 & AS9120. 24-hour quotes.',
   keywords: [
     'Solar Turbines parts', 'Saturn turbine parts',
     'Centaur turbine parts', 'Mercury 50 parts',
@@ -20,23 +22,23 @@ export const metadata: Metadata = {
     'Solar Turbines combustion liners', 'CAGE 8ATR9 Solar',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/solar-turbines-parts',
+    canonical: `${SITE_URL}/solar-turbines-parts`,
     languages: buildHreflang('/solar-turbines-parts'),
   },
   openGraph: {
-    title: 'Solar Turbines Parts — Saturn, Centaur, Mercury, Taurus, Mars & Titan',
+    title: 'Solar Turbines Parts — Saturn to Titan, Mars & Taurus',
     description: 'Source Solar Turbines spare parts for all major models. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hour quotes. CAGE 8ATR9.',
-    url: 'https://aeroturbinespare.com/solar-turbines-parts',
-    siteName: 'AeroTurbineSpare',
+    url: `${SITE_URL}/solar-turbines-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Solar Turbines Parts — Saturn, Centaur, Mercury, Taurus, Mars & Titan',
+    title: 'Solar Turbines Parts — Saturn to Titan, Mars & Taurus',
     description: 'Source Solar Turbines spare parts for all major models. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -136,7 +138,7 @@ const PART_CATEGORIES = [
   { label: 'Enclosures & Accessories', icon: Boxes, parts: 'Inlet housings, exhaust diffusers, enclosures, ducts' },
 ];
 
-const siteUrl = 'https://aeroturbinespare.com';
+const siteUrl = SITE_URL;
 
 const solarSchemas: Record<string, unknown>[] = [
   {
@@ -388,6 +390,23 @@ export default async function SolarTurbinesPartsPage({ params }: { params: Promi
 
         <SchemaInjector pageKey="solar-turbines-parts" staticSchemas={solarSchemas} />
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/siemens-gas-turbine-parts', label: 'Siemens Gas Turbine Parts', description: 'Complete Siemens industrial gas turbine spare parts range.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/turbine-shrouds', label: 'Turbine Shrouds', description: 'Stage 1-3 shroud blocks, seals, and retention hardware for every major frame.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'Transition pieces and combustion ducts for can-annular turbine frames.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

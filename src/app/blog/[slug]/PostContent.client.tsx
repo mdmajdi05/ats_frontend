@@ -8,6 +8,7 @@ import CommentSection from '@/components/blog/CommentSection';
 import ShareButtons from '@/components/blog/ShareButtons';
 import SafeImage from '@/components/blog/SafeImage';
 import type { BlogPost, SchemaOverrides } from '@/types/blog';
+import { SITE_URL } from '@/lib/constants';
 
 function toSafeJson(data: unknown): string {
   try { return JSON.stringify(data).replace(/</g, '\\u003c'); } catch { return '{}'; }
@@ -24,7 +25,7 @@ function generateSchema(post: BlogPost): Record<string, unknown> {
     headline,
     description: desc,
     image: post.coverImage || undefined,
-    url: `https://aeroturbinespare.com/blog/${post.slug}`,
+    url: `${SITE_URL}/blog/${post.slug}`,
     author: { '@type': 'Person', name: post.author.fullName },
     datePublished: post.publishedAt || undefined,
     dateModified: post.updatedAt || undefined,
@@ -54,9 +55,9 @@ function generateBreadcrumbSchema(post: BlogPost): Record<string, unknown> {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aeroturbinespare.com' },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://aeroturbinespare.com/blog' },
-      { '@type': 'ListItem', position: 3, name: post.title, item: `https://aeroturbinespare.com/blog/${post.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
     ],
   };
 }
@@ -151,7 +152,7 @@ export default function PostContentClient({ post }: Props) {
 
           {/* Share */}
           <ShareButtons
-            url={`https://aeroturbinespare.com/blog/${post.slug}`}
+            url={`${SITE_URL}/blog/${post.slug}`}
             title={post.title}
             description={post.excerpt || post.metaDesc || ''}
           />

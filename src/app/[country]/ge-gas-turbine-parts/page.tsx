@@ -4,11 +4,13 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Clock, Award, Globe, PackageSearch, FileCheck, ChevronRight, ArrowRight, Search, CheckCircle, Plane, Cog, Gauge, Fuel, Wind, Flame, Filter, Wind as TurbineIcon, Boxes, Droplet } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 import Button from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'GE Gas Turbine Spare Parts — Frames 3–9H, LM2500 & LM6000',
+  title: 'GE Gas Turbine Spare Parts — Frames 3–9H',
   description: 'Source GE gas turbine spare parts for Frame 3, 5, 6B, 7E, 7EA, 7FA, 9E, 9FA, LM2500 & LM6000. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hour quotes.',
   keywords: [
     'GE gas turbine parts', 'GE Frame spare parts',
@@ -20,23 +22,23 @@ export const metadata: Metadata = {
     'GE transition pieces', 'GE fuel nozzles',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/ge-gas-turbine-parts',
+    canonical: `${SITE_URL}/ge-gas-turbine-parts`,
     languages: buildHreflang('/ge-gas-turbine-parts'),
   },
   openGraph: {
     title: 'GE Gas Turbine Spare Parts — Frames 3–9H, LM2500 & LM6000',
     description: '5M+ GE gas turbine parts. Frames 3–9FA. ISO 9001/AS9120 certified. 24-hour quotes. Worldwide shipping.',
-    url: 'https://aeroturbinespare.com/ge-gas-turbine-parts',
-    siteName: 'AeroTurbineSpare',
+    url: `${SITE_URL}/ge-gas-turbine-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'GE Gas Turbine Spare Parts — Frames 3–9H, LM2500 & LM6000',
     description: '5M+ GE gas turbine parts. Frames 3–9FA. ISO 9001/AS9120 certified. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -173,7 +175,7 @@ const PART_CATEGORIES = [
   { label: 'Enclosures & Accessories', icon: Boxes, parts: 'Inlet housings, exhaust diffusers, enclosures, ducts' },
 ];
 
-const siteUrl = 'https://aeroturbinespare.com';
+const siteUrl = SITE_URL;
 
 const geSchemas: Record<string, unknown>[] = [
   {
@@ -487,6 +489,23 @@ export default async function GEGasTurbinePartsPage({ params }: { params: Promis
 
         <SchemaInjector pageKey="ge-gas-turbine-parts" staticSchemas={geSchemas} />
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/ge-frame-9e-parts', label: 'GE Frame 9E Parts', description: 'MS9001E buckets, nozzles, transition pieces, and combustion hardware.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ms6001-parts', label: 'GE MS6001 Parts', description: 'Frame 6 turbine spares and components for the MS6001 series.' },
+            { href: '/ms7001-parts', label: 'GE MS7001 Parts', description: 'Frame 7 turbine spares and components for the MS7001 series.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/ge-lm6000-parts', label: 'GE LM6000 Parts', description: 'Aeroderivative LM6000 / LM6000-PC / LM6000-PF turbine spare parts.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'New and refurbished transition pieces for every major turbine frame.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

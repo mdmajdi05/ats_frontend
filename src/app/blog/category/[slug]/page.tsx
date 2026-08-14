@@ -8,6 +8,8 @@ import Footer from '@/components/layout/Footer';
 import PostCard from '@/components/blog/PostCard';
 import { blogService } from '@/services/blogService';
 import type { BlogPost, BlogCategory } from '@/types/blog';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 
 export default function CategoryArchivePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -32,11 +34,24 @@ export default function CategoryArchivePage() {
 
   return (
     <>
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Blog', url: '/blog' },
+        { name: category?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()), url: `/blog/category/${slug}` },
+      ]} />
       <Header />
       <main>
         {/* Hero */}
         <section className="bg-gradient-to-br from-[#0A1628] to-[#1A1A2E] py-16 px-4">
           <div className="max-w-7xl mx-auto text-center">
+            <Breadcrumb
+              className="mb-4 justify-center [&_a]:text-white/60 [&_a:hover]:text-orange [&_span]:text-white/80"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Blog', href: '/blog' },
+                { label: category?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) },
+              ]}
+            />
             <p className="text-[#E8751A] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Category</p>
             <h1 className="text-white font-bold text-4xl md:text-5xl mb-4">
               {category?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}

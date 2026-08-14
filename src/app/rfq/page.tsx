@@ -15,6 +15,8 @@ import {
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
@@ -1145,6 +1147,11 @@ export default function RFQPage({
   // ── Layout ────────────────────────────────────────────────────────────────
   return (
     <div className="flex flex-col min-h-screen">
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Request Quote', url: '/rfq' },
+        { name: STEPS[step - 1].label, url: '/rfq' },
+      ]} />
       <Header />
       <main id="main-content" className="flex-1 bg-bg py-8 px-4">
         <div className="max-w-4xl mx-auto">

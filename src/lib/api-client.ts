@@ -7,9 +7,11 @@ import type {
 import type { ChatConfig } from '@/types/chat';
 
 // testimonials.json chhota (~2.6KB) hai aur real mode me bhi serve hota hai — static rakha.
-import testimonialsData from '@/data/testimonials.json';
+import testimonialsData from '@/data/testimonials/testimonials.json';
 import { generateRFQId } from '@/lib/utils';
 import { refreshAccessToken, clearTokens } from './token';
+import { SITE_PHONE_WHATSAPP, SITE_PHONE_PRIMARY, SITE_PHONE_SECONDARY } from './constants';
+import { SITE_URL } from '@/lib/constants';
 
 // ─── Lazy-loaded mock datasets ───────────────────────────────
 // Ye bade JSON (products ~64KB, categories ~15KB, industries, users) SIRF mock mode
@@ -26,10 +28,10 @@ let _mockLoaded = false;
 async function ensureMockData(): Promise<void> {
   if (_mockLoaded) return;
   const [products, categories, industries, users] = await Promise.all([
-    import('@/data/products.json'),
-    import('@/data/categories.json'),
-    import('@/data/industries.json'),
-    import('@/data/users.json'),
+    import('@/data/products/products.json'),
+    import('@/data/categories/categories.json'),
+    import('@/data/industries/industries.json'),
+    import('@/data/users/users.json'),
   ]);
   productsData   = products.default as unknown[];
   categoriesData = categories.default;
@@ -409,7 +411,7 @@ const DEFAULT_CHAT_CONFIG: ChatConfig = {
   greetingMessage: 'Hello! Welcome to AeroTurbineSpare. How can I help you today?',
   whatsappEnabled: true,
   whatsappMode: 'normal',
-  whatsappNumber: '',
+  whatsappNumber: SITE_PHONE_WHATSAPP,
   whatsappBusinessPhoneId: '',
   whatsappBusinessAccountId: '',
   whatsappBusinessToken: '',
@@ -446,6 +448,8 @@ function getDefaultSiteConfig(): SiteConfig {
     heroCta2Label:  'Request a Quote',
     heroCta2Href:   '/rfq',
     chat: DEFAULT_CHAT_CONFIG,
+    contactPhonePrimary:   SITE_PHONE_PRIMARY,
+    contactPhoneSecondary: SITE_PHONE_SECONDARY,
     updatedAt: new Date().toISOString(),
     updatedBy: 'system',
   };
@@ -1412,7 +1416,7 @@ function mockRouter<T>(endpoint: string, options?: RequestInit): T {
 function getDefaultSettings(): SystemSettings {
   return {
     siteName: 'AeroTurbineSpare',
-    siteUrl: 'https://aeroturbinespare.com',
+    siteUrl: SITE_URL,
     maintenanceMode: false,
     allowRegistration: true,
     rfqEmailRecipient: 'sales@aeroturbinespare.com',

@@ -6,40 +6,23 @@ import {
   Package, AlertTriangle, Award, Shield,
 } from 'lucide-react';
 import { BreadcrumbJsonLd, QualityPageJsonLd } from '@/components/seo/JsonLd';
-import { buildHreflang } from '@/lib/seo';
+import { seoMeta } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Quality Assurance',
+export const metadata: Metadata = seoMeta({
+  title: 'Quality — ISO 9001 & AS9120 Certified',
   description:
     'ISO 9001 & AS9120 certified. 100% inspection on every gas turbine part. Full traceability, anti-counterfeit program, 12-month warranty. CAGE 8ATR9.',
+  path: '/quality',
   keywords: [
     'aerospace parts quality assurance', 'ISO 9001 certified parts supplier',
     'AS9120 quality standard', 'gas turbine parts inspection',
     'anti-counterfeit aerospace parts', 'turbine parts traceability',
     'aerospace parts certification', 'CAGE 8ATR9 quality',
   ],
-  alternates: {
-    canonical: 'https://aeroturbinespare.com/quality',
-    languages: buildHreflang('/quality'),
-  },
-  openGraph: {
-    title: 'Quality Assurance',
-    description:
-      'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty on turbine parts.',
-    url: 'https://aeroturbinespare.com/quality',
-    siteName: 'AeroTurbineSpare',
-    type: 'website',
-    locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Quality Assurance',
-    description: 'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty.',
-    images: ['/images/og-cover.jpg'],
-  },
-  robots: { index: true, follow: true },
-};
+  ogDescription:
+    'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty on turbine parts.',
+  twitterDescription: 'ISO 9001 & AS9120 certified. 100% inspection. Full traceability. Anti-counterfeit. 12-month warranty.',
+});
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 

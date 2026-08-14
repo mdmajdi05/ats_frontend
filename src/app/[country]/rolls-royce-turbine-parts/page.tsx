@@ -4,12 +4,14 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Clock, Award, Globe, PackageSearch, FileCheck, ChevronRight, ArrowRight, Search, CheckCircle, Plane, Cog, Gauge, Fuel, Wind, Flame, Filter, Wind as TurbineIcon, Boxes, Droplet } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 import Button from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Rolls-Royce Gas Turbine Parts — RB211, Avon & Industrial Engines',
-  description: 'Source Rolls-Royce gas turbine spare parts for RB211, Avon, and industrial gas turbine engines. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. CAGE 8ATR9. 24-hour quotes.',
+  title: 'Rolls-Royce Turbine Parts — RB211 & Avon',
+  description: 'Source Rolls-Royce gas turbine spare parts for RB211, Avon & industrial engines. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hour quotes.',
   keywords: [
     'Rolls-Royce gas turbine parts', 'Rolls-Royce RB211 parts',
     'Rolls-Royce Avon parts', 'Rolls-Royce industrial turbine',
@@ -20,23 +22,23 @@ export const metadata: Metadata = {
     'RR fuel nozzles', 'RR bearing assemblies',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/rolls-royce-turbine-parts',
+    canonical: `${SITE_URL}/rolls-royce-turbine-parts`,
     languages: buildHreflang('/rolls-royce-turbine-parts'),
   },
   openGraph: {
-    title: 'Rolls-Royce Gas Turbine Parts — RB211, Avon & Industrial Engines',
+    title: 'Rolls-Royce Gas Turbine Parts — RB211 & Avon Engines',
     description: '5M+ Rolls-Royce gas turbine parts. RB211, Avon, Spey, Tyne, Trent, Olympus & 501-K. ISO 9001/AS9120 certified. 24-hour quotes. Worldwide shipping.',
-    url: 'https://aeroturbinespare.com/rolls-royce-turbine-parts',
-    siteName: 'AeroTurbineSpare',
+    url: `${SITE_URL}/rolls-royce-turbine-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rolls-Royce Gas Turbine Parts — RB211, Avon & Industrial Engines',
+    title: 'Rolls-Royce Gas Turbine Parts — RB211 & Avon Engines',
     description: '5M+ Rolls-Royce gas turbine parts. RB211, Avon, Spey, Tyne, Trent, Olympus & 501-K. ISO 9001/AS9120 certified. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -130,7 +132,7 @@ const PART_CATEGORIES = [
   { label: 'Enclosures & Accessories', icon: Boxes, parts: 'Inlet housings, exhaust diffusers, enclosures, ducts' },
 ];
 
-const siteUrl = 'https://aeroturbinespare.com';
+const siteUrl = SITE_URL;
 
 const rrSchemas: Record<string, unknown>[] = [
   {
@@ -382,6 +384,23 @@ export default async function RollsRoyceTurbinePartsPage({ params }: { params: P
 
         <SchemaInjector pageKey="rolls-royce-turbine-parts" staticSchemas={rrSchemas} />
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/rolls-royce-rb211-parts', label: 'Rolls-Royce RB211 Parts', description: 'Industrial RB211 turbine and hot section spare components.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/siemens-sgt800-parts', label: 'Siemens SGT-800 Parts', description: 'SGT-800 blades, vanes, and combustion hardware.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/turbine-shrouds', label: 'Turbine Shrouds', description: 'Stage 1-3 shroud blocks, seals, and retention hardware for every major frame.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'Transition pieces and combustion ducts for can-annular turbine frames.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

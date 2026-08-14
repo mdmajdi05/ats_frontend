@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import type { SchemaOverrides, SEOFields } from '@/types/blog';
 import FAQBuilder from './FAQBuilder';
+import { SITE_URL } from '@/lib/constants';
 
 function safeJson(data: unknown): string {
   try { return JSON.stringify(data, null, 2).replace(/</g, '\\u003c'); } catch { return '{}'; }
@@ -32,7 +33,7 @@ function buildAutoSchema(opts: { title: string; description: string; image: stri
     headline,
     description: desc,
     image: opts.image || undefined,
-    url: `https://aeroturbinespare.com/blog/${opts.slug}`,
+    url: `${SITE_URL}/blog/${opts.slug}`,
     author: { '@type': 'Person', name: opts.author },
     datePublished: opts.date || undefined,
     dateModified: new Date().toISOString(),
@@ -58,9 +59,9 @@ function buildBreadcrumbSchema(slug: string, title: string) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aeroturbinespare.com' },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://aeroturbinespare.com/blog' },
-      { '@type': 'ListItem', position: 3, name: title, item: `https://aeroturbinespare.com/blog/${slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: title, item: `${SITE_URL}/blog/${slug}` },
     ],
   };
 }

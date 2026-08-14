@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import { seoMeta, clampDescription } from '@/lib/seo';
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
-const SITE_URL = 'https://aeroturbinespare.com';
 
 interface NavCategory {
   id: string;
@@ -49,43 +49,26 @@ export async function generateMetadata({
 
   const title = category.name;
   const description = category.description
-    ? category.description.slice(0, 160)
+    ? clampDescription(category.description)
     : `Browse ${category.name} products and components${category.manufacturer ? ` by ${category.manufacturer}` : ''}. ${category.partCount ?? ''} items available. ISO 9001 & AS9120 certified.`;
+
+  const isTurbineCategory = !category.slug.startsWith('av-');
 
   const keywords = [
     category.name,
     'aerospace products',
-    'turbine products',
+    ...(isTurbineCategory ? ['turbine products', 'gas turbine parts'] : []),
     category.manufacturer || '',
-    'gas turbine parts',
     'MRO supplies',
     'NSN parts',
   ].filter(Boolean);
 
-  return {
+  return seoMeta({
     title,
     description,
+    path: `/products/${category.slug}`,
     keywords: keywords.join(', '),
-    alternates: {
-      canonical: `${SITE_URL}/products/${category.slug}`,
-    },
-    openGraph: {
-      title,
-      description,
-      url: `${SITE_URL}/products/${category.slug}`,
-      siteName: 'AeroTurbineSpare',
-      type: 'website',
-      locale: 'en_US',
-      images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: ['/images/og-cover.jpg'],
-    },
-    robots: { index: true, follow: true },
-  };
+  });
 }
 
 export default function ProductCategoryLayout({ children }: { children: React.ReactNode }) {

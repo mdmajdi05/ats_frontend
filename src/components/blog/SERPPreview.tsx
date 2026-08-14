@@ -1,5 +1,7 @@
 'use client';
 
+import { SITE_URL, SEO_TITLE_MAX, SEO_DESC_MAX, SEO_TITLE_IDEAL_MIN, SEO_DESC_IDEAL_MIN } from '@/lib/constants';
+
 interface Props {
   title: string;
   description: string;
@@ -8,9 +10,9 @@ interface Props {
 }
 
 export default function SERPPreview({ title, description, slug, canonicalUrl }: Props) {
-  const displayUrl = canonicalUrl || `https://aeroturbinespare.com/blog/${slug}`;
-  const displayTitle = title.length > 60 ? title.slice(0, 57) + '...' : title;
-  const displayDesc = description.length > 160 ? description.slice(0, 157) + '...' : description;
+  const displayUrl = canonicalUrl || `${SITE_URL}/blog/${slug}`;
+  const displayTitle = title.length > SEO_TITLE_MAX ? title.slice(0, SEO_TITLE_MAX - 3) + '...' : title;
+  const displayDesc = description.length > SEO_DESC_MAX ? description.slice(0, SEO_DESC_MAX - 3) + '...' : description;
 
   return (
     <div className="border border-[#E8EDF2] rounded-xl overflow-hidden bg-white">
@@ -24,13 +26,13 @@ export default function SERPPreview({ title, description, slug, canonicalUrl }: 
       </div>
       <div className="px-3 py-1.5 bg-[#F8FAFC] border-t border-[#E8EDF2] flex items-center gap-2">
         <span className="text-[10px] text-[#C0C9D5]">
-          {title.length}/60 · {description.length}/160
+          {title.length}/{SEO_TITLE_MAX} · {description.length}/{SEO_DESC_MAX}
         </span>
-        {title.length > 60 && <span className="text-[10px] text-amber-500">Title too long</span>}
-        {description.length > 160 && <span className="text-[10px] text-amber-500">Desc too long</span>}
-        {title.length < 50 && <span className="text-[10px] text-amber-500">Title too short</span>}
-        {description.length < 120 && <span className="text-[10px] text-amber-500">Desc too short</span>}
-        {title.length >= 50 && title.length <= 60 && description.length >= 120 && description.length <= 160 && (
+        {title.length > SEO_TITLE_MAX && <span className="text-[10px] text-amber-500">Title too long</span>}
+        {description.length > SEO_DESC_MAX && <span className="text-[10px] text-amber-500">Desc too long</span>}
+        {title.length < SEO_TITLE_IDEAL_MIN && <span className="text-[10px] text-amber-500">Title too short</span>}
+        {description.length < SEO_DESC_IDEAL_MIN && <span className="text-[10px] text-amber-500">Desc too short</span>}
+        {title.length >= SEO_TITLE_IDEAL_MIN && title.length <= SEO_TITLE_MAX && description.length >= SEO_DESC_IDEAL_MIN && description.length <= SEO_DESC_MAX && (
           <span className="text-[10px] text-green-600">Optimal</span>
         )}
       </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { seoMeta, truncateSeo, clampDescription } from '@/lib/seo';
+import { SEO_TITLE_MAX } from '@/lib/constants';
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
-const SITE_URL = 'https://aeroturbinespare.com';
 
 interface Product {
   id: string;
@@ -49,10 +50,14 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${product.partNumber} — ${product.shortDescription || product.description?.slice(0, 80)}`;
+  const title = `${product.partNumber} — ${product.shortDescription || truncateSeo(product.description || '', SEO_TITLE_MAX)}`;
   const description = product.description
-    ? product.description.slice(0, 160)
+    ? clampDescription(product.description)
     : `Buy ${product.partNumber} (${product.manufacturer}) — NSN ${product.nsn}, CAGE ${product.cage}. ${product.stockStatus}. ISO 9001 & AS9120 certified.`;
+
+  const TURBINE_MAKERS = ['GE', 'General Electric', 'Siemens', 'Rolls-Royce', 'Solar', 'Alstom', 'Ansaldo', 'Mitsubishi', 'Pratt & Whitney', 'Nuovo Pignone'];
+  const isTurbine = TURBINE_MAKERS.some((m) => product.manufacturer?.toLowerCase().includes(m.toLowerCase()))
+    || ['turbine', 'blade', 'bucket', 'nozzle', 'combust', 'liner', 'gas', 'shroud', 'rotor', 'disc'].some((t) => product.category?.toLowerCase().includes(t));
 
   const keywords = [
     product.partNumber,
@@ -61,39 +66,22 @@ export async function generateMetadata({
     product.manufacturer,
     product.category,
     'aerospace parts',
-    'turbine spare parts',
-    'gas turbine components',
     'NSN parts',
     'CAGE code parts',
     product.condition === 'New' ? 'new aerospace parts' : 'overhauled aerospace parts',
+    ...(isTurbine ? ['gas turbine spare parts', 'turbine components'] : []),
   ];
 
-  return {
+  return seoMeta({
     title,
     description,
+    path: `/catalog/${product.id}`,
     keywords: keywords.join(', '),
-    alternates: {
-      canonical: `${SITE_URL}/catalog/${product.id}`,
-    },
+    ogImage: product.imageUrl || undefined,
     openGraph: {
-      title,
-      description,
-      url: `${SITE_URL}/catalog/${product.id}`,
-      siteName: 'AeroTurbineSpare',
-      type: 'website',
-      locale: 'en_US',
-      images: product.imageUrl
-        ? [{ url: product.imageUrl, width: 800, height: 600 }]
-        : [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+      images: product.imageUrl ? [{ url: product.imageUrl, width: 800, height: 600 }] : undefined,
     },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: product.imageUrl ? [product.imageUrl] : ['/images/og-cover.jpg'],
-    },
-    robots: { index: true, follow: true },
-  };
+  });
 }
 
 export default function CatalogItemLayout({ children }: { children: React.ReactNode }) {

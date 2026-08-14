@@ -8,7 +8,7 @@ import {
   Anchor, ChevronRight,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import siteCategories from '@/data/site-categories.json';
+import siteCategories from '@/data/categories/site-categories.json';
 
 const ICON_MAP: Record<string, React.ElementType> = {
   plane: Plane, settings: Settings, flame: Flame, fuel: Fuel,
@@ -165,7 +165,6 @@ export default function CategoriesSection() {
                     loading="lazy"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
                   <div className="absolute top-3 left-3">
                     <span className={cn('text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-full shadow-sm', colors.bg, colors.text)}>
                       {cat.group}

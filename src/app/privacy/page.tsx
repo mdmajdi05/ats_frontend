@@ -1,5 +1,15 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { seoMeta } from '@/lib/seo';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+
+export const metadata = seoMeta({
+  title: 'Privacy Policy — AeroTurbineSpare',
+  description: 'Read the AeroTurbineSpare privacy policy covering data collection, EAR & ITAR export compliance, cookie usage, and how we protect your procurement and RFQ data.',
+  path: '/privacy',
+  keywords: 'aerospace parts distributor privacy policy, turbine parts company privacy, AS9120 parts supplier data policy, export control compliance parts',
+});
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
@@ -8,12 +18,23 @@ export default function PrivacyPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Privacy Policy', url: '/privacy' },
+      ]} />
       <Header />
 
       <main className="flex-1 bg-bg">
         {/* ── Hero ──────────────────────────────────────────────────────── */}
         <section className="bg-navy text-white py-14 px-4">
           <div className="max-w-3xl mx-auto text-center">
+            <Breadcrumb
+              className="justify-center mb-4 [&_a]:text-white/50 [&_a:hover]:text-orange [&_span]:text-silver/70"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Privacy Policy' },
+              ]}
+            />
             <h1 className="text-4xl font-black mb-3">Privacy Policy</h1>
             <p className="text-silver/70 text-sm">
               Last updated: {lastUpdated}

@@ -238,16 +238,14 @@ export default React.memo(function Header() {
     sections: (() => {
       const fallback: Record<string, { label: string; href: string; icon: typeof Package; desc: string }[]> = {
         'Core Sectors': [
-          { label: 'Aerospace & Aviation', href: '/industries/aerospace', icon: Plane, desc: 'Commercial, military & general aviation parts' },
-          { label: 'Aircraft Components', href: '/industries/aircraft-components-accessories', icon: Plane, desc: 'Structural, actuation & avionics accessories' },
-          { label: 'Energy & Power Generation', href: '/industries/energy', icon: Zap, desc: 'Gas turbine power plants & electrical systems' },
-          { label: 'Marine & Offshore', href: '/industries/marine', icon: Anchor, desc: 'Marine propulsion & offshore platform systems' },
+          { label: 'Power Generation', href: '/industries/power-generation', icon: Zap, desc: 'Gas turbine parts for baseload, peaking & combined-cycle plants' },
+          { label: 'Oil & Gas', href: '/industries/oil-gas', icon: Fuel, desc: 'LM2500 & LM6000 aeroderivative parts for compression & power' },
+          { label: 'Marine & Offshore', href: '/industries/marine-offshore', icon: Anchor, desc: 'Marine propulsion & offshore platform turbine systems' },
+          { label: 'Utilities & Cogeneration', href: '/industries/utilities-cogeneration', icon: Zap, desc: 'Fleet-wide parts for 7F, 9F, SGT5-4000F & GT26 operators' },
         ],
         'Specialized Sectors': [
-          { label: 'Oil & Gas', href: '/industries/oil-and-gas', icon: Fuel, desc: 'Drilling, pipeline & refinery turbine components' },
-          { label: 'Defense & Military', href: '/industries/defense', icon: Shield, desc: 'Mil-spec parts, MRO & fleet readiness' },
-          { label: 'Industrial Manufacturing', href: '/industries/industrial', icon: Factory, desc: 'Heavy machinery & industrial turbine spares' },
-          { label: 'Transportation & Rail', href: '/industries/transportation', icon: Truck, desc: 'Locomotive & transit power systems' },
+          { label: 'Industrial Manufacturing', href: '/industries/industrial-manufacturing', icon: Factory, desc: 'Captive power & cogeneration turbine components' },
+          { label: 'Government & Defense Power', href: '/industries/government-defense-power', icon: Shield, desc: 'NSN & CAGE-referenced parts with full MIL-SPEC traceability' },
         ],
       };
 
@@ -458,8 +456,7 @@ export default React.memo(function Header() {
           </div>
 
           {/* ── Desktop mega-nav bar ──────────────────────── */}
-          <nav className="hidden lg:flex items-center justify-center gap-0.5 h-11 border-t border-[#E8EDF2]/70 relative"
-             onMouseLeave={() => setOpenMenu(null)}>
+          <nav className="hidden lg:flex items-center justify-center gap-0.5 h-11 border-t border-[#E8EDF2]/70 relative">
 <Link href="/" className="px-4 h-11 flex items-center text-sm font-medium transition-colors rounded-t-lg text-text-muted hover:text-navy hover:bg-silver/60">Home</Link>
             {/* Mega menu items */}
             {MEGA_MENUS.map((menu) => (
@@ -490,7 +487,7 @@ export default React.memo(function Header() {
                     'absolute top-full left-0 bg-white rounded-b-2xl rounded-tr-2xl shadow-2xl border border-[#E8EDF2] z-50',
                     'transition-all duration-200 origin-top-left',
                     openMenu === menu.label
-                      ? 'opacity-100 scale-100 pointer-events-auto translate-y-0'
+                      ? 'opacity-100 scale-100 pointer-events-auto -translate-y-0.5'
                       : 'opacity-0 scale-95 pointer-events-none -translate-y-2'
                   )}
                   style={{ width: 'min(1280px, calc(100vw - 2rem))' }}

@@ -4,36 +4,42 @@ import Footer from '@/components/layout/Footer';
 import { Flame, Shield, Zap, Truck, ClipboardCheck, ArrowRight, RefreshCw, Wrench, Search, Package } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Gas Turbine Combustion Liners — GE, Siemens, Rolls-Royce & Solar',
-  description: 'Source new, refurbished & serviceable gas turbine combustion liners for GE Frame 6B, 7E, 7FA, 9E, 9FA, LM2500, LM6000, Siemens SGT & Solar Turbines. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'Gas Turbine Combustion Liners for Sale',
+  description: 'Source new, refurbished & serviceable gas turbine combustion liners for GE Frame 6B, 7E, 7FA & 9E. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
   keywords: [
     'gas turbine combustion liners', 'GE combustion liner', 'Siemens SGT combustion liner',
     'Rolls-Royce combustion liner', 'Solar Turbines combustion liner',
     'GE Frame 6B combustion liner', 'GE Frame 7FA combustion liner',
     'LM2500 combustion liner', 'LM6000 combustion liner',
     'new combustion liners', 'refurbished combustion liners', 'serviceable combustion liners',
+    'frame 6b combustion liner 899e0116g028', 'frame 6b liner cap assembly 116e4162g001',
+    'frame 7fa combustion liner', '6B DLN combustion liner',
+    'MS6001 combustor liner for sale', 'frame 9e combustion liner',
+    'LM2500 combustor liner price', 'combustion liner TBC repair',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/parts/combustion-liners',
+    canonical: `${SITE_URL}/parts/combustion-liners`,
     languages: buildHreflang('/parts/combustion-liners'),
   },
   openGraph: {
-    title: 'Gas Turbine Combustion Liners — GE, Siemens, Rolls-Royce & Solar',
-    description: 'Source new, refurbished & serviceable gas turbine combustion liners for GE Frame 6B, 7E, 7FA, 9E, 9FA, LM2500, LM6000, Siemens SGT & Solar Turbines. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/parts/combustion-liners',
-    siteName: 'AeroTurbineSpare',
+    title: 'Gas Turbine Combustion Liners — New & Refurbished for Sale',
+    description: 'Source new, refurbished & serviceable gas turbine combustion liners for GE Frame 6B, 7E, 7FA & 9E. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/parts/combustion-liners`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gas Turbine Combustion Liners — GE, Siemens, Rolls-Royce & Solar',
+    title: 'Gas Turbine Combustion Liners — New & Refurbished',
     description: 'New, refurbished & serviceable gas turbine combustion liners for GE, Siemens, Rolls-Royce & Solar. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -308,6 +314,22 @@ export default async function CombustionLinersPage({ params }: { params: Promise
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ms6001-parts', label: 'GE MS6001 Parts', description: 'Frame 6 turbine spares and components for the full MS6001 series.' },
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'Transition pieces and combustion ducts for can-annular turbine frames.' },
+            { href: '/siemens-sgt800-parts', label: 'Siemens SGT-800 Parts', description: 'SGT-800 blades, vanes, and combustion hardware.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

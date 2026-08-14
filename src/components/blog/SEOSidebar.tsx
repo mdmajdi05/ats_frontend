@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import CollapsibleSection from '@/components/ui/CollapsibleSection';
 import SERPPreview from './SERPPreview';
 import SocialSharePreview from './SocialSharePreview';
+import { SITE_URL, SEO_TITLE_MAX, SEO_DESC_MAX, SEO_TITLE_IDEAL_MIN, SEO_DESC_IDEAL_MIN } from '@/lib/constants';
 import type { SEOFields } from '@/types/blog';
 import type { BlogFormValues } from '@/types/blog-form';
 
@@ -67,8 +68,8 @@ function calcScore(seo: SEOFields, content: string, coverImage: string): { score
   const kwInHeading = kw.length > 0 && headings.some((h) => h.toLowerCase().includes(kw));
 
   const checks: ScoreCheck[] = [
-    { label: 'Meta title present (50–60 chars)', pass: seo.metaTitle.length >= 50 && seo.metaTitle.length <= 60, points: 15 },
-    { label: 'Meta description present (120–160 chars)', pass: seo.metaDesc.length >= 120 && seo.metaDesc.length <= 160, points: 15 },
+    { label: 'Meta title present (50–60 chars)', pass: seo.metaTitle.length >= SEO_TITLE_IDEAL_MIN && seo.metaTitle.length <= SEO_TITLE_MAX, points: 15 },
+    { label: 'Meta description present (120–160 chars)', pass: seo.metaDesc.length >= SEO_DESC_IDEAL_MIN && seo.metaDesc.length <= SEO_DESC_MAX, points: 15 },
     { label: 'Focus keyword in meta title', pass: kw.length > 0 && seo.metaTitle.toLowerCase().includes(kw), points: 10 },
     { label: 'Focus keyword in content', pass: kw.length > 0 && plainText.toLowerCase().includes(kw), points: 10 },
     { label: 'Focus keyword in a heading', pass: kwInHeading, points: 10 },
@@ -200,7 +201,7 @@ export default function SEOSidebar({ seo: seoProp, content = '', coverImage = ''
           <div>
             <div className="flex justify-between mb-1">
               <label htmlFor="seo-meta-title" className="text-xs font-semibold text-[#0A1628] uppercase tracking-wider">Meta Title</label>
-              <span className={`text-xs ${seoValues.metaTitle.length >= 50 && seoValues.metaTitle.length <= 60 ? 'text-green-500' : 'text-[#C0C9D5]'}`}>{seoValues.metaTitle.length}/60</span>
+              <span className={`text-xs ${seoValues.metaTitle.length >= SEO_TITLE_IDEAL_MIN && seoValues.metaTitle.length <= SEO_TITLE_MAX ? 'text-green-500' : 'text-[#C0C9D5]'}`}>{seoValues.metaTitle.length}/{SEO_TITLE_MAX}</span>
             </div>
             <input id="seo-meta-title" type="text" value={seoValues.metaTitle} onChange={(e) => set('metaTitle', e.target.value)}
               placeholder="SEO meta title (50–60 chars)"
@@ -209,7 +210,7 @@ export default function SEOSidebar({ seo: seoProp, content = '', coverImage = ''
           <div>
             <div className="flex justify-between mb-1">
               <label htmlFor="seo-meta-desc" className="text-xs font-semibold text-[#0A1628] uppercase tracking-wider">Meta Description</label>
-              <span className={`text-xs ${seoValues.metaDesc.length >= 120 && seoValues.metaDesc.length <= 160 ? 'text-green-500' : 'text-[#C0C9D5]'}`}>{seoValues.metaDesc.length}/160</span>
+              <span className={`text-xs ${seoValues.metaDesc.length >= SEO_DESC_IDEAL_MIN && seoValues.metaDesc.length <= SEO_DESC_MAX ? 'text-green-500' : 'text-[#C0C9D5]'}`}>{seoValues.metaDesc.length}/{SEO_DESC_MAX}</span>
             </div>
             <textarea id="seo-meta-desc" rows={3} value={seoValues.metaDesc} onChange={(e) => set('metaDesc', e.target.value)}
               placeholder="Meta description for search engines (120–160 chars)"
@@ -224,7 +225,7 @@ export default function SEOSidebar({ seo: seoProp, content = '', coverImage = ''
           <div>
             <label htmlFor="seo-canonical" className="text-xs text-[#4A4A6A] mb-1 block">Canonical URL</label>
             <input id="seo-canonical" type="text" value={seoValues.canonicalUrl || ''} onChange={(e) => handleChange({ ...seoValues, canonicalUrl: e.target.value })}
-              placeholder="https://aeroturbinespare.com/..." className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-xs text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30" />
+              placeholder={`${SITE_URL}/...`} className="w-full border border-[#E8EDF2] rounded-lg px-3 py-2 text-xs text-[#0A1628] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/30" />
           </div>
           <div className="flex items-center gap-4">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -248,7 +249,7 @@ export default function SEOSidebar({ seo: seoProp, content = '', coverImage = ''
         canonicalUrl={seoValues.canonicalUrl}
       />
 
-      <SocialSharePreview title={seoValues.metaTitle || seoTitle || ''} description={seoValues.metaDesc} url={`https://aeroturbinespare.com/blog/${seoValues.slug}`} image={coverImage} />
+      <SocialSharePreview title={seoValues.metaTitle || seoTitle || ''} description={seoValues.metaDesc} url={`${SITE_URL}/blog/${seoValues.slug}`} image={coverImage} />
     </div>
   );
 }

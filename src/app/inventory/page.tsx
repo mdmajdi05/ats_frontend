@@ -13,6 +13,8 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { cn } from '@/lib/utils';
 import { submitInventory } from '@/services/inventoryService';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import Breadcrumb from '@/components/ui/Breadcrumb';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -238,12 +240,23 @@ export default function InventoryPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Sell Excess Parts', url: '/inventory' },
+      ]} />
       <Header />
 
       <main className="flex-1">
         {/* ── Hero ─────────────────────────────────────────────────────── */}
         <section className="bg-navy-dark text-white py-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
+<Breadcrumb
+              className="justify-center mb-4 [&_a]:text-white/50 [&_a:hover]:text-orange [&_span]:text-silver/70"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Sell Excess Parts' },
+              ]}
+            />
             <div className="inline-flex items-center gap-2 text-orange text-sm font-semibold uppercase tracking-wider mb-4">
               <span className="w-6 h-px bg-orange" />
               Sell Your Excess Parts

@@ -11,7 +11,8 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumb from '@/components/ui/Breadcrumb';
-import siteCategories from '@/data/site-categories.json';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import siteCategories from '@/data/categories/site-categories.json';
 
 const GROUP_META: Record<string, {
   icon: React.ElementType;
@@ -112,6 +113,11 @@ export default function CategoriesPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F8F9FC]">
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Categories', url: '/categories' },
+      ]} />
+
       <Header />
 
       <main id="main-content" className="flex-1">
@@ -415,7 +421,6 @@ function CategoryCard({
           loading="lazy"
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
 
         {/* Group badge */}
         <div className="absolute top-3 left-3">

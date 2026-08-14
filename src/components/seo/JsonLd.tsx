@@ -1,31 +1,61 @@
-const siteUrl = 'https://aeroturbinespare.com';
+﻿import { SITE_URL, SITE_NAME, SITE_EMAIL, SITE_PHONE_TEL, SITE_ADDRESS, SITE_SOCIAL, SITE_CAGE_CODE, SITE_CERTIFICATIONS } from '@/lib/constants';
+
+const siteUrl = SITE_URL;
+
+const hasPhone = Boolean(SITE_PHONE_TEL);
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'AeroTurbineSpare',
+  name: SITE_NAME,
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
   description:
     'Global supplier of gas turbine spare parts and services for power generation, oil & gas, marine, and industrial operators.',
+  foundingDate: '2009',
+  email: SITE_EMAIL,
+  ...(hasPhone ? { telephone: SITE_PHONE_TEL } : {}),
+  slogan: 'Certified gas turbine spare parts, delivered worldwide.',
+  priceRange: '$$',
   areaServed: ['United States', 'Russia', 'United Kingdom', 'Germany', 'France', 'UAE', 'Saudi Arabia', 'India', 'China', 'Japan', 'South Korea', 'Brazil', 'Australia', 'Canada', 'Italy', 'Spain', 'Netherlands', 'Qatar', 'Kuwait', 'Oman', 'Bahrain', 'Egypt', 'Turkey', 'Singapore', 'Malaysia', 'Indonesia', 'Thailand', 'Vietnam', 'Philippines', 'Mexico', 'Argentina', 'Colombia', 'Chile', 'Peru', 'South Africa', 'Nigeria', 'Kenya', 'Morocco', 'Poland', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Czech Republic', 'Romania', 'Ukraine', 'Israel', 'Jordan', 'Lebanon', 'Pakistan', 'Bangladesh', 'Sri Lanka', 'New Zealand'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE_ADDRESS.street,
+    addressLocality: SITE_ADDRESS.city,
+    addressRegion: SITE_ADDRESS.state,
+    postalCode: SITE_ADDRESS.zip,
+    addressCountry: SITE_ADDRESS.country,
+  },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '',
+    ...(hasPhone ? { telephone: SITE_PHONE_TEL } : {}),
     contactType: 'sales',
     areaServed: 'Worldwide',
     availableLanguage: ['English', 'Hindi', 'Arabic', 'Russian'],
   },
-  sameAs: [
-    'https://www.linkedin.com/company/aeroturbinespare',
-    'https://twitter.com/aeroturbinespare',
+  knowsAbout: [
+    'Gas turbine spare parts',
+    'Aerospace components',
+    'NSN parts',
+    'CAGE code',
+    'Turbine blades & nozzles',
+    'Combustion systems',
+    'Speedtronic controls',
+    'MRO supplies',
   ],
+  hasCredential: SITE_CERTIFICATIONS.map((c) => ({
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'certification',
+    name: c,
+  })),
+  sameAs: [SITE_SOCIAL.linkedin, SITE_SOCIAL.twitter],
+  taxID: SITE_CAGE_CODE,
 };
 
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'AeroTurbineSpare',
+  name: SITE_NAME,
   url: siteUrl,
   description:
     'Source certified aerospace parts fast. NSN, CAGE, turbine components, MRO supplies.',
@@ -139,7 +169,7 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: item.url.startsWith('http') ? item.url : `https://aeroturbinespare.com${item.url}`,
+      item: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
     })),
   };
 
@@ -154,18 +184,18 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'AeroTurbineSpare',
+  name: SITE_NAME,
   image: `${siteUrl}/logo.png`,
   url: siteUrl,
-  telephone: '',
-  email: 'sales@aeroturbinespare.com',
+  ...(hasPhone ? { telephone: SITE_PHONE_TEL } : {}),
+  email: SITE_EMAIL,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '1360-1362 NW 78th Ave',
-    addressLocality: 'Doral',
-    addressRegion: 'FL',
-    postalCode: '33126',
-    addressCountry: 'US',
+    streetAddress: SITE_ADDRESS.street,
+    addressLocality: SITE_ADDRESS.city,
+    addressRegion: SITE_ADDRESS.state,
+    postalCode: SITE_ADDRESS.zip,
+    addressCountry: SITE_ADDRESS.country,
   },
   geo: {
     '@type': 'GeoCoordinates',
@@ -186,10 +216,7 @@ const localBusinessSchema = {
       closes: '15:00',
     },
   ],
-  sameAs: [
-    'https://www.linkedin.com/company/aeroturbinespare',
-    'https://twitter.com/aeroturbinespare',
-  ],
+  sameAs: [SITE_SOCIAL.linkedin, SITE_SOCIAL.twitter],
 };
 
 export function LocalBusinessJsonLd() {
@@ -207,7 +234,7 @@ const serviceSchema = {
   serviceType: 'Gas Turbine Spare Parts Sourcing & Supply',
   provider: {
     '@type': 'Organization',
-    name: 'AeroTurbineSpare',
+    name: SITE_NAME,
     url: siteUrl,
   },
   areaServed: 'Worldwide',
@@ -250,7 +277,7 @@ export function AboutPageJsonLd() {
       'AeroTurbineSpare is an ISO 9001:2015 and AS9120 Rev B certified gas turbine spare parts distributor. CAGE 8ATR9. Serving OEMs, MROs, and defense contractors in 150+ countries since 2009.',
     mainEntity: {
       '@type': 'Organization',
-      name: 'AeroTurbineSpare',
+      name: SITE_NAME,
       url: siteUrl,
       foundingDate: '2009',
       numberOfEmployees: { '@type': 'QuantitativeValue', value: 50 },
@@ -274,13 +301,13 @@ export function ContactPageJsonLd() {
       'Contact AeroTurbineSpare for aerospace parts inquiries, RFQ submissions, technical support, and AOG emergency assistance.',
     mainEntity: {
       '@type': 'Organization',
-      name: 'AeroTurbineSpare',
+      name: SITE_NAME,
       url: siteUrl,
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '',
+        ...(hasPhone ? { telephone: SITE_PHONE_TEL } : {}),
         contactType: 'sales',
-        email: 'sales@aeroturbinespare.com',
+        email: SITE_EMAIL,
         areaServed: 'Worldwide',
         availableLanguage: ['English', 'Hindi', 'Arabic', 'Russian'],
       },
@@ -298,13 +325,13 @@ export function QualityPageJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Quality Assurance — AeroTurbineSpare',
+    name: 'Quality Assurance â€” AeroTurbineSpare',
     url: `${siteUrl}/quality`,
     description:
       'ISO 9001:2015 and AS9120 Rev B quality assurance program. 100% inspection, full traceability, anti-counterfeit policy, 12-month defect warranty.',
     about: {
       '@type': 'Organization',
-      name: 'AeroTurbineSpare',
+      name: SITE_NAME,
     },
     hasPart: {
       '@type': 'HowTo',
@@ -332,7 +359,7 @@ export function ReviewJsonLd({ reviews, aggregateRating }: {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'AeroTurbineSpare',
+    name: SITE_NAME,
     url: siteUrl,
     aggregateRating: {
       '@type': 'AggregateRating',
@@ -389,7 +416,7 @@ export function SpeakableJsonLd() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'AeroTurbineSpare — Gas Turbine Spare Parts',
+    name: 'AeroTurbineSpare â€” Gas Turbine Spare Parts',
     url: siteUrl,
     speakable: {
       '@type': 'SpeakableSpecification',

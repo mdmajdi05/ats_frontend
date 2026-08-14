@@ -142,5 +142,21 @@
     "isActive": true,
     "lastLogin": null,
     "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "user-010",
+    "email": "seo@aeroturbinespare.com",
+    "password": "seo123",
+    "fullName": "Elena SEO",
+    "company": "AeroTurbineSpare",
+    "cageCode": "8ATR9",
+    "phone": "",
+    "role": "SEOManager",
+    "country": "United States",
+    "address": null,
+    "avatarUrl": null,
+    "isActive": true,
+    "lastLogin": "2026-06-20T10:00:00Z",
+    "createdAt": "2025-04-10T00:00:00Z"
   }
 ]

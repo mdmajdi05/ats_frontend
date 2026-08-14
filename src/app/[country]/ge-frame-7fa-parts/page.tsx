@@ -4,36 +4,42 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, CheckCircle, Cpu, Thermometer, Wind, Cog, Gauge, Package, Wrench } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'GE Frame 7FA Parts — Hot Gas Path, Combustion & Turbine Components',
-  description: 'Source GE Frame 7FA (MS7001FA) gas turbine spare parts including buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'GE Frame 7FA Spare Parts — Hot Gas Path',
+  description: 'Source GE Frame 7FA (MS7001FA) spare parts: stage 1-3 buckets & nozzles, transition pieces, combustion liners & DLN 2.6 fuel nozzles. ISO 9001 certified.',
   keywords: [
     'GE Frame 7FA parts', 'MS7001FA spare parts',
     '7FA buckets', '7FA nozzles', '7FA transition pieces',
     '7FA combustion liners', 'DLN 2.6 fuel nozzles',
     '7FA hot gas path', 'GE 7FA turbine components',
     '7FA shrouds and seals',
+    'frame 7fa 1st stage bucket', 'frame 7fa 1st stage nozzle',
+    'frame 7fa 2nd stage bucket', 'frame 7fa transition piece',
+    '7FA.03 combustion parts', '7FA hot gas path kit',
+    '7FA planned outage spares', 'frame 7fa DLN 2.6 fuel nozzle',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/ge-frame-7fa-parts',
+    canonical: `${SITE_URL}/ge-frame-7fa-parts`,
     languages: buildHreflang('/ge-frame-7fa-parts'),
   },
   openGraph: {
-    title: 'GE Frame 7FA Parts — Hot Gas Path, Combustion & Turbine Components',
-    description: 'Source GE Frame 7FA (MS7001FA) gas turbine spare parts including buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/ge-frame-7fa-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'GE Frame 7FA Parts — Hot Gas Path & Combustion Components',
+    description: 'Source GE Frame 7FA (MS7001FA) gas turbine spare parts: buckets, nozzles, transition pieces & combustion components. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/ge-frame-7fa-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GE Frame 7FA Parts — Hot Gas Path, Combustion & Turbine Components',
-    description: 'Source GE Frame 7FA (MS7001FA) gas turbine spare parts. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    title: 'GE Frame 7FA Parts — Hot Gas Path & Combustion Components',
+    description: 'Source GE Frame 7FA (MS7001FA) gas turbine spare parts. ISO 9001 & AS9120. 24-hour quotes.',
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -140,7 +146,7 @@ export default async function GeFrame7faPartsPage({ params }: { params: Promise<
       offeredBy: {
         '@type': 'Organization',
         name: 'AeroTurbineSpare',
-        url: 'https://aeroturbinespare.com',
+        url: SITE_URL,
       },
     },
     manufacturer: { '@type': 'Organization', name: 'General Electric' },
@@ -189,11 +195,16 @@ export default async function GeFrame7faPartsPage({ params }: { params: Promise<
                   plants across North America, the Middle East, and Asia-Pacific. With
                   an 18-stage compressor and 3-stage turbine, the 7FA platform delivers
                   a heat rate of approximately 9,600 Btu/kWh (LHV) and supports DLN 2.6+
-                  combustion for ultra-low NOx emissions.
+                  combustion for ultra-low NOx emissions. We stock the frame 7FA 1st,
+                  2nd, and 3rd stage buckets and nozzles, 7FA transition pieces, 7FA
+                  combustion liners, and DLN 2.6 fuel nozzles you would order for a
+                  complete hot gas path overhaul.
                 </p>
                 <p className="text-text-muted leading-relaxed">
                   Common build levels include 7FA.e, 7FA.05, 7FA.04, and 7FA.03.
-                  Our inventory covers all major variants with OEM-licensed and
+                  Whether you are planning a 7FA hot gas path kit for an inspection
+                  window or sourcing 7FA.03 combustion parts for an emergency repair,
+                  our inventory covers all major variants with OEM-licensed and
                   aftermarket-certified components backed by full traceability.
                 </p>
               </div>
@@ -322,6 +333,22 @@ export default async function GeFrame7faPartsPage({ params }: { params: Promise<
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/ge-frame-9e-parts', label: 'GE Frame 9E Parts', description: 'MS9001E buckets, nozzles, transition pieces, and combustion hardware.' },
+            { href: '/ms7001-parts', label: 'GE MS7001 Parts', description: 'Frame 7 turbine spares and components for the full MS7001 series.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'New and refurbished transition pieces for every major turbine frame.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
 

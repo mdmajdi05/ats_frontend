@@ -4,36 +4,41 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, CheckCircle, Cpu, Thermometer, Wind, Cog, Gauge, Package, Wrench } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'GE Frame 9E Parts — MS9001E Hot Gas Path & Combustion Components',
-  description: 'Source GE Frame 9E (MS9001E) gas turbine spare parts for 50Hz applications. Buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'GE Frame 9E Parts — MS9001E Hot Gas Path',
+  description: 'Source GE Frame 9E (MS9001E) spare parts: stage 1-3 buckets & nozzles, transition pieces, combustion liners & DLN 2.0 fuel nozzles. ISO 9001 & AS9120.',
   keywords: [
     'GE Frame 9E parts', 'MS9001E spare parts',
     '9E buckets', '9E nozzles', '9E transition pieces',
     '9E combustion liners', 'DLN 2.0 fuel nozzles',
     '9E hot gas path', 'GE 9E turbine components',
     '9E shrouds and seals',
+    'frame 9e 1st stage bucket', 'frame 9e 1st stage nozzle',
+    'frame 9e transition piece', '9E planned outage spares',
+    'MS9001E hot gas path parts list', 'frame 9e DLN 2.0 fuel nozzle',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/ge-frame-9e-parts',
+    canonical: `${SITE_URL}/ge-frame-9e-parts`,
     languages: buildHreflang('/ge-frame-9e-parts'),
   },
   openGraph: {
-    title: 'GE Frame 9E Parts — MS9001E Hot Gas Path & Combustion Components',
-    description: 'Source GE Frame 9E (MS9001E) gas turbine spare parts for 50Hz applications. Buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/ge-frame-9e-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'GE Frame 9E Parts — MS9001E Hot Gas Path & Combustion Parts',
+    description: 'Source GE Frame 9E (MS9001E) gas turbine spare parts: buckets, nozzles, transition pieces & combustion liners. ISO 9001 & AS9120. 24-hour quotes.',
+    url: `${SITE_URL}/ge-frame-9e-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GE Frame 9E Parts — MS9001E Hot Gas Path & Combustion Components',
+    title: 'GE Frame 9E Parts — MS9001E Hot Gas Path & Combustion Parts',
     description: 'Source GE Frame 9E (MS9001E) gas turbine spare parts. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -159,7 +164,7 @@ export default async function GeFrame9ePartsPage({ params }: { params: Promise<{
       offeredBy: {
         '@type': 'Organization',
         name: 'AeroTurbineSpare',
-        url: 'https://aeroturbinespare.com',
+        url: SITE_URL,
       },
     },
     manufacturer: { '@type': 'Organization', name: 'General Electric' },
@@ -208,13 +213,18 @@ export default async function GeFrame9ePartsPage({ params }: { params: Promise<{
                   cooling plants across the Middle East, Asia, Europe, and Africa. With a
                   17-stage compressor and 3-stage turbine rated at 3,000 RPM, the 9E platform
                   delivers a heat rate of approximately 10,400 Btu/kWh (LHV) and supports
-                  DLN 2.0 combustion for ultra-low NOx compliance.
+                  DLN 2.0 combustion for ultra-low NOx compliance. We carry the frame 9E
+                  1st, 2nd, and 3rd stage buckets and nozzles, 9E transition pieces, 9E
+                  combustion liners, and DLN 2.0 fuel nozzles for a full hot gas path
+                  parts list.
                 </p>
                 <p className="text-text-muted leading-relaxed">
                   Common build levels include 9E.03 and 9E.04. The 9E is the 50 Hz equivalent
                   of the Frame 6B (MS6001B) with scaled-up aerodynamics and upgraded materials
-                  for higher firing temperatures. Our inventory covers all major variants with
-                  OEM-licensed and aftermarket-certified components backed by full traceability.
+                  for higher firing temperatures. Whether you need a frame 9E 1st stage
+                  nozzle for immediate dispatch or MS9001E spares for your next planned
+                  outage, our inventory covers all major variants with OEM-licensed and
+                  aftermarket-certified components backed by full traceability.
                 </p>
               </div>
               <div className="lg:col-span-2 bg-bg border border-silver rounded-2xl p-6">
@@ -342,6 +352,22 @@ export default async function GeFrame9ePartsPage({ params }: { params: Promise<{
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/ms7001-parts', label: 'GE MS7001 Parts', description: 'Frame 7 turbine spares and components for the full MS7001 series.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'New and refurbished transition pieces for every major turbine frame.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
 

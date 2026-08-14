@@ -4,11 +4,13 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Zap, Truck, ClipboardCheck, Search, Package, RefreshCw, Wrench, ArrowRight } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Gas Turbine Blades & Buckets — Stage 1, 2, 3 for All Major Frames',
-  description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar Turbines. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'Gas Turbine Blades & Buckets for Sale',
+  description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
   keywords: [
     'gas turbine blades', 'gas turbine buckets', 'turbine blade stage 1', 'turbine blade stage 2', 'turbine blade stage 3',
     'GE turbine blades', 'Siemens turbine blades', 'Rolls-Royce turbine blades', 'Solar Turbines blades',
@@ -16,25 +18,28 @@ export const metadata: Metadata = {
     'LM2500 turbine blades', 'LM6000 turbine blades',
     'new turbine buckets', 'refurbished turbine buckets', 'serviceable turbine buckets',
     'hot gas path blades', 'HGP blades',
+    'frame 6b 1st stage bucket 112e6033p001', 'frame 6b 2nd stage bucket 112e6034p011',
+    'frame 7fa stage 1 bucket', 'frame 9e 3rd stage bucket',
+    'MS6001 stage 1 bucket for sale', 'turbine bucket refurbishment and coating',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/parts/turbine-blades',
+    canonical: `${SITE_URL}/parts/turbine-blades`,
     languages: buildHreflang('/parts/turbine-blades'),
   },
   openGraph: {
-    title: 'Gas Turbine Blades & Buckets — Stage 1, 2, 3 for All Major Frames',
-    description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar Turbines. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/parts/turbine-blades',
-    siteName: 'AeroTurbineSpare',
+    title: 'Gas Turbine Blades & Buckets — New & Refurbished for Sale',
+    description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/parts/turbine-blades`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gas Turbine Blades & Buckets — Stage 1, 2, 3 for All Major Frames',
-    description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar Turbines. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    title: 'Gas Turbine Blades & Buckets — New & Refurbished',
+    description: 'Source new, refurbished & serviceable gas turbine blades and buckets for GE, Siemens, Rolls-Royce & Solar. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -313,6 +318,23 @@ export default async function TurbineBladesPage({ params }: { params: Promise<{ 
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ms6001-parts', label: 'GE MS6001 Parts', description: 'Frame 6 turbine spares and components for the full MS6001 series.' },
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/ms7001-parts', label: 'GE MS7001 Parts', description: 'Frame 7 turbine spares and components for the full MS7001 series.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/siemens-sgt800-parts', label: 'Siemens SGT-800 Parts', description: 'SGT-800 blades, vanes, and combustion hardware.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

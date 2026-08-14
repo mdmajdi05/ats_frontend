@@ -4,6 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Calendar, ArrowRight, Clock } from 'lucide-react';
 import { request } from '@/lib/api-client';
+import blogPostsJson from '@/data/blog/posts.json';
+
+const blogPostsData = blogPostsJson as Array<{
+  id: string; title: string; slug: string; excerpt: string; coverImage?: string;
+  author?: { fullName?: string }; publishedAt: string; readingTime?: number;
+  categories?: Array<{ name: string }>;
+  status?: string;
+}>;
 
 type BlogPost = {
   id: string;
@@ -17,41 +25,22 @@ type BlogPost = {
   category?: string;
 };
 
-const FALLBACK_POSTS: BlogPost[] = [
-  {
-    id: 'blog-fallback-1',
-    coverImage: '/images/part-controls.jpg',
-    title: 'Understanding NSN & CAGE Codes for Gas Turbine Parts Procurement',
-    slug: 'understanding-nsn-cage-codes-gas-turbine-parts',
-    excerpt: 'Learn how NATO Stock Numbers and CAGE codes work for gas turbine parts procurement. A practical guide for power generation and oil & gas buyers.',
-    author: 'AeroTurbineSpare Team',
-    publishedAt: '2026-06-15',
-    readingTime: '8 min read',
-    category: 'Procurement Guide',
-  },
-  {
-    id: 'blog-fallback-2',
-    coverImage: '/images/part-fuselage.jpg',
-    title: 'GE Mark VI vs Mark VIe: What Changes When You Upgrade Your Control System',
-    slug: 'ge-mark-vi-vs-mark-vie-control-system-upgrade',
-    excerpt: 'Understand the key differences between GE Speedtronic Mark VI and Mark VIe control platforms and what to consider before upgrading your turbine control system.',
-    author: 'AeroTurbineSpare Team',
-    publishedAt: '2026-05-28',
-    readingTime: '6 min read',
-    category: 'Control Systems',
-  },
-  {
-    id: 'blog-fallback-3',
-    coverImage: '/images/part-engine-1.jpg',
-    title: 'Planning a Turbine Outage: How to Avoid Last-Minute Parts Delays',
-    slug: 'planning-turbine-outage-avoid-parts-delays',
-    excerpt: 'Best practices for planning gas turbine outages and ensuring critical parts arrive on time. Learn how to avoid common procurement pitfalls that delay restarts.',
-    author: 'AeroTurbineSpare Team',
-    publishedAt: '2026-04-10',
-    readingTime: '5 min read',
-    category: 'Outage Planning',
-  },
-];
+const FALLBACK_POSTS: BlogPost[] = blogPostsData
+  .filter((p) => p.status === 'Published')
+  .slice()
+  .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+  .slice(0, 3)
+  .map((p) => ({
+    id: p.id,
+    title: p.title,
+    slug: p.slug,
+    excerpt: p.excerpt,
+    coverImage: p.coverImage,
+    author: p.author?.fullName || 'AeroTurbineSpare Team',
+    publishedAt: p.publishedAt.slice(0, 10),
+    readingTime: p.readingTime ? `${p.readingTime} min read` : undefined,
+    category: p.categories?.[0]?.name,
+  }));
 
 export default function BlogPreviewSection() {
   const [posts, setPosts] = useState<BlogPost[]>(FALLBACK_POSTS);

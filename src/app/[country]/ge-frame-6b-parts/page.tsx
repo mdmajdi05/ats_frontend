@@ -4,36 +4,42 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, CheckCircle, Cpu, Thermometer, Wind, Cog, Gauge, Package, Wrench } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'GE Frame 6B Parts — MS6001B Hot Gas Path & Combustion Components',
-  description: 'Source GE Frame 6B (MS6001B) gas turbine spare parts including buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'GE Frame 6B Spare Parts — Buckets',
+  description: 'Source GE Frame 6B (MS6001B) spare parts: stage 1-3 buckets & nozzles, transition pieces, combustion liners & DLN 1 fuel nozzles. ISO 9001 & AS9120.',
   keywords: [
     'GE Frame 6B parts', 'MS6001B spare parts',
     '6B buckets', '6B nozzles', '6B transition pieces',
     '6B combustion liners', 'DLN 1 fuel nozzles',
     '6B hot gas path', 'GE 6B turbine components',
     '6B shrouds and seals',
+    'frame 6b 1st stage bucket', 'frame 6b 1st stage nozzle',
+    'frame 6b 2nd stage bucket', 'frame 6b 3rd stage bucket',
+    'frame 6b transition piece part number', 'frame 6b fuel nozzle DLN 1',
+    '6B combustor liner 899e0116g028', 'frame 6b spare parts for 24,000 hour inspection',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/ge-frame-6b-parts',
+    canonical: `${SITE_URL}/ge-frame-6b-parts`,
     languages: buildHreflang('/ge-frame-6b-parts'),
   },
   openGraph: {
-    title: 'GE Frame 6B Parts — MS6001B Hot Gas Path & Combustion Components',
-    description: 'Source GE Frame 6B (MS6001B) gas turbine spare parts including buckets, nozzles, transition pieces, combustion liners & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/ge-frame-6b-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'GE Frame 6B Parts — Buckets, Nozzles & Combustion Liners',
+    description: 'Source GE Frame 6B (MS6001B) gas turbine spare parts: buckets, nozzles, transition pieces, combustion liners & fuel nozzles. ISO 9001 & AS9120. 24-hour quotes.',
+    url: `${SITE_URL}/ge-frame-6b-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GE Frame 6B Parts — MS6001B Hot Gas Path & Combustion Components',
-    description: 'Source GE Frame 6B (MS6001B) gas turbine spare parts. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    title: 'GE Frame 6B Parts — Buckets, Nozzles & Combustion Liners',
+    description: 'Source GE Frame 6B (MS6001B) gas turbine spare parts. ISO 9001 & AS9120. 24-hour quotes.',
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -141,7 +147,7 @@ export default async function GeFrame6bPartsPage({ params }: { params: Promise<{
       offeredBy: {
         '@type': 'Organization',
         name: 'AeroTurbineSpare',
-        url: 'https://aeroturbinespare.com',
+        url: SITE_URL,
       },
     },
     manufacturer: { '@type': 'Organization', name: 'General Electric' },
@@ -190,12 +196,27 @@ export default async function GeFrame6bPartsPage({ params }: { params: Promise<{
                   mechanical drive applications across the Middle East, Asia, Latin America,
                   and Africa. With an 11-stage compressor and 3-stage turbine, the 6B platform
                   delivers a heat rate of approximately 10,900 Btu/kWh (LHV) and supports
-                  DLN 1 or conventional combustion systems.
+                  DLN 1 or conventional combustion systems. Our stock includes the
+                  frame 6B 1st, 2nd, and 3rd stage buckets and nozzles, frame 6B transition
+                  pieces, 6B combustion liners, and DLN 1 fuel nozzles needed for a full
+                  hot gas path overhaul. Operators of larger sister frames
+                  can source matching{' '}
+                  <a href={`${prefix || ''}/ge-frame-7fa-parts`} className="text-orange font-semibold hover:underline">GE Frame 7FA parts</a>{' '}
+                  and{' '}
+                  <a href={`${prefix || ''}/ge-frame-9e-parts`} className="text-orange font-semibold hover:underline">GE Frame 9E parts</a>{' '}
+                  from the same inventory.
                 </p>
                 <p className="text-text-muted leading-relaxed">
                   Common build levels include 6B.03, 6B.04, and 6B.05.
-                  Our inventory covers all major variants with OEM-licensed and
-                  aftermarket-certified components backed by full traceability.
+                  Whether you need a single frame 6B stage 1 nozzle, a complete 6B hot gas
+                  path parts list for a planned outage, or refurbished 6B buckets with
+                  material certs, our inventory covers all major variants with OEM-licensed
+                  and aftermarket-certified components backed by full traceability. For
+                  combustion-specific hardware, see our{' '}
+                  <a href={`${prefix || ''}/parts/combustion-liners`} className="text-orange font-semibold hover:underline">combustion liners</a>,{' '}
+                  <a href={`${prefix || ''}/parts/fuel-nozzles`} className="text-orange font-semibold hover:underline">fuel nozzles</a>, and{' '}
+                  <a href={`${prefix || ''}/parts/turbine-blades`} className="text-orange font-semibold hover:underline">turbine blades</a>{' '}
+                  pages.
                 </p>
               </div>
               <div className="lg:col-span-2 bg-bg border border-silver rounded-2xl p-6">
@@ -300,6 +321,22 @@ export default async function GeFrame6bPartsPage({ params }: { params: Promise<{
             </div>
           </div>
         </section>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the larger 7FA platform.' },
+            { href: '/ms6001-parts', label: 'GE MS6001 Parts', description: 'Frame 6 turbine spares and components for the full MS6001 series.' },
+            { href: '/ge-frame-9e-parts', label: 'GE Frame 9E Parts', description: 'MS9001E buckets, nozzles, transition pieces, and combustion hardware.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'New and refurbished transition pieces for every major turbine frame.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
         <section className="bg-navy text-white py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">

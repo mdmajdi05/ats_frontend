@@ -5,33 +5,34 @@ import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-re
 import { BreadcrumbJsonLd, AboutPageJsonLd } from '@/components/seo/JsonLd';
 import CountriesWeServe from '@/components/country/CountriesWeServe';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'About AeroTurbineSpare',
-  description: 'Founded in 2009, AeroTurbineSpare is an ISO 9001 & AS9120 certified aerospace parts distributor serving OEMs, MROs, and defense contractors across 150+ countries. 5 Million+ parts in catalog.',
+  title: 'About AeroTurbineSpare — Distributor',
+  description: 'Founded in 2009, AeroTurbineSpare is an ISO 9001 & AS9120 certified gas turbine parts distributor serving OEMs, MROs, and defense contractors in 150+ countries.',
   keywords: [
     'about AeroTurbineSpare', 'gas turbine parts distributor',
     'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
     'CAGE 8ATR9', 'GE turbine parts supplier',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/about',
+    canonical: `${SITE_URL}/about`,
     languages: buildHreflang('/about'),
   },
   openGraph: {
-    title: 'About AeroTurbineSpare — Precision Aerospace Parts Sourcing',
+title: 'About AeroTurbineSpare — Distributor',
     description: 'Founded in 2009. ISO 9001 & AS9120 certified. Serving 150+ countries. Your trusted partner for certified aerospace parts.',
-    url: 'https://aeroturbinespare.com/about',
-    siteName: 'AeroTurbineSpare',
+    url: `${SITE_URL}/about`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About AeroTurbineSpare',
     description: 'ISO 9001 & AS9120 certified. 5M+ parts. 150+ countries. Trusted by OEMs & MROs since 2009.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };

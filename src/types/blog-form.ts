@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SEO_TITLE_MAX, SEO_DESC_MAX } from '@/lib/constants';
 
 export const blogFormSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be under 200 characters'),
@@ -6,8 +7,8 @@ export const blogFormSchema = z.object({
   excerpt: z.string().max(500, 'Excerpt must be under 500 characters'),
   coverImage: z.string(),
   coverAlt: z.string(),
-  metaTitle: z.string().max(60, 'Meta title should be under 60 characters'),
-  metaDesc: z.string().max(160, 'Meta description should be under 160 characters'),
+  metaTitle: z.string().max(SEO_TITLE_MAX, 'Meta title should be under 60 characters'),
+  metaDesc: z.string().max(SEO_DESC_MAX, 'Meta description should be under 160 characters'),
   slug: z.string(),
   focusKw: z.string(),
   canonicalUrl: z.string(),

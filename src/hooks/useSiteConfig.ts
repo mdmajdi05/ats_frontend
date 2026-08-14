@@ -1,6 +1,7 @@
 'use client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { request } from '@/lib/api-client';
+import { SITE_PHONE_PRIMARY, SITE_PHONE_SECONDARY, SITE_PHONE_WHATSAPP } from '@/lib/constants';
 import type { SiteConfig } from '@/types';
 
 export const siteConfigKeys = {
@@ -14,7 +15,7 @@ export const DEFAULT_CHAT_CONFIG = {
   greetingMessage: 'Hello! Welcome to AeroTurbineSpare. How can I help you today?',
   whatsappEnabled: true,
   whatsappMode: 'normal' as const,
-  whatsappNumber: '',
+  whatsappNumber: SITE_PHONE_WHATSAPP,
   whatsappBusinessPhoneId: '',
   whatsappBusinessAccountId: '',
   whatsappBusinessToken: '',
@@ -51,6 +52,8 @@ export const DEFAULT_CONFIG: SiteConfig = {
   heroCta1Href:   '/catalog',
   heroCta2Label:  'Request a Quote',
   heroCta2Href:   '/rfq',
+  contactPhonePrimary:   SITE_PHONE_PRIMARY,
+  contactPhoneSecondary: SITE_PHONE_SECONDARY,
   chat: DEFAULT_CHAT_CONFIG,
   updatedAt: '',
   updatedBy: 'system',
@@ -63,7 +66,10 @@ function mergeWithDefaults(data: SiteConfig): SiteConfig {
     chat: {
       ...DEFAULT_CHAT_CONFIG,
       ...(data.chat || {}),
+      whatsappNumber: data.chat?.whatsappNumber || SITE_PHONE_WHATSAPP,
     },
+    contactPhonePrimary:   data.contactPhonePrimary   ?? SITE_PHONE_PRIMARY,
+    contactPhoneSecondary: data.contactPhoneSecondary ?? SITE_PHONE_SECONDARY,
   };
 }
 

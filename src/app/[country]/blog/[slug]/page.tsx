@@ -1,4 +1,5 @@
 export { default } from '@/app/blog/[slug]/page'
+export { generateMetadata } from '@/app/blog/[slug]/page'
 
 export async function generateStaticParams() {
   try {

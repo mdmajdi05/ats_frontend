@@ -1,36 +1,76 @@
-# AeroTurbineSpare - Global Gas Turbine Parts Supplier
+# AeroTurbineSpare - Global Gas Turbine Spare Parts Supplier
 
-> AeroTurbineSpare is a global supplier of gas turbine spare parts and aerospace components for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo Energia platforms.
+> AeroTurbineSpare is a global supplier of gas turbine spare parts and aerospace components for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo Energia platforms. Headquartered in Doral, Florida, USA, we supply OEM-equivalent and traceable parts to 150+ countries with full documentation. CAGE Code 8ATR9.
+
+## Company
+
+- Company: AeroTurbineSpare
+- Headquarters: 1360-1362 NW 78th Ave, Doral, FL 33126, USA
+- Email: sales@aeroturbinespare.com
+- CAGE Code: 8ATR9
+- Certifications: ISO 9001:2015, AS9120 Rev B
+- Website: https://aeroturbinespare.com
+- Phone: See https://aeroturbinespare.com/contact for current contact numbers
 
 ## Key Pages
 
-- [Home](https://aeroturbinespare.com) - Main page with search and inventory
-- [Catalog](https://aeroturbinespare.com/catalog) - Browse all turbine parts
-- [Request a Quote](https://aeroturbinespare.com/rfq) - Submit RFQ for parts
-- [About Us](https://aeroturbinespare.com/about) - Company information and certifications
-- [Industries](https://aeroturbinespare.com/industries) - Industries we serve
-- [Blog](https://aeroturbinespare.com/blog) - News and articles
-- [Contact](https://aeroturbinespare.com/contact) - Get in touch
+- [Home](https://aeroturbinespare.com): Main page with search and inventory
+- [Catalog](https://aeroturbinespare.com/catalog): Browse all turbine spare parts
+- [Request a Quote](https://aeroturbinespare.com/rfq): Submit RFQ for parts
+- [About Us](https://aeroturbinespare.com/about): Company information and certifications
+- [Industries](https://aeroturbinespare.com/industries): Industries we serve
+- [Blog](https://aeroturbinespare.com/blog): News, guides and articles
+- [Contact](https://aeroturbinespare.com/contact): Get in touch
+- [Quality](https://aeroturbinespare.com/quality): Quality assurance and documentation
+
+## Turbine Platforms We Support
+
+- [GE Frame 5/6/7/9 Parts](https://aeroturbinespare.com/catalog?category=ge-frame-5-6-7-9)
+- [GE LM2500 Parts](https://aeroturbinespare.com/catalog?category=lm2500)
+- [GE LM6000 Parts](https://aeroturbinespare.com/catalog?category=lm6000)
+- [GE LM9000 Parts](https://aeroturbinespare.com/catalog?category=lm9000)
+- [GE LMS100 Parts](https://aeroturbinespare.com/catalog?category=lms100)
+- [Siemens SGT Parts](https://aeroturbinespare.com/catalog?category=siemens)
+- [Rolls-Royce Turbine Parts](https://aeroturbinespare.com/catalog?category=rolls-royce)
+- [Solar Turbines Parts](https://aeroturbinespare.com/catalog?category=solar-turbines)
+- [Alstom Gas Turbine Parts](https://aeroturbinespare.com/catalog?category=alstom)
+- [Ansaldo Energia Parts](https://aeroturbinespare.com/catalog?category=ansaldo)
+
+## Part Categories
+
+- [Turbine Blades & Nozzles](https://aeroturbinespare.com/catalog?category=blades-nozzles)
+- [Combustion Systems](https://aeroturbinespare.com/catalog?category=combustion)
+- [Fuel Systems & Injection](https://aeroturbinespare.com/catalog?category=fuel-systems)
+- [Transition Pieces & Ducts](https://aeroturbinespare.com/catalog?category=transition-pieces)
+- [Speedtronic Control Systems](https://aeroturbinespare.com/catalog?category=control-systems)
+- [Bently Nevada Monitoring](https://aeroturbinespare.com/catalog?category=bently-nevada)
+- [Sensors & Instrumentation](https://aeroturbinespare.com/catalog?category=sensors)
+- [Actuators & Servo Valves](https://aeroturbinespare.com/catalog?category=actuators)
+- [Bearings & Seals](https://aeroturbinespare.com/catalog?category=bearings-seals)
+- [Lube Oil & Cooling Systems](https://aeroturbinespare.com/catalog?category=lube-oil)
+- [Generator & Excitation Parts](https://aeroturbinespare.com/catalog?category=generator)
+- [NSN-Referenced Parts](https://aeroturbinespare.com/catalog?category=nsn-parts)
+- [CAGE Code Parts](https://aeroturbinespare.com/catalog?category=cage-code)
+- [Obsolete & Legacy Parts](https://aeroturbinespare.com/catalog?category=obsolete-parts)
+- [Hot Stock / Quick-Ship Items](https://aeroturbinespare.com/catalog?category=hot-stock)
+- [Cross-Reference Parts](https://aeroturbinespare.com/catalog?category=cross-reference)
 
 ## What We Do
 
-- Supply OEM-equivalent gas turbine spare parts (blades, combustion liners, nozzles, bearings, controls)
+- Supply OEM-equivalent gas turbine spare parts (blades, combustion liners, nozzles, bearings, controls, sensors, actuators)
 - Source hard-to-find and obsolete aerospace components
 - Provide NSN/CAGE-referenced parts for military and commercial aviation
+- Offer cross-referencing of OEM part numbers across platforms
 - Ship to 150+ countries with full traceability documentation
 
-## Certifications
+## FAQ
 
-- ISO 9001:2015
-- AS9120 Rev B
-- CAGE Code: 8ATR9
-
-## Contact
-
-- Phone: +91 9354764587
-- Email: sales@aeroturbinespare.com
-- Address: 1360-1362 NW 78th Ave, Doral, FL 33126, USA
+- Where can I find a part? Use the [catalog search](https://aeroturbinespare.com/catalog) or [request a quote](https://aeroturbinespare.com/rfq).
+- Do you supply OEM parts? We supply OEM-equivalent and traceable aftermarket parts with full documentation.
+- Can you source obsolete parts? Yes, we specialize in obsolete and legacy turbine parts.
+- What certifications do you hold? ISO 9001:2015 and AS9120 Rev B. CAGE Code 8ATR9.
+- Do you ship internationally? Yes, we ship to 150+ countries.
 
 ## Crawling
 
-You may crawl this website for indexing purposes. Product pages, category pages, and blog posts are publicly accessible. Admin and dashboard pages require authentication.
+You may crawl this website for indexing purposes. Product pages, category pages, and blog posts are publicly accessible. Admin and dashboard pages require authentication and are excluded. A more detailed machine-readable index is available at https://aeroturbinespare.com/llms-full.txt. An RSS feed of new content is at https://aeroturbinespare.com/blog/rss.xml.

@@ -18,6 +18,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import { BreadcrumbJsonLd, ContactPageJsonLd } from '@/components/seo/JsonLd';
+import { useSiteConfig } from '@/hooks/useSiteConfig';
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
@@ -70,6 +71,11 @@ const CONTACT_CARDS = [
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const { config } = useSiteConfig();
+
+  const phonePrimary   = config.contactPhonePrimary   || '';
+  const phoneSecondary = config.contactPhoneSecondary || '';
+  const phoneWhatsapp  = config.chat?.whatsappNumber  || '';
 
   const {
     register,
@@ -186,9 +192,40 @@ export default function ContactPage() {
                         <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 text-sm">
-                      <Phone className="w-5 h-5 text-orange flex-shrink-0" />
-                      <span className="text-text hover:text-orange transition-colors font-medium"></span>
+                    <div className="flex items-start gap-3 text-sm">
+                      <Phone className="w-5 h-5 text-orange flex-shrink-0 mt-0.5" />
+                      <div className="space-y-1">
+                        <div className="font-semibold text-text mb-0.5">Phone</div>
+                        {phonePrimary && (
+                          <a
+                            href={`tel:+${phonePrimary.replace(/\D/g, '')}`}
+                            className="block text-text hover:text-orange transition-colors font-medium"
+                          >
+                            {phonePrimary}
+                          </a>
+                        )}
+                        {phoneSecondary && (
+                          <a
+                            href={`tel:+${phoneSecondary.replace(/\D/g, '')}`}
+                            className="block text-text hover:text-orange transition-colors font-medium"
+                          >
+                            {phoneSecondary}
+                          </a>
+                        )}
+                        {phoneWhatsapp && (
+                          <a
+                            href={`https://wa.me/${phoneWhatsapp.replace(/\D/g, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-success hover:text-orange transition-colors font-medium"
+                          >
+                            WhatsApp: {phoneWhatsapp}
+                          </a>
+                        )}
+                        {!phonePrimary && !phoneSecondary && (
+                          <span className="text-text-muted">Available via email or the form below</span>
+                        )}
+                      </div>
                     </div>
                     <div className="flex items-center gap-3 text-sm">
                       <Mail className="w-5 h-5 text-orange flex-shrink-0" />

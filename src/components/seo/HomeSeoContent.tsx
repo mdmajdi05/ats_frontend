@@ -1,9 +1,9 @@
 export default function HomeSeoContent() {
   return (
     <div className="sr-only" aria-hidden="false">
-      <h1>Gas Turbine Spare Parts Supplier – GE, Siemens &amp; Rolls-Royce</h1>
+      <h2>Gas Turbine Spare Parts Supplier – GE Frame 6B, 7FA, 9E, MS6001 &amp; LM2500 Parts for Sale</h2>
       <p>
-        Aero Turbine Spares is a leading global supplier of gas turbine spare parts for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo platforms. With over 5 million NSN/CAGE-referenced parts in inventory, we stock new, refurbished, and serviceable turbine blades, nozzles, combustion liners, transition pieces, fuel nozzles, compressor components, and aftermarket parts for heavy-duty and aeroderivative gas turbines.
+        Aero Turbine Spares is a leading global supplier of gas turbine spare parts for GE, Siemens, Rolls-Royce, Solar Turbines, Alstom, and Ansaldo platforms. With over 5 million NSN/CAGE-referenced parts in inventory, we stock new, refurbished, and serviceable turbine blades, nozzles, combustion liners, transition pieces, fuel nozzles, compressor components, and aftermarket parts for heavy-duty and aeroderivative gas turbines. Buy GE Frame 6B and 7FA spare parts, MS6001 and MS7001 turbine components, LM2500 and LM6000 aeroderivative parts, and stage 1, 2 and 3 buckets and nozzles for planned outages.
       </p>
       <p><strong>OEM-Quality Gas Turbine Replacement Parts</strong></p>
       <p>
@@ -17,6 +17,7 @@ export default function HomeSeoContent() {
         <li>Fuel Nozzles and Fuel System Components</li>
         <li>Compressor Blades, Vanes and IGVs</li>
         <li>Shrouds, Seals and Hardware</li>
+        <li>Turbine Discs and Rotor Assemblies</li>
       </ul>
       <p><strong>Why Choose Aero Turbine Spares</strong></p>
       <ul>
@@ -33,6 +34,8 @@ export default function HomeSeoContent() {
       <nav aria-label="Quick links">
         <a href="/us/catalog">Browse Parts Catalog</a>
         <a href="/us/ge-gas-turbine-parts">GE Gas Turbine Parts</a>
+        <a href="/us/ms6001-parts">GE MS6001 Parts</a>
+        <a href="/us/ms7001-parts">GE MS7001 Parts</a>
         <a href="/us/siemens-gas-turbine-parts">Siemens Gas Turbine Parts</a>
         <a href="/us/siemens-sgt800-parts">Siemens SGT-800 Parts</a>
         <a href="/us/rolls-royce-turbine-parts">Rolls-Royce Turbine Parts</a>
@@ -43,6 +46,12 @@ export default function HomeSeoContent() {
         <a href="/us/ge-lm6000-parts">GE LM6000 Parts</a>
         <a href="/us/ge-frame-9e-parts">GE Frame 9E Parts</a>
         <a href="/us/rolls-royce-rb211-parts">Rolls-Royce RB211 Parts</a>
+        <a href="/us/parts/transition-pieces">Gas Turbine Transition Pieces</a>
+        <a href="/us/parts/turbine-shrouds">Turbine Shrouds</a>
+        <a href="/us/parts/turbine-discs">Turbine Discs &amp; Rotors</a>
+        <a href="/us/parts/turbine-blades">Turbine Blades &amp; Buckets</a>
+        <a href="/us/parts/combustion-liners">Combustion Liners</a>
+        <a href="/us/parts/fuel-nozzles">Fuel Nozzles</a>
         <a href="/us/about">About Us</a>
         <a href="/us/quality">Quality Assurance</a>
         <a href="/us/rfq">Request a Quote</a>

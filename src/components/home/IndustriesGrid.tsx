@@ -6,7 +6,7 @@ import { Zap, Flame, Ship, Factory, Shield, Package, ArrowUpRight, Target } from
 import { cn } from '@/lib/utils';
 import type { Industry } from '@/types';
 import { request } from '@/lib/api-client';
-import fallbackIndustries from '@/data/industries-fallback.json';
+import fallbackIndustries from '@/data/industries/industries.json';
 import type { ElementType } from 'react';
 
 const INDUSTRY_ICONS: Record<string, ElementType> = {

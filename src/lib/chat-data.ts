@@ -1,3 +1,5 @@
+import { SITE_URL } from '@/lib/constants';
+
 export const COMPANY_INFO = {
   name: 'AeroTurbineSpare',
   tagline: 'Precision Aerospace Parts Sourcing — Fast, Certified, Global',
@@ -11,7 +13,7 @@ export const COMPANY_INFO = {
   address: '1360-1362 NW 78th Ave, Doral, FL 33126, USA',
   certifications: ['ISO 9001', 'AS9120B'],
   founded: '2018',
-  website: 'https://aeroturbinespare.com',
+  website: SITE_URL,
 };
 
 export const QUICK_SUGGESTIONS = [

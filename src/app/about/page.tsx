@@ -3,28 +3,24 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { MapPin, Phone, Mail, Clock, Award, Globe, Shield, Zap } from 'lucide-react';
 import { BreadcrumbJsonLd, AboutPageJsonLd } from '@/components/seo/JsonLd';
-import { buildHreflang } from '@/lib/seo';
+import { seoMeta } from '@/lib/seo';
+import { SITE_PHONE_PRIMARY, SITE_PHONE_SECONDARY } from '@/lib/constants';
 
-export const metadata: Metadata = {
-  title: 'About Aero Turbine Spares',
+export const metadata: Metadata = seoMeta({
+  title: 'About Us — Gas Turbine Parts Distributor',
   description:
     'ISO 9001 & AS9120 certified gas turbine parts distributor. CAGE 8ATR9. 5M+ parts, 150+ countries, 24-hr quotes. Trusted by OEMs & MROs since 2009.',
+  path: '/about',
   keywords: [
     'about AeroTurbineSpare', 'gas turbine parts distributor',
     'ISO 9001 certified aerospace parts', 'AS9120 certified distributor',
     'CAGE 8ATR9', 'GE turbine parts supplier',
     'Siemens turbine parts distributor', 'aerospace parts company',
   ],
-  alternates: {
-    canonical: 'https://aeroturbinespare.com/about',
-    languages: buildHreflang('/about'),
-  },
-  openGraph: {
-    title: 'About Aero Turbine Spares',
-    description:
-      'ISO 9001 & AS9120 certified. CAGE 8ATR9. Serving 150+ countries since 2009. 5 Million+ turbine spare parts.',
-  },
-};
+  ogDescription:
+    'ISO 9001 & AS9120 certified. CAGE 8ATR9. Serving 150+ countries since 2009. 5 Million+ turbine spare parts.',
+  twitterDescription: 'ISO 9001 & AS9120 certified. CAGE 8ATR9. 5M+ parts. 150+ countries.',
+});
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -357,10 +353,28 @@ export default function AboutPage() {
                        <span>1360-1362 NW 78th Ave, <br />Doral, FL 33126, USA</span>
                       </div>
                     </li>
-                    <li className="flex items-center gap-3 text-sm">
-                      <Phone className="w-5 h-5 text-orange flex-shrink-0" />
-                      <span className="text-text hover:text-orange transition-colors font-medium"></span>
-                    </li>
+                    {SITE_PHONE_PRIMARY && (
+                      <li className="flex items-center gap-3 text-sm">
+                        <Phone className="w-5 h-5 text-orange flex-shrink-0" />
+                        <a
+                          href={`tel:+${SITE_PHONE_PRIMARY.replace(/\D/g, '')}`}
+                          className="text-text hover:text-orange transition-colors font-medium"
+                        >
+                          {SITE_PHONE_PRIMARY}
+                        </a>
+                      </li>
+                    )}
+                    {SITE_PHONE_SECONDARY && (
+                      <li className="flex items-center gap-3 text-sm">
+                        <Phone className="w-5 h-5 text-orange flex-shrink-0" />
+                        <a
+                          href={`tel:+${SITE_PHONE_SECONDARY.replace(/\D/g, '')}`}
+                          className="text-text hover:text-orange transition-colors font-medium"
+                        >
+                          {SITE_PHONE_SECONDARY}
+                        </a>
+                      </li>
+                    )}
                     <li className="flex items-center gap-3 text-sm">
                       <Mail className="w-5 h-5 text-orange flex-shrink-0" />
                       <a

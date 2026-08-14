@@ -10,6 +10,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import ListView from '@/components/catalog/ListView';
 import CardView from '@/components/catalog/CardView';
 import { cn } from '@/lib/utils';
@@ -204,6 +205,11 @@ export default function PartCategoryPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Parts', url: '/catalog' },
+        { name: category.name, url: `/parts/${category.slug}` },
+      ]} />
       <Header />
 
       <main className="flex-1">

@@ -7,6 +7,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PostCard from '@/components/blog/PostCard';
 import { blogService } from '@/services/blogService';
+import Breadcrumb from '@/components/ui/Breadcrumb';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import type { BlogPost, BlogTag } from '@/types/blog';
 
 export default function TagArchivePage() {
@@ -32,11 +34,24 @@ export default function TagArchivePage() {
 
   return (
     <>
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Blog', url: '/blog' },
+        { name: tag?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()), url: `/blog/tag/${slug}` },
+      ]} />
       <Header />
       <main>
         {/* Hero */}
         <section className="bg-gradient-to-br from-[#0A1628] to-[#1A1A2E] py-16 px-4">
           <div className="max-w-7xl mx-auto text-center">
+            <Breadcrumb
+              className="mb-4 justify-center [&_a]:text-white/60 [&_a:hover]:text-orange [&_span]:text-white/80"
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Blog', href: '/blog' },
+                { label: `#${tag?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}` },
+              ]}
+            />
             <p className="text-[#E8751A] text-xs font-semibold uppercase tracking-[0.2em] mb-3">Tag</p>
             <h1 className="text-white font-bold text-4xl md:text-5xl mb-4">
               #{tag?.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}

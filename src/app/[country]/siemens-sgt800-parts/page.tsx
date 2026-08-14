@@ -4,34 +4,36 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, CheckCircle, Cpu, Thermometer, Wind, Cog, Gauge, Package, Wrench } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Siemens SGT-800 Parts — Combustion, Turbine & Compressor Components',
-  description: 'Source Siemens SGT-800 gas turbine spare parts including combustion liners, burner modules, rotor blades, compressor vanes & fuel nozzles. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'Siemens SGT-800 Parts — Combustion Parts',
+  description: 'Source Siemens SGT-800 gas turbine spare parts: combustion liners, burner modules, turbine & compressor components. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
   keywords: [
     'Siemens SGT-800 parts', 'SGT-800 gas turbine', 'SGT-800 combustion liners',
     'SGT-800 burner modules', 'SGT-800 rotor blades', 'SGT-800 fuel nozzles',
     'SGT-800 compressor vanes', 'SGT-800 turbine components',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/siemens-sgt800-parts',
+    canonical: `${SITE_URL}/siemens-sgt800-parts`,
     languages: buildHreflang('/siemens-sgt800-parts'),
   },
   openGraph: {
-    title: 'Siemens SGT-800 Parts — Combustion, Turbine & Compressor Components',
-    description: 'Source Siemens SGT-800 gas turbine spare parts including combustion liners, burner modules, rotor blades & compressor vanes. 5M+ NSN/CAGE parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/siemens-sgt800-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'Siemens SGT-800 Parts — Combustion & Turbine Components',
+    description: 'Source Siemens SGT-800 gas turbine spare parts: combustion liners, burner modules, turbine & compressor components. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/siemens-sgt800-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Siemens SGT-800 Parts',
+    title: 'Siemens SGT-800 Parts — Combustion & Turbine',
     description: 'Source Siemens SGT-800 gas turbine parts. 5M+ NSN/CAGE. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -133,7 +135,7 @@ export default async function SiemensSGT800Page({ params }: { params: Promise<{ 
   const { country } = await params;
   const prefix = country ? `/${country}` : '';
 
-  const siteUrl = 'https://aeroturbinespare.com';
+  const siteUrl = SITE_URL;
 
   const pageSchemas = [
     {
@@ -307,6 +309,23 @@ export default async function SiemensSGT800Page({ params }: { params: Promise<{ 
         </section>
 
       </main>
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/siemens-gas-turbine-parts', label: 'Siemens Gas Turbine Parts', description: 'Complete Siemens industrial gas turbine spare parts range.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/turbine-shrouds', label: 'Turbine Shrouds', description: 'Stage 1-3 shroud blocks, seals, and retention hardware for every major frame.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'Transition pieces and combustion ducts for can-annular turbine frames.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
+
       <Footer />
     </>
   );

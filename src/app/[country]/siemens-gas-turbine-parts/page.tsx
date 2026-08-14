@@ -4,11 +4,13 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Clock, BadgeCheck, PackageSearch, Award, Cog, Flame, Gauge, Wind, ArrowRight, CheckCircle, Fuel, Thermometer, Fan, Settings2 } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Siemens Gas Turbine Spare Parts — SGT-100 to SGT-8000H',
-  description: 'Source Siemens gas turbine spare parts for SGT-100, SGT-300, SGT-400, SGT-600, SGT-750, SGT-800, SGT5-2000E, SGT5-4000F & SGT5-8000H. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified. 24-hour quotes.',
+  title: 'Siemens Gas Turbine Spare Parts — All SGT',
+  description: 'Source Siemens gas turbine spare parts for SGT-100, SGT-300, SGT-400, SGT-600, SGT-750, SGT-800 & SGT-8000H. ISO 9001 & AS9120 certified. 24-hour quotes.',
   keywords: [
     'Siemens gas turbine spare parts', 'SGT-100', 'SGT-300',
     'SGT-400', 'SGT-600', 'SGT-750', 'SGT-800',
@@ -18,23 +20,23 @@ export const metadata: Metadata = {
     'Siemens combustion parts', 'Siemens hot gas path',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/siemens-gas-turbine-parts',
+    canonical: `${SITE_URL}/siemens-gas-turbine-parts`,
     languages: buildHreflang('/siemens-gas-turbine-parts'),
   },
   openGraph: {
     title: 'Siemens Gas Turbine Spare Parts — SGT-100 to SGT-8000H',
-    description: 'Source Siemens gas turbine spare parts for SGT-100, SGT-300, SGT-400, SGT-600, SGT-750, SGT-800, SGT5-2000E, SGT5-4000F & SGT5-8000H. 5M+ NSN/CAGE parts. ISO 9001 & AS9120 certified.',
-    url: 'https://aeroturbinespare.com/siemens-gas-turbine-parts',
-    siteName: 'AeroTurbineSpare',
+    description: 'Source Siemens gas turbine spare parts for SGT-100, SGT-300, SGT-400, SGT-600, SGT-750, SGT-800 & SGT-8000H. ISO 9001 & AS9120 certified. 24-hour quotes.',
+    url: `${SITE_URL}/siemens-gas-turbine-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Siemens Gas Turbine Spare Parts — SGT-100 to SGT-8000H',
+    title: 'Siemens Gas Turbine Spare Parts',
     description: 'Source Siemens gas turbine spare parts for all SGT models. ISO 9001 & AS9120 certified. CAGE 8ATR9. 5M+ parts. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -418,6 +420,22 @@ export default async function SiemensGasTurbinePage({ params }: { params: Promis
 
         <SchemaInjector pageKey="siemens-gas-turbine-parts" />
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/siemens-sgt800-parts', label: 'Siemens SGT-800 Parts', description: 'SGT-800 blades, vanes, and combustion hardware.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/turbine-shrouds', label: 'Turbine Shrouds', description: 'Stage 1-3 shroud blocks, seals, and retention hardware for every major frame.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

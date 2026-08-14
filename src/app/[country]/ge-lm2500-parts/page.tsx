@@ -4,12 +4,14 @@ import Footer from '@/components/layout/Footer';
 import { Shield, Award, Zap, Globe, Box, Wind, Flame, Gauge, Cog, Activity, Cpu } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import CountriesWeServe from '@/components/country/CountriesWeServe';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'GE LM2500 Parts — Gas Generator, Power Turbine & Hot Section Components',
-  description: 'Source GE LM2500, LM2500+, LM2500+G4 & LM2500 DLE gas turbine parts. 5M+ NSN/CAGE parts. ISO 9001/AS9120. 24-hour quotes. Worldwide shipping.',
+  title: 'GE LM2500 Parts — Blades, Fuel Nozzles',
+  description: 'Source GE LM2500, LM2500+ & LM2500+G4 turbine parts: blades, fuel nozzles, combustion & power turbine components. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
   keywords: [
     'GE LM2500 parts', 'LM2500+ gas turbine parts', 'LM2500+G4 parts',
     'LM2500 DLE parts', 'gas generator module', 'power turbine blades',
@@ -17,23 +19,23 @@ export const metadata: Metadata = {
     'marine gas turbine parts', 'industrial gas turbine components',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/ge-lm2500-parts',
+    canonical: `${SITE_URL}/ge-lm2500-parts`,
     languages: buildHreflang('/ge-lm2500-parts'),
   },
   openGraph: {
-    title: 'GE LM2500 Parts — Gas Generator, Power Turbine & Hot Section Components',
-    description: 'Source GE LM2500, LM2500+, LM2500+G4 & LM2500 DLE gas turbine parts. 5M+ NSN/CAGE parts. ISO 9001/AS9120. 24-hour quotes. Worldwide shipping.',
-    url: 'https://aeroturbinespare.com/ge-lm2500-parts',
-    siteName: 'AeroTurbineSpare',
+    title: 'GE LM2500 Parts — Turbine Blades, Fuel Nozzles & Combustion',
+    description: 'Source GE LM2500, LM2500+ & LM2500+G4 turbine parts: blades, fuel nozzles, combustion & power turbine components. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/ge-lm2500-parts`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GE LM2500 Parts — Gas Generator, Power Turbine & Hot Section Components',
-    description: 'Source GE LM2500, LM2500+, LM2500+G4 & LM2500 DLE gas turbine parts. ISO 9001/AS9120. 24-hour quotes. Worldwide shipping.',
-    images: ['/images/og-cover.jpg'],
+    title: 'GE LM2500 Parts — Turbine Blades, Fuel Nozzles & Combustion',
+    description: 'Source GE LM2500 turbine parts: blades, fuel nozzles, combustion & power turbine components. ISO 9001 & AS9120.',
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -283,6 +285,23 @@ export default async function GeLm2500PartsPage({ params }: { params: Promise<{ 
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/ge-lm6000-parts', label: 'GE LM6000 Parts', description: 'Aeroderivative LM6000 / LM6000-PC / LM6000-PF turbine spare parts.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/fuel-nozzles', label: 'Fuel Nozzles', description: 'DLN and conventional fuel nozzle assemblies with OEM-equivalent flow numbers.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/parts/turbine-shrouds', label: 'Turbine Shrouds', description: 'Stage 1-3 shroud blocks, seals, and retention hardware for every major frame.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/parts/transition-pieces', label: 'Transition Pieces', description: 'Transition pieces and combustion ducts for can-annular turbine frames.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

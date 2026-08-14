@@ -4,36 +4,42 @@ import Footer from '@/components/layout/Footer';
 import { Flame, Shield, Zap, Truck, ClipboardCheck, ArrowRight, RefreshCw, Wrench, Search, Package, Droplets, Wind } from 'lucide-react';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import RelatedPages from '@/components/seo/RelatedPages';
 import { buildHreflang } from '@/lib/seo';
+import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Gas Turbine Fuel Nozzles — GE, Siemens, Rolls-Royce & Solar',
-  description: 'Source new, refurbished & serviceable gas turbine fuel nozzles for GE DLN, Siemens SGT, Rolls-Royce & Solar Turbines. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
+  title: 'Gas Turbine Fuel Nozzles — GE & Siemens',
+  description: 'Source new, refurbished & serviceable gas turbine fuel nozzles for GE DLN, Siemens SGT, Rolls-Royce & Solar. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
   keywords: [
     'gas turbine fuel nozzles', 'GE fuel nozzle', 'Siemens SGT fuel nozzle',
     'Rolls-Royce fuel nozzle', 'Solar Turbines fuel nozzle',
     'GE DLN fuel nozzle', 'GE Frame 6B fuel nozzle', 'GE Frame 7FA fuel nozzle',
     'LM2500 fuel nozzle', 'LM6000 fuel nozzle',
     'new fuel nozzles', 'refurbished fuel nozzles', 'serviceable fuel nozzles',
+    'frame 6b fuel nozzle DLN 1', 'frame 6b dual fuel nozzle 91170387g022',
+    'frame 7fa fuel nozzle DLN 2.6', 'GE LM2500 fuel nozzle assembly',
+    'fuel nozzle flow test and repair', 'DLN 1 premix fuel nozzle',
+    'MS6001 primary fuel nozzle price',
   ],
   alternates: {
-    canonical: 'https://aeroturbinespare.com/parts/fuel-nozzles',
+    canonical: `${SITE_URL}/parts/fuel-nozzles`,
     languages: buildHreflang('/parts/fuel-nozzles'),
   },
   openGraph: {
     title: 'Gas Turbine Fuel Nozzles — GE, Siemens, Rolls-Royce & Solar',
-    description: 'Source new, refurbished & serviceable gas turbine fuel nozzles for GE DLN, Siemens SGT, Rolls-Royce & Solar Turbines. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
-    url: 'https://aeroturbinespare.com/parts/fuel-nozzles',
-    siteName: 'AeroTurbineSpare',
+    description: 'Source new, refurbished & serviceable gas turbine fuel nozzles for GE DLN, Siemens SGT, Rolls-Royce & Solar. 5M+ NSN/CAGE. ISO 9001 & AS9120 certified.',
+    url: `${SITE_URL}/parts/fuel-nozzles`,
+    siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
-    images: [{ url: '/images/og-cover.jpg', width: 1200, height: 630 }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Gas Turbine Fuel Nozzles — GE, Siemens, Rolls-Royce & Solar',
     description: 'New, refurbished & serviceable gas turbine fuel nozzles for GE, Siemens, Rolls-Royce & Solar Turbines. 5M+ parts. ISO 9001 & AS9120. 24-hour quotes.',
-    images: ['/images/og-cover.jpg'],
+    images: [OG_IMAGE],
   },
   robots: { index: true, follow: true },
 };
@@ -366,6 +372,23 @@ export default async function FuelNozzlesPage({ params }: { params: Promise<{ co
           </div>
         </section>
       </main>
+
+        <RelatedPages
+          prefix={prefix}
+          links={[
+            { href: '/parts/combustion-liners', label: 'Combustion Liners', description: 'Can-annular combustion liners for GE, Siemens, Rolls-Royce, and Solar turbines.' },
+            { href: '/parts/turbine-blades', label: 'Turbine Blades', description: 'Stage 1-3 buckets and nozzles with DS/single-crystal material options.' },
+            { href: '/ge-frame-6b-parts', label: 'GE Frame 6B Parts', description: 'MS6001B hot gas path and combustion components for the 42 MW platform.' },
+            { href: '/ms6001-parts', label: 'GE MS6001 Parts', description: 'Frame 6 turbine spares and components for the full MS6001 series.' },
+            { href: '/ge-lm2500-parts', label: 'GE LM2500 Parts', description: 'Aeroderivative LM2500 / LM2500+ / LM2500+G4 turbine spare parts.' },
+            { href: '/ge-frame-7fa-parts', label: 'GE Frame 7FA Parts', description: 'MS7001FA hot gas path, combustion, and turbine components for the 7FA platform.' },
+            { href: '/ms7001-parts', label: 'GE MS7001 Parts', description: 'Frame 7 turbine spares and components for the full MS7001 series.' },
+            { href: '/parts/turbine-discs', label: 'Turbine Discs & Rotors', description: 'New and refurbished turbine discs and rotor assemblies.' },
+            { href: '/siemens-sgt800-parts', label: 'Siemens SGT-800 Parts', description: 'SGT-800 blades, vanes, and combustion hardware.' },
+            { href: '/catalog', label: 'Browse Full Catalog', description: 'Search 5M+ NSN/CAGE parts across every turbine platform we support.' },
+            { href: '/contact', label: 'Request a Quote', description: 'Submit your part numbers or NSNs for a binding quote within 24 hours.' },
+          ]}
+        />
 
       <Footer />
     </div>

@@ -18,6 +18,7 @@ import Card from '@/components/ui/Card';
 import PartCard from '@/components/catalog/PartCard';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
 import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
+import { SITE_URL } from '@/lib/constants';
 import { Skeleton, SkeletonCard } from '@/components/ui/Skeleton';
 import { cn, formatPrice, formatDate } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -190,7 +191,7 @@ export default function PartDetailPage({
           condition: product.condition === 'New' ? 'NewCondition' : 'UsedCondition',
           offers: {
             '@type': 'Offer',
-            url: `https://aeroturbinespare.com/catalog/${product.id}`,
+            url: `${SITE_URL}/catalog/${product.id}`,
             priceCurrency: product.currency,
             price: product.unitPrice > 0 ? product.unitPrice : undefined,
             availability: product.stockStatus === 'In Stock'

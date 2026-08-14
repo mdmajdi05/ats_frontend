@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PostCard from '@/components/blog/PostCard';
 import { useBlogPosts, useCategories, useTags } from '@/hooks/useBlogPosts';
-import localPosts from '@/data/blog-posts.json';
+import localPosts from '@/data/blog/posts.json';
 import type { BlogPost } from '@/types/blog';
 
 export default function BlogPage() {

@@ -168,7 +168,7 @@ export default function BrandingPage() {
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-medium mb-6">
               {draft.heroBadgeText}
             </div>
-            <h1 className="text-4xl font-bold leading-tight mb-4 max-w-2xl">{draft.heroHeading}</h1>
+            <div className="text-4xl font-bold leading-tight mb-4 max-w-2xl">{draft.heroHeading}</div>
             <p className="text-white/70 text-lg max-w-xl mb-8">{draft.heroSubheading}</p>
             <div className="flex gap-3">
               <span className="px-5 py-2.5 rounded-xl bg-[#4F46E5] text-white text-sm font-semibold">
@@ -513,6 +513,38 @@ export default function BrandingPage() {
                 />
                 <span className="text-sm text-[#1A1A2E]">Enable human handoff (flag for admin when no answer found)</span>
               </label>
+            </div>
+          </div>
+
+          <div className="border-t border-[#E8EDF2]" />
+
+          {/* Contact — Phone numbers (single source, site-wide) */}
+          <div>
+            <h3 className="text-sm font-semibold text-[#0A1628] mb-3">Contact Numbers</h3>
+            <p className="text-xs text-[#4A4A6A] mb-3">
+              These numbers appear across the site (contact page, schema, etc.). Updating here updates everywhere.
+            </p>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm text-[#4A4A6A] mb-1">Primary Phone</label>
+                <input
+                  type="text"
+                  value={draft.contactPhonePrimary || ''}
+                  onChange={(e) => setDraft((d) => ({ ...d, contactPhonePrimary: e.target.value }))}
+                  placeholder="+1 000 000 0000"
+                  className="w-full border border-[#E8EDF2] rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-[#4A4A6A] mb-1">Secondary Phone (optional)</label>
+                <input
+                  type="text"
+                  value={draft.contactPhoneSecondary || ''}
+                  onChange={(e) => setDraft((d) => ({ ...d, contactPhoneSecondary: e.target.value }))}
+                  placeholder="+1 000 000 0000"
+                  className="w-full border border-[#E8EDF2] rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
+                />
+              </div>
             </div>
           </div>
 

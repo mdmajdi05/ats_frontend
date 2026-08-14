@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import PostContentClient from './PostContent.client';
-import localPosts from '@/data/blog-posts.json';
+import localPosts from '@/data/blog/posts.json';
 import type { BlogPost, SchemaOverrides } from '@/types/blog';
+import { seoMeta } from '@/lib/seo';
+import { SITE_URL } from '@/lib/constants';
 
 export const revalidate = 600;
 
@@ -34,37 +36,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const title = post.metaTitle || post.title;
   const description = post.metaDesc || post.excerpt || '';
-  const canonical = post.canonicalUrl || `https://aeroturbinespare.com/blog/${post.slug}`;
+  const canonical = post.canonicalUrl || `${SITE_URL}/blog/${post.slug}`;
   const robotsIndex = post.robotsIndex !== false;
   const robotsFollow = post.robotsFollow !== false;
 
-  return {
+  return seoMeta({
     title,
     description,
-    metadataBase: new URL('https://aeroturbinespare.com'),
-    alternates: { canonical },
-    robots: {
-      index: robotsIndex,
-      follow: robotsFollow,
-    },
+    path: `/blog/${post.slug}`,
+    canonical,
+    keywords: [
+      post.title,
+      ...post.tags.map((t) => t.name),
+      'gas turbine spare parts',
+      'turbine parts sourcing',
+    ],
+    noIndex: !robotsIndex,
+    noFollow: !robotsFollow,
     openGraph: {
-      title,
-      description,
       type: 'article',
-      url: canonical,
-      images: post.coverImage ? [{ url: post.coverImage, width: 1200, height: 630 }] : [],
+      images: post.coverImage ? [{ url: post.coverImage, width: 1200, height: 630 }] : undefined,
       publishedTime: post.publishedAt || undefined,
       modifiedTime: post.updatedAt || undefined,
       authors: [post.author.fullName],
       tags: post.tags.map((t) => t.name),
     },
     twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: post.coverImage ? [post.coverImage] : [],
+      images: post.coverImage ? [post.coverImage] : undefined,
     },
-  };
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {

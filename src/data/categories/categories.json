@@ -1,0 +1,479 @@
+{
+    "fsgCategories":  [
+                          {
+                              "id":  "cat-01",
+                              "name":  "Aircraft Structural Components",
+                              "fsg":  "15",
+                              "fsc":  "1560",
+                              "description":  "Airframe structural parts, bulkheads, ribs, spars, and skin panels for fixed-wing aircraft.",
+                              "icon":  "plane",
+                              "partCount":  1840
+                          },
+                          {
+                              "id":  "cat-02",
+                              "name":  "Aircraft Components \u0026 Accessories",
+                              "fsg":  "16",
+                              "fsc":  "1660",
+                              "description":  "Flight controls, landing gear components, hydraulic actuators, and airframe accessories.",
+                              "icon":  "settings",
+                              "partCount":  2310
+                          },
+                          {
+                              "id":  "cat-03",
+                              "name":  "Gas Turbines \u0026 Jet Engines",
+                              "fsg":  "28",
+                              "fsc":  "2840",
+                              "description":  "Turbine blades, combustion chambers, compressor stages, and complete engine modules.",
+                              "icon":  "zap",
+                              "partCount":  3150
+                          },
+                          {
+                              "id":  "cat-04",
+                              "name":  "Engine Accessories",
+                              "fsg":  "29",
+                              "fsc":  "2915",
+                              "description":  "Fuel controls, oil pumps, starters, ignition systems, and engine-mounted accessories.",
+                              "icon":  "tool",
+                              "partCount":  1720
+                          },
+                          {
+                              "id":  "cat-05",
+                              "name":  "Bearings",
+                              "fsg":  "31",
+                              "fsc":  "3110",
+                              "description":  "Ball bearings, roller bearings, thrust bearings, and bearing assemblies for aerospace applications.",
+                              "icon":  "circle",
+                              "partCount":  980
+                          },
+                          {
+                              "id":  "cat-06",
+                              "name":  "Hardware \u0026 Abrasives",
+                              "fsg":  "53",
+                              "fsc":  "5305",
+                              "description":  "Aerospace-grade fasteners, bolts, nuts, washers, rivets, and precision hardware.",
+                              "icon":  "wrench",
+                              "partCount":  4200
+                          },
+                          {
+                              "id":  "cat-07",
+                              "name":  "Electronic Components",
+                              "fsg":  "59",
+                              "fsc":  "5962",
+                              "description":  "Avionics circuit boards, sensors, transistors, capacitors, and electronic sub-assemblies.",
+                              "icon":  "cpu",
+                              "partCount":  2680
+                          },
+                          {
+                              "id":  "cat-08",
+                              "name":  "Wire \u0026 Power Distribution",
+                              "fsg":  "61",
+                              "fsc":  "6105",
+                              "description":  "Mil-spec wire, cable assemblies, harnesses, connectors, and power distribution units.",
+                              "icon":  "activity",
+                              "partCount":  1560
+                          },
+                          {
+                              "id":  "cat-09",
+                              "name":  "Fire Control Equipment",
+                              "fsg":  "12",
+                              "fsc":  "1270",
+                              "description":  "Fire control computers, radar components, weapon system electronics, and targeting assemblies.",
+                              "icon":  "crosshair",
+                              "partCount":  640
+                          },
+                          {
+                              "id":  "cat-10",
+                              "name":  "Lighting Fixtures \u0026 Lamps",
+                              "fsg":  "62",
+                              "fsc":  "6210",
+                              "description":  "Aircraft interior and exterior lighting, position lights, anti-collision lights, and landing lights.",
+                              "icon":  "sun",
+                              "partCount":  520
+                          }
+                      ],
+    "industries":  [
+                       {
+                           "id":  "ind-01",
+                           "name":  "Power Generation",
+                           "slug":  "power-generation",
+                           "icon":  "zap",
+                           "description":  "Gas turbine spare parts and field support for baseload, peaking, and combined-cycle power plants running GE Frame and Siemens SGT units.",
+                           "longDescription":  "We supply certified gas turbine components for baseload, peaking, and combined-cycle power generation facilities. Our inventory covers hot gas path parts, rotor assemblies, and control system spares across GE Frame, Siemens SGT, and Alstom platform families.",
+                           "partCount":  12500,
+                           "keyParts":  [
+                                            "Turbine Blades",
+                                            "Combustion Liners",
+                                            "Transition Pieces",
+                                            "Fuel Nozzles",
+                                            "Control System Cards"
+                                        ],
+                           "clients":  [
+                                           "GE Power",
+                                           "Siemens Energy",
+                                           "Duke Energy",
+                                           "Southern Company",
+                                           "NextEra Energy"
+                                       ]
+                       },
+                       {
+                           "id":  "ind-02",
+                           "name":  "Oil \u0026 Gas",
+                           "slug":  "oil-gas",
+                           "icon":  "flame",
+                           "description":  "Turbine support for onshore and offshore operations, including LM2500 and LM6000 aeroderivative platforms used in compression and power applications.",
+                           "longDescription":  "We support oil and gas operators with turbine components for compression, pumping, and power generation. Our inventory covers aeroderivative platforms including LM2500, LM6000, and industrial frame units used in upstream, midstream, and downstream applications.",
+                           "partCount":  9800,
+                           "keyParts":  [
+                                            "Compressor Blades",
+                                            "Fuel Manifolds",
+                                            "Seal Kits",
+                                            "Bearing Assemblies",
+                                            "Control Valves"
+                                        ],
+                           "clients":  [
+                                           "ExxonMobil",
+                                           "Shell",
+                                           "BP",
+                                           "Saudi Aramco",
+                                           "Baker Hughes"
+                                       ]
+                       },
+                       {
+                           "id":  "ind-03",
+                           "name":  "Marine \u0026 Offshore",
+                           "slug":  "marine-offshore",
+                           "icon":  "ship",
+                           "description":  "Parts and technical support for marine gas turbine installations, where downtime isn\u0027t an option.",
+                           "longDescription":  "We supply components for marine gas turbine propulsion and auxiliary power systems. Our inventory supports naval and commercial marine installations including both aeroderivative and industrial frame units operating in offshore environments.",
+                           "partCount":  4200,
+                           "keyParts":  [
+                                            "Marine Turbine Blades",
+                                            "Propulsion System Parts",
+                                            "Heat Exchangers",
+                                            "Lube Oil Systems",
+                                            "Control Modules"
+                                        ],
+                           "clients":  [
+                                           "General Dynamics",
+                                           "Huntington Ingalls",
+                                           "Royal Caribbean",
+                                           "Carnival Corp",
+                                           "U.S. Navy"
+                                       ]
+                       },
+                       {
+                           "id":  "ind-04",
+                           "name":  "Industrial Manufacturing",
+                           "slug":  "industrial-manufacturing",
+                           "icon":  "factory",
+                           "description":  "Industrial gas turbine services for facilities running captive power and cogeneration units.",
+                           "longDescription":  "Our team supports industrial manufacturers operating gas turbines for captive power generation and cogeneration. We source components for Frame 5, Frame 6, and SGT-400 through SGT-800 units used in paper, chemical, and refining industries.",
+                           "partCount":  5600,
+                           "keyParts":  [
+                                            "Compressor Rotors",
+                                            "Turbine Vanes",
+                                            "Ignition Systems",
+                                            "Fuel Gas Skids",
+                                            "Vibration Probes"
+                                        ],
+                           "clients":  [
+                                           "Dow Chemical",
+                                           "BASF",
+                                           "ArcelorMittal",
+                                           "Kraft Heinz",
+                                           "Exelon"
+                                       ]
+                       },
+                       {
+                           "id":  "ind-05",
+                           "name":  "Utilities \u0026 Cogeneration",
+                           "slug":  "utilities-cogeneration",
+                           "icon":  "zap",
+                           "description":  "Reliable sourcing for utility-scale operators managing large turbine fleets across multiple sites.",
+                           "longDescription":  "We serve utility operators managing fleets of gas turbines across multiple power generation sites. Our sourcing covers planned maintenance outages and emergency requirements for 7F, 9F, SGT5-4000F, and GT26 platforms with full quality documentation.",
+                           "partCount":  7300,
+                           "keyParts":  [
+                                            "Combustion Baskets",
+                                            "Transition Ducts",
+                                            "Generator Components",
+                                            "Excitation Systems",
+                                            "Control Upgrades"
+                                        ],
+                           "clients":  [
+                                           "Tennessee Valley Authority",
+                                           "PG\u0026E",
+                                           "EDF",
+                                           "Enel",
+                                           "National Grid"
+                                       ]
+                       },
+                       {
+                           "id":  "ind-06",
+                           "name":  "Government \u0026 Defense Power",
+                           "slug":  "government-defense-power",
+                           "icon":  "shield",
+                           "description":  "NSN and CAGE-referenced turbine components for defense and government power installations, sourced with full documentation.",
+                           "longDescription":  "We supply NSN and CAGE-referenced turbine components for defense and government power installations. Every part ships with complete traceability and MIL-SPEC compliance documentation suitable for audit.",
+                           "partCount":  3400,
+                           "keyParts":  [
+                                            "NSN-Referenced Blades",
+                                            "MIL-SPEC Seals",
+                                            "Armored Control Cables",
+                                            "Shielded Connectors",
+                                            "Hardened Electronics"
+                                        ],
+                           "clients":  [
+                                           "U.S. Department of Defense",
+                                           "UK Ministry of Defence",
+                                           "NATO Support Agency",
+                                           "Raytheon",
+                                           "Lockheed Martin"
+                                       ]
+                       }
+                   ],
+    "productCategories":  [
+                              {
+                                  "id":  "prod-01",
+                                  "name":  "Hot Stock",
+                                  "slug":  "hot-stock",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "High-demand turbine parts ready for immediate dispatch"
+                              },
+                              {
+                                  "id":  "prod-02",
+                                  "name":  "General Electric 6FA Turbine Parts",
+                                  "slug":  "ge-6fa-turbine-parts",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "6FA gas turbine components, nozzles, buckets, shrouds, and seals"
+                              },
+                              {
+                                  "id":  "prod-03",
+                                  "name":  "Turbine Parts",
+                                  "slug":  "turbine-parts",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "Industrial and aero-derivative turbine spare parts"
+                              },
+                              {
+                                  "id":  "prod-04",
+                                  "name":  "Gas Turbines Parts",
+                                  "slug":  "gas-turbines-parts",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "Gas turbine components for power generation and mechanical drive"
+                              },
+                              {
+                                  "id":  "prod-05",
+                                  "name":  "Bently Nevada",
+                                  "slug":  "bently-nevada",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-04"
+                                                  ],
+                                  "description":  "Bently Nevada vibration monitoring and protection systems"
+                              },
+                              {
+                                  "id":  "prod-06",
+                                  "name":  "Top Gas Turbine Spare Parts",
+                                  "slug":  "top-gas-turbine-spare-parts",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "Essential gas turbine spare parts for critical applications"
+                              },
+                              {
+                                  "id":  "prod-07",
+                                  "name":  "GE Modules",
+                                  "slug":  "ge-modules",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05"
+                                                  ],
+                                  "description":  "GE turbine control modules and accessory components"
+                              },
+                              {
+                                  "id":  "prod-08",
+                                  "name":  "Engine Portfolio",
+                                  "slug":  "engine-portfolio",
+                                  "type":  "product",
+                                  "industryIds":  [
+                                                      "ind-01",
+                                                      "ind-05",
+                                                      "ind-06"
+                                                  ],
+                                  "description":  "Complete engine portfolio covering multiple platforms"
+                              }
+                          ],
+    "partCategories":  [
+                           {
+                               "id":  "part-01",
+                               "name":  "GE Power Services",
+                               "slug":  "ge-power-services",
+                               "type":  "part",
+                               "manufacturer":  "General Electric",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "GE Power \u0026 Water aftermarket parts and services"
+                           },
+                           {
+                               "id":  "part-02",
+                               "name":  "PW/MPA FT8",
+                               "slug":  "pw-mpa-ft8",
+                               "type":  "part",
+                               "manufacturer":  "Pratt \u0026 Whitney",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "PW/MPA FT8 aeroderivative gas turbine parts"
+                           },
+                           {
+                               "id":  "part-03",
+                               "name":  "GE LM6000",
+                               "slug":  "ge-lm6000",
+                               "type":  "part",
+                               "manufacturer":  "General Electric",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "GE LM6000 gas turbine components and spares"
+                           },
+                           {
+                               "id":  "part-04",
+                               "name":  "GE Turbine",
+                               "slug":  "ge-turbine",
+                               "type":  "part",
+                               "manufacturer":  "General Electric",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "GE heavy-duty gas turbine parts and services"
+                           },
+                           {
+                               "id":  "part-05",
+                               "name":  "GE Frame 5 6 7 9",
+                               "slug":  "ge-frame-5-6-7-9",
+                               "type":  "part",
+                               "manufacturer":  "General Electric",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "GE Frame 5, 6, 7, 9 turbine replacement parts"
+                           },
+                           {
+                               "id":  "part-06",
+                               "name":  "Alstom",
+                               "slug":  "alstom",
+                               "type":  "part",
+                               "manufacturer":  "Alstom",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Alstom gas and steam turbine spare parts"
+                           },
+                           {
+                               "id":  "part-07",
+                               "name":  "Ansaldo",
+                               "slug":  "ansaldo",
+                               "type":  "part",
+                               "manufacturer":  "Ansaldo Energia",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Ansaldo gas turbine components and services"
+                           },
+                           {
+                               "id":  "part-08",
+                               "name":  "General Electric (GE)",
+                               "slug":  "general-electric",
+                               "type":  "part",
+                               "manufacturer":  "General Electric",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "General Electric turbine and generator parts"
+                           },
+                           {
+                               "id":  "part-09",
+                               "name":  "Rolls Royce",
+                               "slug":  "rolls-royce",
+                               "type":  "part",
+                               "manufacturer":  "Rolls-Royce",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Rolls-Royce aero and industrial gas turbine parts"
+                           },
+                           {
+                               "id":  "part-10",
+                               "name":  "Solar Turbines",
+                               "slug":  "solar-turbines",
+                               "type":  "part",
+                               "manufacturer":  "Solar Turbines",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Solar Turbines gas compressor and turbine parts"
+                           },
+                           {
+                               "id":  "part-11",
+                               "name":  "Siemens",
+                               "slug":  "siemens",
+                               "type":  "part",
+                               "manufacturer":  "Siemens",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Siemens gas and steam turbine components"
+                           },
+                           {
+                               "id":  "part-12",
+                               "name":  "Zorya-Mashproekt",
+                               "slug":  "zorya-mashproekt",
+                               "type":  "part",
+                               "manufacturer":  "Zorya-Mashproekt",
+                               "industryIds":  [
+                                                   "ind-01",
+                                                   "ind-05"
+                                               ],
+                               "description":  "Zorya-Mashproekt marine and industrial gas turbine parts"
+                           },
+                           {
+                               "id":  "511c7719-fe1b-4f7f-8d70-05b435c192ff",
+                               "name":  "GT13E2_GT8C1",
+                               "slug":  "gt13e2-gt8c1",
+                               "type":  "part",
+                               "manufacturer":  "NA",
+                               "sortOrder":  0
+                           }
+                       ]
+}

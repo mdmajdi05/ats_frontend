@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Phone, ExternalLink } from 'lucide-react';
 import AeroLogo from '@/components/branding/AeroLogo';
+import { useSiteConfig } from '@/hooks/useSiteConfig';
+import { industriesData } from '@/data';
 
 const QUICK_LINKS = [
   { label: 'Parts Catalog',      href: '/catalog' },
@@ -13,21 +15,7 @@ const QUICK_LINKS = [
   { label: 'Order Tracking',     href: '/dashboard/orders' },
 ];
 
-const INDUSTRIES = [
-  { label: 'Aerospace & Aviation', href: '/industries/aerospace' },
-  { label: 'Aircraft Components & Accessories',
-    href: '/industries/aircraft-components-accessories' },
-  { label: 'Aircraft Launching, Landing & Ground Handling',
-    href: '/industries/aircraft-launching-landing-ground-handling' },
-  { label: 'Engines, Turbines & Components',
-    href: '/industries/engines-turbines-components' },
-  { label: 'Engine Accessories',
-    href: '/industries/engine-accessories' },
-  { label: 'Switches & Electrical Connectors',
-    href: '/industries/switches-electrical-connectors' },
-  { label: 'Microcircuits, Electrical Hardware & More',
-    href: '/industries/microcircuits-electrical-hardware' },
-];
+const INDUSTRIES = industriesData.map((i) => ({ label: i.name, href: `/industries/${i.slug}` }));
 
 const COMPANY = [
   { label: 'About Us',          href: '/about' },
@@ -38,6 +26,8 @@ const COMPANY = [
 ];
 
 export default React.memo(function Footer() {
+  const { config } = useSiteConfig();
+  const phonePrimary = config.contactPhonePrimary || '';
   return (
     <footer className="bg-navy text-silver/80">
       {/* CTA Strip */}
@@ -76,6 +66,11 @@ export default React.memo(function Footer() {
             </div>
             {/* Contact */}
             <div className="space-y-2 pt-2">
+              {phonePrimary && (
+                <a href={`tel:+${phonePrimary.replace(/\D/g, '')}`} className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
+                  <Phone className="w-4 h-4 text-orange flex-shrink-0" /> {phonePrimary}
+                </a>
+              )}
               <a href="mailto:sales@aeroturbinespare.com" className="flex items-center gap-2 text-sm hover:text-orange transition-colors">
                 <Mail className="w-4 h-4 text-orange flex-shrink-0" /> sales@aeroturbinespare.com
               </a>

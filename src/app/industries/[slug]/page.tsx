@@ -11,8 +11,10 @@ import Footer from '@/components/layout/Footer';
 import Button from '@/components/ui/Button';
 import Breadcrumb from '@/components/ui/Breadcrumb';
 import { request } from '@/lib/api-client';
+import industriesJson from '@/data/industries/industries.json';
 import type { Industry, NavCategoryTree } from '@/types';
 import { SchemaInjector } from '@/components/seo/SchemaInjector';
+import { BreadcrumbJsonLd } from '@/components/seo/JsonLd';
 import { cn } from '@/lib/utils';
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -41,18 +43,22 @@ export default function IndustryPage({
     setLoading(true);
     setError(null);
 
-    Promise.all([
+    // Guaranteed fallback from the bundled seed data. The backend/IndexedDB
+    // may be unavailable (or stale), but slugs present here must always render.
+    const localIndustry = (industriesJson as Industry[]).find((i) => i.slug === slug);
+
+    Promise.allSettled([
       request<{ success: boolean; data: Industry }>('/industries/' + slug),
       request<{ success: boolean; data: NavCategoryTree }>('/nav-categories'),
     ])
-      .then(([indRes, navRes]) => {
+      .then(([indResult, navResult]) => {
         if (cancelled) return;
-        setIndustry(indRes.data);
-        setNavTree(navRes.data);
-      })
-      .catch((err: unknown) => {
-        if (!cancelled)
-          setError(err instanceof Error ? err.message : 'Industry not found');
+        const apiIndustry = indResult.status === 'fulfilled' ? indResult.value.data : null;
+        setIndustry(apiIndustry ?? localIndustry ?? null);
+        setNavTree(navResult.status === 'fulfilled' ? navResult.value.data : null);
+        if (!apiIndustry && !localIndustry) {
+          setError('Industry not found');
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -120,6 +126,11 @@ export default function IndustryPage({
 
   return (
     <div className="flex flex-col min-h-screen">
+<BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Industries', url: '/industries' },
+        { name: industry.name, url: `/industries/${slug}` },
+      ]} />
       <SchemaInjector pageKey={`industry-${industryId}`} />
       <Header />
 

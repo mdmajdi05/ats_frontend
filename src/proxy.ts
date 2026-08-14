@@ -19,7 +19,11 @@ export function proxy(request: NextRequest) {
   const host = request.headers.get('host') || '';
   if (host.startsWith('www.')) {
     const url = request.nextUrl.clone();
-    url.host = host.replace(/^www\./, '');
+    // host header can include a port (e.g. "www.example.com:3000") — strip
+    // both the "www." prefix and any port so the redirect goes to the clean
+    // canonical origin, not a dev/edge port that crawlers can't reach.
+    const canonicalHost = host.replace(/^www\./i, '').replace(/:\d+$/, '');
+    url.host = canonicalHost;
     return NextResponse.redirect(url, 301);
   }
 
