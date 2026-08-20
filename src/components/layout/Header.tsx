@@ -481,8 +481,6 @@ export default React.memo(function Header() {
 
                 {/* Mega dropdown panel */}
                 <div
-                  onMouseEnter={cancelClose}
-                  onMouseLeave={scheduleClose}
                   className={cn(
                     'absolute top-full left-0 bg-white rounded-b-2xl rounded-tr-2xl shadow-2xl border border-[#E8EDF2] z-50',
                     'transition-all duration-200 origin-top-left',
