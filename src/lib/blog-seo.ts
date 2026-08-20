@@ -40,6 +40,11 @@ export interface OutlineSection {
 
 // ─── small helpers ──────────────────────────────────────────────────────────
 function titleCase(s: string): string {
+  return s
+    .split(/\s+/)
+    .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
+    .join(' ');
+}
 
 // ─── keywords + title + description ─────────────────────────────────────────
 export function generate(model: BlogProduct, focusKw = ''): Generated {
@@ -114,12 +119,6 @@ export function generate(model: BlogProduct, focusKw = ''): Generated {
     part,
     focusKw: focusKw || long[0] || base,
   };
-}
-
-  return s
-    .split(/\s+/)
-    .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
-    .join(' ');
 }
 
 function cleanTag(s: string): string {

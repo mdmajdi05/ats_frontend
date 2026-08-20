@@ -22,6 +22,14 @@ let nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // ── RFC 8288 Link headers: agent discovery (API catalog + skills index) ──
+      {
+        source: '/',
+        headers: [
+          { key: 'Link', value: '</.well-known/api-catalog>; rel="api-catalog"' },
+          { key: 'Link', value: '</.well-known/agent-skills/index.json>; rel="agent-skills"' },
+        ],
+      },
       // ── HTML pages: prevent CDN caching (so new deploy → fresh content instantly) ──
       {
         source: '/:path((?!_next|favicon|images|og-image|logo).*)',

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { seoMeta, truncateSeo, clampDescription } from '@/lib/seo';
 import { SEO_TITLE_MAX } from '@/lib/constants';
+import productsJson from '@/data/products/products.json';
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
 
@@ -27,12 +28,14 @@ async function getProduct(id: string): Promise<Product | null> {
       next: { revalidate: 3600 },
       signal: AbortSignal.timeout(5000),
     });
-    if (!res.ok) return null;
-    const json = await res.json();
-    return json.data ?? null;
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data) return json.data;
+    }
   } catch {
-    return null;
+    // fall through to bundled data
   }
+  return (productsJson as Product[]).find((p) => p.id === id) ?? null;
 }
 
 export async function generateMetadata({

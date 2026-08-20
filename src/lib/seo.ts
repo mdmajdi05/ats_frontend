@@ -8,6 +8,7 @@ import {
   SITE,
   SEO_TITLE_MAX,
   SEO_DESC_MAX,
+  SEO_TITLE_SEGMENT_MAX,
 } from './constants'
 
 const DEFAULT_DESC = SITE_DESC;
@@ -35,9 +36,9 @@ export function stripBrandSuffix(title: string): string {
     .trim();
 }
 
-/** Clamp a meta title to SEO_TITLE_MAX (60). */
-export function clampTitle(title: string): string {
-  return truncateSeo(stripBrandSuffix(title), SEO_TITLE_MAX);
+/** Clamp a meta title segment to a max (defaults to SEO_TITLE_MAX). */
+export function clampTitle(title: string, max: number = SEO_TITLE_MAX): string {
+  return truncateSeo(stripBrandSuffix(title), max);
 }
 
 /** Clamp a meta description to SEO_DESC_MAX (160). */
@@ -108,11 +109,13 @@ export function seoMeta(input: SeoMetaInput): Metadata {
     : `${SITE_URL}/${country}${input.path}`;
 
   const image = input.ogImage || DEFAULT_OG_IMAGE;
-  const title = clampTitle(input.title);
+  // Rendered <title> = segment + " | AeroTurbineSpare" (layout template).
+  // Clamp the SEGMENT to SEO_TITLE_SEGMENT_MAX so the FULL title stays ≤ 60.
+  const title = clampTitle(input.title, SEO_TITLE_SEGMENT_MAX);
   const description = clampDescription(input.description);
-  const ogTitle = clampTitle(input.ogTitle || title);
+  const ogTitle = clampTitle(input.ogTitle || title, SEO_TITLE_MAX);
   const ogDescription = clampDescription(input.ogDescription || description);
-  const twitterTitle = clampTitle(input.twitterTitle || ogTitle);
+  const twitterTitle = clampTitle(input.twitterTitle || ogTitle, SEO_TITLE_MAX);
   const twitterDescription = clampDescription(input.twitterDescription || ogDescription);
 
   const canonical = input.canonical || url;

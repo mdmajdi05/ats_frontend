@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { seoMeta, clampDescription } from '@/lib/seo';
+import categoriesJson from '@/data/categories/categories.json';
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? 'https://localhost:5000/api').replace(/\/$/, '');
 
@@ -17,19 +18,39 @@ interface NavCategoryTree {
   productCategories: NavCategory[];
 }
 
+interface CategoriesBundle {
+  partCategories: NavCategory[];
+  productCategories: NavCategory[];
+}
+
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${API}/nav-categories`, { next: { revalidate: 3600 } });
+    if (res.ok) {
+      const json = await res.json();
+      const tree: NavCategoryTree = json.data;
+      if (tree?.productCategories?.length) return tree.productCategories.map((c) => ({ slug: c.slug }));
+    }
+  } catch { /* fall through to bundled data */ }
+  return (categoriesJson as CategoriesBundle).productCategories.map((c) => ({ slug: c.slug }));
+}
+
 async function getProductCategory(slug: string): Promise<NavCategory | null> {
   try {
     const res = await fetch(`${API}/nav-categories`, {
       next: { revalidate: 3600 },
       signal: AbortSignal.timeout(5000),
     });
-    if (!res.ok) return null;
-    const json = await res.json();
-    const tree: NavCategoryTree = json.data;
-    return tree.productCategories?.find((c) => c.slug === slug) ?? null;
+    if (res.ok) {
+      const json = await res.json();
+      const tree: NavCategoryTree = json.data;
+      const match = tree?.productCategories?.find((c) => c.slug === slug);
+      if (match) return match;
+    }
   } catch {
-    return null;
+    // fall through to bundled data
   }
+  return (categoriesJson as CategoriesBundle).productCategories.find((c) => c.slug === slug) ?? null;
 }
 
 export async function generateMetadata({

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Register',
-  description: 'Create an AeroTurbineSpare account to start sourcing aerospace parts.',
+  title: 'Create an AeroTurbineSpare Account',
+  description:
+    'Create your AeroTurbineSpare account to request certified gas turbine spare parts quotes, track RFQs, and access ISO 9001 & AS9120 documentation.',
 };
 
 export default function RegisterLayout({ children }: { children: React.ReactNode }) {

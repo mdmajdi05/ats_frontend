@@ -49,6 +49,14 @@ export const SEO_DESC_MAX = 160;
 export const SEO_TITLE_IDEAL_MIN = 50;
 export const SEO_DESC_IDEAL_MIN = 120;
 
+/**
+ * Segment-title budget AFTER the layout template appends " | AeroTurbineSpare".
+ * Rendered <title> = segment + suffix, so the segment must be clamped tighter
+ * than SEO_TITLE_MAX for the full rendered title to stay ≤ 60.
+ */
+export const SEO_TITLE_TEMPLATE_SUFFIX = SITE_TITLE_TEMPLATE.replace('%s', ''); // ' | AeroTurbineSpare'
+export const SEO_TITLE_SEGMENT_MAX = SEO_TITLE_MAX - SEO_TITLE_TEMPLATE_SUFFIX.length; // 41
+
 export const SITE_EMAIL = 'sales@aeroturbinespare.com';
 
 /**
