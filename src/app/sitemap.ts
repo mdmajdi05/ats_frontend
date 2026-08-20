@@ -56,6 +56,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: `${BASE}${prefix}/categories`,              lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.8, alternates: { languages: altLangs('/categories') } },
       { url: `${BASE}${prefix}/rfq`,                     lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7, alternates: { languages: altLangs('/rfq') } },
       { url: `${BASE}${prefix}/inventory`,               lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6, alternates: { languages: altLangs('/inventory') } },
+      { url: `${BASE}${prefix}/parts/compare`,           lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.6, alternates: { languages: altLangs('/parts/compare') } },
+      { url: `${BASE}${prefix}/cross-reference`,         lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.7, alternates: { languages: altLangs('/cross-reference') } },
       { url: `${BASE}${prefix}/privacy`,                 lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3, alternates: { languages: altLangs('/privacy') } },
       { url: `${BASE}${prefix}/terms`,                   lastModified: new Date(), changeFrequency: 'yearly',  priority: 0.3, alternates: { languages: altLangs('/terms') } },
     );
@@ -87,7 +89,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Industries per country
     try {
       const { default: catsData } = await import('@/data/categories/categories.json');
-      ((catsData as { industries: Array<{ slug: string }> }).industries || []).forEach((ind) => {
+      const bundle = catsData as {
+        industries: Array<{ slug: string }>;
+        partCategories?: Array<{ slug: string }>;
+        productCategories?: Array<{ slug: string }>;
+      };
+      (bundle.industries || []).forEach((ind) => {
         if (ind.slug && isValidSlug(ind.slug)) {
           entries.push({
             url: `${BASE}${prefix}/industries/${ind.slug}`,
@@ -97,10 +104,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           });
         }
       });
-    } catch { /* skip industries */ }
+      (bundle.partCategories || []).forEach((cat) => {
+        if (cat.slug && isValidSlug(cat.slug)) {
+          entries.push({
+            url: `${BASE}${prefix}/parts/${cat.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+          });
+        }
+      });
+      (bundle.productCategories || []).forEach((cat) => {
+        if (cat.slug && isValidSlug(cat.slug)) {
+          entries.push({
+            url: `${BASE}${prefix}/products/${cat.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+          });
+        }
+      });
+    } catch { /* skip categories */ }
   }
 
-  // Blog posts (fetched from backend — country-agnostic)
+  // Blog posts (fetched from backend — country-agnostic, with local fallback)
   try {
     const res = await fetch(`${API}/blog/sitemap`, {
       cache: 'no-store',
@@ -150,7 +177,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
     }
   } catch {
-    // Backend unavailable — skip blog sitemap entries
+    // Backend unavailable — fall back to bundled blog data
+    try {
+      const { default: postsData } = await import('@/data/blog/posts.json');
+      const { default: catsData } = await import('@/data/blog/categories.json');
+      const { default: tagsData } = await import('@/data/blog/tags.json');
+      (postsData as Array<{ slug: string; publishedAt: string; updatedAt?: string }>)
+        .filter((p) => p.slug && isValidSlug(p.slug))
+        .forEach((p) => {
+          for (const cc of COUNTRY_CODES) {
+            entries.push({
+              url: `${BASE}/${cc}/blog/${p.slug}`,
+              lastModified: new Date(p.updatedAt || p.publishedAt),
+              changeFrequency: 'weekly' as const,
+              priority: 0.8,
+            });
+          }
+        });
+      (catsData as Array<{ slug: string }>)
+        .filter((c) => c.slug && isValidSlug(c.slug))
+        .forEach((c) => {
+          for (const cc of COUNTRY_CODES) {
+            entries.push({
+              url: `${BASE}/${cc}/blog/category/${c.slug}`,
+              lastModified: new Date(),
+              changeFrequency: 'weekly' as const,
+              priority: 0.5,
+            });
+          }
+        });
+      (tagsData as Array<{ slug: string }>)
+        .filter((t) => t.slug && isValidSlug(t.slug))
+        .forEach((t) => {
+          for (const cc of COUNTRY_CODES) {
+            entries.push({
+              url: `${BASE}/${cc}/blog/tag/${t.slug}`,
+              lastModified: new Date(),
+              changeFrequency: 'weekly' as const,
+              priority: 0.4,
+            });
+          }
+        });
+    } catch { /* no bundled blog data */ }
   }
 
   return entries;
