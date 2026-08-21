@@ -75,6 +75,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   verification: {
     google: 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
+    other: {
+      'msvalidate.01': '9F862232AE6757CA6076FEA30220EEFB',
+    },
   },
   other: {
     'google-site-verification': 'Ukz08W_xKDohmTpZtp7l4D0zSfCOqIGrW3kL8RVe3OM',
